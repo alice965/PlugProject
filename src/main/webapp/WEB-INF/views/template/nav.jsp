@@ -9,7 +9,7 @@
         <li><a href="#"><span class="glyphicon glyphicon-thumbs-up text-black"></span></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-globe text-black"></span></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-pushpin text-black"></span></a></li>
-        <li><a href="#"><span class="text-white">QUESTIONS? CALL: <b>+963000000000</b></span></a></li>
+        <li><a href="#"><span class="text-black">QUESTIONS? CALL: <b>+963000000000</b></span></a></li>
       </ul>
       <!-- right nav top -->
       <ul class="nav navbar-nav pull-right">
