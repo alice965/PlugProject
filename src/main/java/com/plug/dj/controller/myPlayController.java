@@ -3,6 +3,8 @@ package com.plug.dj.controller;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,14 +35,15 @@ public class myPlayController {
 	
 	@PostMapping("/add")
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
-	public String boardAddPostHandle(@RequestParam Map param, ModelMap map) throws SQLException {
+	public String boardAddPostHandle(@RequestParam Map param, ModelMap map, HttpSession session) throws SQLException {
+		param.put("id", session.getAttribute("auth_id"));
 		int rst = playlistDao.add(param);
 		if (rst == 1) {
-			map.put("section", "board/list");
-			return "redirect:/board/list";
+			map.put("section", "myplay/list");
+			return "redirect:/myplay/list";
 		}
 		map.put("rst1", rst);
 
-		return "/board/add_rst";
+		return "/myplay/add";
 	}
 }

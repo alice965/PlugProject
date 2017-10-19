@@ -29,7 +29,7 @@
 				</li>
 				<li><a href="/login">로그인</a></li>
 				<li><a href="/join">회원가입</a></li>
-				<li>${auth.ID }님 안녕하세요</li>
+				<li>${auth.NICKNAME}님 안녕하세요</li>
 			</ul>
 			<form class="navbar-form navbar-left">
 				<div class="form-group">

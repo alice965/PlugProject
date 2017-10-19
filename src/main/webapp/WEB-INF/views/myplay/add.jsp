@@ -15,7 +15,7 @@
   <form class="w3-container" action="/myplay/add" method="post">
     <p>      
     <label class="w3-text-blue"><b>방 제목</b></label>
-    <input class="w3-input w3-border w3-sand" name="name" type="text"></p>
+    <input class="w3-input w3-border w3-sand" name="title" type="text"></p>
     <p>      
     <label class="w3-text-blue"><b>설명</b></label>
     <input class="w3-input w3-border w3-sand" name="content" type="text"></p>
