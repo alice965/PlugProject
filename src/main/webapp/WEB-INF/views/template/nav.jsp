@@ -14,8 +14,9 @@
       <!-- right nav top -->
       <ul class="nav navbar-nav pull-right">
       	<li><a href="/join" class="text-black">Join</a></li>
-        <li><a href="#" class="text-black">Log-In</a></li>
-        <li><a href="#" class="text-black">Contact Us</a></li> 
+        <li><a href="/login" class="text-black">Log-In</a></li>
+        <li><a href="#" class="text-black">Contact Us</a></li>
+        <li>${auth.ID }님 안녕</li>
       </ul>
     </div>
     <div class="dividline light-grey"></div>
