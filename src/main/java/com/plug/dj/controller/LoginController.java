@@ -37,7 +37,7 @@ public class LoginController {
 			System.out.println(t);
 			session.setAttribute("auth", u);
 			session.setAttribute("auth_id", u.get("ID"));
-			System.out.println("["+url+"]"+u.get("ID"));
+			System.out.println("["+url+"]"+u.get("NICKNAME"));
 			if(url != null) {
 				mav.setViewName("redirect:"+url);
 			}else {
