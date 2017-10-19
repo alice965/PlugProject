@@ -23,6 +23,28 @@
 </head>
 
 <body>
+
+	<style type="text/css">
+		.jumbotron {
+			background-image: url('/images/background.jpg');
+			background-size: cover;
+			text-shadow: black 0.2em 0.2em 0.2em;
+			color:white;
+		}
+		.sub-top {
+			background-image: url('/images/Playlist.jpg');
+			padding:10px;
+			background-size: cover;
+			color:white;
+		}
+		.page-top {
+			background-color: gray;
+			padding:10px;
+			background-size: cover;
+			color:white;
+		}
+
+</style>
 	
 	<header>
 		<t:insertAttribute name="header" />

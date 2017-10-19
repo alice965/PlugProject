@@ -1,61 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<nav class="navbar navbar-default navbar-doublerow navbar-trans navbar-fixed-top">
-  <!-- top nav -->
-  <nav class="navbar navbar-top hidden-xs">
-    <div class="container">
-      <!-- left nav top -->
-      <ul class="nav navbar-nav pull-left">
-        <li><a href="#"><span class="glyphicon glyphicon-thumbs-up text-black"></span></a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-globe text-black"></span></a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-pushpin text-black"></span></a></li>
-        <li><a href="#"><span class="text-black">QUESTIONS? CALL: <b>+963000000000</b></span></a></li>
-      </ul>
-      <!-- right nav top -->
-      <ul class="nav navbar-nav pull-right">
-      	<li><a href="/join" class="text-black">Join</a></li>
-        <li><a href="/login" class="text-black">Log-In</a></li>
-        <li><a href="#" class="text-black">Contact Us</a></li>
-        <li>${auth.ID }님 안녕</li>
-      </ul>
-    </div>
-    <div class="dividline light-grey"></div>
-  </nav>
-  <!-- down nav -->
-  <nav class="navbar navbar-down">
-    <div class="container">
-      <div class="flex-container">  
-        <div class="navbar-header flex-item">
-          <div class="navbar-brand" href="#">Plug.DJ</div>
-        </div>
-        <ul class="nav navbar-nav flex-item hidden-xs">
-          <li><a href="#">프로필</a></li>
-          <li><a href="#">쪽지함</a></li> 
-          <li><a href="#">나의 관심방</a></li> 
-        </ul>
-        <ul class="nav navbar-nav flex-item hidden-xs pull-right">
-          <li><a href="#" class="">방만들기</a></li> 
-        </ul>
-        <!-- dropdown only moblie -->
-          <div class="dropdown visible-xs pull-right">
-            <button class="btn btn-default dropdown-toggle " type="button" id="dropdownmenu" data-toggle="dropdown">
-              <span class="glyphicon glyphicon-align-justify"></span> 
-            </button>
-            <ul class="dropdown-menu">
-              <li><a href="#">프로필</a></li>
-              <li><a href="#">쪽지함</a></li> 
-              <li><a href="#">나의 관심방</a></li> 
-              <li role="separator" class="divider"></li>
-              <li><a href="#">contact us</a></li>
-            </ul>
-          </div>
-        </div>  
-      </div>
-    </nav>
-  </nav> 
-<!-- bg img  
-<header>
-    <img src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/J70T3LHQ2O.jpg" style="width:100%">
-</header>   
-
---> 
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+				data-target="#bs-example-navbar-collapse-1" aria-expended="false">  
+				<span class="sr-only"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/index">Plug.DJ</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapase-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">전체 플레이 리스트<span class="sr-only"></span></a></li>
+				<li><a href="myplay/list">나의 플레이 리스트</a></li>
+				<li><a href="#">나의 프로필</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">
+						쪽지함<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">받은 쪽지함</a></li>
+						<li><a href="#">보낸 쪽지함</a></li>
+					</ul>
+				</li>
+				<li><a href="/login">로그인</a></li>
+				<li><a href="/join">회원가입</a></li>
+				<li>${auth.ID }님 안녕하세요</li>
+			</ul>
+			<form class="navbar-form navbar-left">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="음악검색">
+				</div>
+				<button type="submit" class="btn btn-default">검색</button>
+			</form>
+			<!-- <ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">
+						접속하기<span class="caret"></span>
+					</a>
+					 <ul class="dropdown-menu">
+						<li><a href="/login">로그인</a></li>
+						<li><a href="/join">회원가입</a></li>
+						<li>${auth.ID }님 안녕하세요</li>
+					</ul>  -->
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
