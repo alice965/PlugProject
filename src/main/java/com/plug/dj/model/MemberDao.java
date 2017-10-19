@@ -12,20 +12,20 @@ public class MemberDao {
 	SqlSessionTemplate sql;
 	
 	// 데이터베이스 등록
-	public boolean addOne(Map map) {
+	public boolean addOne(Map map) { //join
 		sql.insert("member.addBasic", map);
 		//sql.insert("member.addDetail", map);
 		return true;
 	}
 
-	public int existId(Map map) {
-		return sql.selectOne("member.checkById", map);
-	}
-	
-	public int existNickname(Map map) {
-		return sql.selectOne("member.checkByNickname", map);
+	public int existOne(Map map) { //login. 아이디와 패스워드 일치하는지
+		return sql.selectOne("member.checkByIdAndPass", map);
 	}
 
+	// id나 email이 머고, pass가 머인 데이터가 있는지 확인할때
+	public HashMap readOneById(String id) {
+		return sql.selectOne("member.readOneById", id);
+	}
 
 
 }
