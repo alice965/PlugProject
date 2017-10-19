@@ -13,7 +13,7 @@
       </ul>
       <!-- right nav top -->
       <ul class="nav navbar-nav pull-right">
-      	<li><a href="#" class="text-black">Join</a></li>
+      	<li><a href="/join" class="text-black">Join</a></li>
         <li><a href="#" class="text-black">Log-In</a></li>
         <li><a href="#" class="text-black">Contact Us</a></li> 
       </ul>

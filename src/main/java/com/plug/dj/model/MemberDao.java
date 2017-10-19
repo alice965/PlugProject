@@ -14,7 +14,7 @@ public class MemberDao {
 	// 데이터베이스 등록
 	public boolean addOne(Map map) {
 		sql.insert("member.addBasic", map);
-		sql.insert("member.addDetail", map);
+		//sql.insert("member.addDetail", map);
 		return true;
 	}
 
