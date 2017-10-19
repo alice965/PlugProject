@@ -17,8 +17,11 @@
     <link rel="apple-touch-icon-precomposed" href="//d2d3qesrx8xj6s.cloudfront.net/apple-touch-icon-114x114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="//d2d3qesrx8xj6s.cloudfront.net/apple-touch-icon-144x144-precomposed.png">
     <link rel="alternate" type="application/rss+xml" title="Latest snippets from Bootsnipp.com" href="https://bootsnipp.com/feed.rss" />
-
+<link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="/js/default.js" type="text/javascript" >
+
+
 </script>
 </head>
 
