@@ -19,26 +19,25 @@ public class JoinController {
 	MemberDao memberDao;
 
 	@GetMapping(path = "/join")
-	public String joinGetHandle() {
-		return "join";
-	}
+	public String joinGetHandle(Model model) {
+		model.addAttribute("section", "join");
+		return "t_expr";
+	}  
 
 	@PostMapping("/join")
 	public String joinPostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
 			boolean b = memberDao.addOne(map);
-			int a = memberDao.existId(map);
-			int a2 = memberDao.existNickname(map);
-			if(a<1 && a2<1){
-			session.setAttribute("auth", "on");
+			int countid = memberDao.existId(map);
+			int countnick = memberDao.existNickname(map);
+			session.setAttribute("auth", map);
+			session.setAttribute("auth_id", map.get("id"));
 			return "redirect:/";
-			}else{
-			return "join";	
-			}
 		} catch (Exception e) {
-			model.addAttribute("temp", map);
-			return "join";
+			e.printStackTrace();
+			model.addAttribute("temp", "1");
+			model.addAttribute("section", "join");
+			return "t_expr";
 		}
 	}
-
 }
