@@ -5,7 +5,7 @@
 </div>
 <br>
 <div>
-	<a href="/product/add"><button class="w3-btn w3-black w3-round-large">플레이리스트 만들기</button></a>
+	<a href="/myplay/add"><button class="w3-btn w3-black w3-round-large">플레이리스트 만들기</button></a>
 </div>
 <br>
 <div class="w3-container">
@@ -40,3 +40,4 @@
     </tr>
   </table>
 </div>
+

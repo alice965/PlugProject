@@ -22,7 +22,12 @@
 		}
 		.sub-top {
 			background-image: url('/images/Playlist.jpg');
-			
+			padding:10px;
+			background-size: cover;
+			color:white;
+		}
+		.page-top {
+			background-color: gray;
 			padding:10px;
 			background-size: cover;
 			color:white;

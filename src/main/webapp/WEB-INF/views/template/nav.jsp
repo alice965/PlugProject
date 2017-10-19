@@ -15,7 +15,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapase-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">전체 플레이 리스트<span class="sr-only"></span></a></li>
-				<li><a href="myplay/myplaylist">나의 플레이 리스트</a></li>
+				<li><a href="myplay/list">나의 플레이 리스트</a></li>
 				<li><a href="#">나의 프로필</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
