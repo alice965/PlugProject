@@ -28,6 +28,9 @@ b {
 				</c:if>
 				<b>ID</b><br/> <input type="text" name="id" required id="id"/><br/>
 				<b>PASS</b><br/> <input type="password" name="pass" required id="pass"/><br/>
+				<p>
+					<input type="checkbox" name="keep" value="true" id="keep"/>로그인 유지
+				</p>
 				<button id="sbt" type="submit" style="">L O G I N</button>
 			<div style="width: 340px; margin-top: 20px;" align="center">
 			New to HUB? <a href="/join">Create an account.</a>

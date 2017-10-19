@@ -30,6 +30,7 @@
 				</li>
 				<li><a href="/login">로그인</a></li>
 				<li><a href="/join">회원가입</a></li>
+				<li><a href="/logout">로그아웃</a></li>
 				<c:choose>
 					<c:when test="${empty auth.ID }"> <li>방문객님 환영합니다.</li></c:when>
 				    <c:otherwise><<li>${auth.NICKNAME }님 안녕하세요</li></c:otherwise>

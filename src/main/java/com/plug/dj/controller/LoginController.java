@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView sessionHandle(@RequestParam Map param, HttpSession session,
+	public ModelAndView sessionHandle(@RequestParam Map param, HttpSession session,  HttpServletResponse response,
 			@RequestParam(name="redirect", required=false) String url) throws SQLException {
 		ModelAndView mav = new ModelAndView();
 		int t = memberDao.existOne(param);
@@ -38,6 +40,12 @@ public class LoginController {
 			session.setAttribute("auth", u);
 			session.setAttribute("auth_id", u.get("ID"));
 			System.out.println("["+url+"]"+u.get("NICKNAME"));
+			if((String)param.get("keep") != null){ //로그인 유지 체크시.
+			 Cookie c = new Cookie("keep", (String)u.get("ID")); //사용자의 이메일로 쿠키 만듬.
+			 c.setMaxAge(60*60*24*7) ;
+			 c.setPath("/");
+			 response.addCookie(c);
+			}
 			if(url != null) {
 				mav.setViewName("redirect:"+url);
 			}else {
@@ -53,5 +61,15 @@ public class LoginController {
 			*/
 		}
 		return mav;
+	}
+	
+	@GetMapping("/logout")
+	public String logoutHandle(HttpSession session, HttpServletResponse response){
+		session.invalidate(); //사용자의 세션 초기화
+		Cookie c = new Cookie("keep", ""); 
+		c.setPath("/");
+		c.setMaxAge(0);
+		response.addCookie(c);
+		return "redirect:/";
 	}
 }
