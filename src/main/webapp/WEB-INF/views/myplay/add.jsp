@@ -9,7 +9,7 @@
 		<hr />
 		<div class="w3-card-4">
   <div class="w3-container w3-blue">
-    <h2>플레이 리스트 만들기</h2> 
+    <h3>플레이 리스트 만들기</h3> 
   </div>
   <br>
   <form class="w3-container" action="/myplay/add" method="post">

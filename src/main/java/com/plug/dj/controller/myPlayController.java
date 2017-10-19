@@ -1,10 +1,13 @@
 package com.plug.dj.controller;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,15 +32,15 @@ public class myPlayController {
 	}
 	
 	@PostMapping("/add")
-	public String addPost(@RequestParam Map param, Map model) {
-		try {
-			boolean r = playlistDao.add(param);
-			model.put("rst", r);
-			return "redirect:/playlist/list";
-		}catch (Exception e) {
-			model.put("rst", -1);
-			model.put("section", "playlist/add");
-			return "t_expr";
+	@RequestMapping(path = "/add", method = RequestMethod.POST)
+	public String boardAddPostHandle(@RequestParam Map param, ModelMap map) throws SQLException {
+		int rst = playlistDao.add(param);
+		if (rst == 1) {
+			map.put("section", "board/list");
+			return "redirect:/board/list";
 		}
+		map.put("rst1", rst);
+
+		return "/board/add_rst";
 	}
 }
