@@ -27,6 +27,9 @@
 						<li><a href="#">보낸 쪽지함</a></li>
 					</ul>
 				</li>
+				<li><a href="/login">로그인</a></li>
+				<li><a href="/join">회원가입</a></li>
+				<li>${auth.ID }님 안녕하세요</li>
 			</ul>
 			<form class="navbar-form navbar-left">
 				<div class="form-group">
@@ -34,17 +37,17 @@
 				</div>
 				<button type="submit" class="btn btn-default">검색</button>
 			</form>
-			<ul class="nav navbar-nav navbar-right">
+			<!-- <ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
 						aria-haspopup="true" aria-expanded="false">
 						접속하기<span class="caret"></span>
 					</a>
-					<ul class="dropdown-menu">
+					 <ul class="dropdown-menu">
 						<li><a href="/login">로그인</a></li>
 						<li><a href="/join">회원가입</a></li>
 						<li>${auth.ID }님 안녕하세요</li>
-					</ul>
+					</ul>  -->
 				</li>
 			</ul>
 		</div>
