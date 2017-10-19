@@ -28,8 +28,8 @@ public class JoinController {
 	public String joinPostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
 			boolean b = memberDao.addOne(map);
-			int countid = memberDao.existId(map);
-			int countnick = memberDao.existNickname(map);
+			//int countid = memberDao.existId(map);
+			//int countnick = memberDao.existNickname(map);
 			session.setAttribute("auth", map);
 			session.setAttribute("auth_id", map.get("id"));
 			return "redirect:/";

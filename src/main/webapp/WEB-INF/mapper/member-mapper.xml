@@ -8,11 +8,14 @@
 	<insert id="addDetail">
 		insert into detail(id) values (#{id})		
 	</insert>
-	<select id="checkById" resultType="java.lang.Integer"> <!-- 1이상이면 같은 아이디가 있는 것. -->
+	
+	<select id="checkByIdAndPass" resultType="java.lang.Integer">
 		select count(*) from member where (id=#{id})
+			 and pass=#{pass, jdbcType=VARCHAR }
 	</select>
-	<select id="checkByNickname" resultType="java.lang.Integer"> <!-- 1이상이면 같은 아이디가 있는 것. -->
-		select count(*) from member where (nickname=#{nickname})
+	
+	<select id="readOneById" resultType="java.util.HashMap">
+		select * from member where (id=#{id})
 	</select>
 	
 </mapper>

@@ -41,15 +41,12 @@
 						접속하기<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">로그인</a></li>
-						<li><a href="#">회원가입</a></li>
+						<li><a href="/login">로그인</a></li>
+						<li><a href="/join">회원가입</a></li>
+						<li>${auth.ID }님 안녕하세요</li>
 					</ul>
-					
-					
 				</li>
-			
 			</ul>
 		</div>
 	</div>
 </nav>
-
