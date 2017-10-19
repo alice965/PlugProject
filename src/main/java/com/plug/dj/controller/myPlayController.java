@@ -2,16 +2,18 @@ package com.plug.dj.controller;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/myplay")
 public class myPlayController {
 	@Autowired
-	com.plug.dj.model.PlayListDao productDao; 
+	com.plug.dj.model.PlayListDao playlistDao; 
 	
 	@RequestMapping("/list")
 	public ModelAndView rootHandle() {
@@ -29,12 +31,12 @@ public class myPlayController {
 	@PostMapping("/add")
 	public String addPost(@RequestParam Map param, Map model) {
 		try {
-			int r = productDao.addNew(param);
+			boolean r = playlistDao.add(param);
 			model.put("rst", r);
-			return "redirect:/product/all";
+			return "redirect:/playlist/list";
 		}catch (Exception e) {
 			model.put("rst", -1);
-			model.put("section", "product/add");
+			model.put("section", "playlist/add");
 			return "t_expr";
 		}
 	}

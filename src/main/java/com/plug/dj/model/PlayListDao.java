@@ -12,7 +12,7 @@ public class PlayListDao {
 	SqlSessionTemplate sql;
 	
 	// 데이터베이스 등록
-		public boolean addOne(Map map) {
+		public boolean add(Map map) {
 			sql.insert("myplay.add", map);
 			return true;
 		}
