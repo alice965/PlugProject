@@ -16,7 +16,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapase-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">DJ Booth<span class="sr-only"></span></a></li>
-				<li><a href="myplay/list">My Booth</a></li>
+				<li><a href="myplay/list?page=1">My Booth</a></li>
 				<li><a href="#">나의 프로필</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"

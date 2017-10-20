@@ -25,12 +25,24 @@ public class myPlayController {
 	com.plug.dj.model.PlayListDao playlistDao; 
 	
 	@RequestMapping("/list")
-	public ModelAndView PlayListHandle()throws SQLException {
+	public ModelAndView PlayListHandle(@RequestParam(name="page", defaultValue="1" ) int page)throws SQLException {
 		List<Map> list = playlistDao.list();
+		
+		int psize = playlistDao.countListPage();
+		int size = psize/5;
+			if(psize%5 >0)	size++;
+			
+		Map p = new HashMap();
+			p.put("start", (page-1)*5+1);
+			p.put("end", page*5);
 		
 		ModelAndView mav = new ModelAndView("t_expr");
 		mav.addObject("section", "/myplay/list");
-		mav.addObject("list", list);
+		mav.addObject("list", playlistDao.listPage(p));
+		//mav.addObject("list", list);
+		mav.addObject("cnt", list.size());
+		mav.addObject("size",size);
+		
 		return mav;
 	}
 	@GetMapping("/add")
@@ -76,8 +88,9 @@ public class myPlayController {
 		return "t_expr";
 	}
 	
-	@PostMapping("/edit")
-	public String PlayEditPostHanle(@RequestParam Map param, Model model) {
+	@PostMapping("/edit/{num}")
+	public String PlayEditPostHanle(@RequestParam Map param, Model model, @PathVariable String num) {
+		param.put("num", num);
 		int r = playlistDao.edit(param);
 		if(r==1) {
 			model.addAttribute("section", "myplay/edit");

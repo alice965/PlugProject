@@ -12,7 +12,7 @@
 </div>
 <br>
 <div class="w3-container">
-
+총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
   <table class="w3-table-all" style="width: 95%">
 		<thead>
 			<tr class="w3-Black">
@@ -35,5 +35,26 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<!-- 페이지 처리 -->
+	<div align="center">
+		<c:if test="${param.page ne 1 }">
+			<a href="/myplay/list?page=${param.page -1 }" style="text-decoration: none">
+			<b style="color: #9c9892;">◀</b>
+			</a>	
+		</c:if>
+		<c:forEach var="i" begin="1" end="${size }" varStatus="vs">
+			<c:choose>
+				<c:when test="${i eq param.page }">
+					<b style="color: #ff9800;">${i }</b>
+				</c:when>
+				<c:otherwise>
+					<a href="/myplay/list?page=${i }" style="text-decoration: none"
+						><b style="color: #9c9892;">${i }</b></a>	
+				</c:otherwise>
+			</c:choose>
+			<c:if test="${!vs.last }"> | </c:if>
+		</c:forEach>
+		<c:if test="${param.page ne last }">▶</c:if>
+	</div>
 </div>
 

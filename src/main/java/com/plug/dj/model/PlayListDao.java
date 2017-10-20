@@ -28,6 +28,13 @@ public class PlayListDao {
 		public int edit(Map map) {
 			return sql.update("myplay.edit", map);
 		}
+		public int countListPage() {
+			return sql.selectOne("myplay.countListPage");
+		}
+		
+		public List<Map> listPage(Map map){
+			return sql.selectList("myplay.listPage", map);
+		}
 
 
 }
