@@ -5,6 +5,19 @@
 	<insert id="add">
 		insert into room values(room_seq.nextval, #{id}, #{title}, 0, sysdate, #{content})
 	</insert>
+	
+	<select id="list" resultType="java.util.HashMap">
+		select * from room order by num desc
+	</select>
+	<select id="readOne" resultType="java.util.HashMap" >
+		select * from room where num = #{num}
+	</select>
+	<delete id="delete">
+		delete from room where num=#{num}
+	</delete>
+	<update id="edit">
+		update room set title=#{title}, content=#{content} where num=#{num}
+	</update>
 </mapper>
 
 
