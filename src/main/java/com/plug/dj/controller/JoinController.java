@@ -27,6 +27,7 @@ public class JoinController {
 	@PostMapping("/join")
 	public String joinPostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
+			System.out.println(map.values());
 			boolean b = memberDao.addOne(map);
 			//int countid = memberDao.existId(map);
 			//int countnick = memberDao.existNickname(map);

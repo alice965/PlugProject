@@ -1,16 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
-input, button {
-	width: 55%;
-	padding: 5px;
-	font-family: 맑은 고딕;
-}
-b {
-	font-size: 12pt;
-}
-</style>
+<div class="container">
+    	<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+			<h1>LOGIN</h1>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+							<form id="login-form" action="/login" 
+							method="post" role="form" style="display: block;"autocomplete="off">
+							<c:if test="${!empty temp }">
+							<b style="color: red">login failed..</b>
+							</c:if>
+									<div class="form-group">
+										<input type="email" name="id" tabindex="1" class="form-control" placeholder="Email" value="" required id="id"/>
+									</div>
+									<div class="form-group">
+										<input type="password" name="pass" tabindex="2" class="form-control" placeholder="Password" required id="pass"/>
+									</div>
+									<div class="form-group text-center">
+										<input type="checkbox" tabindex="3" class="" name="keep" id="keep">
+										<label for="remember"> Remember Me</label>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="LOGIN">
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="text-center">
+													<a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a><br/>
+													<a href="/join">create new account</a></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!--  
 <div align="center">
 	
 		<h3>WELCOME</h3>
@@ -39,4 +78,4 @@ b {
 			</div>
 		
 	</div>
-
+-->
