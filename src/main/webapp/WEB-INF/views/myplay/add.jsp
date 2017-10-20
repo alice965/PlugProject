@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="sub-top">
 	<h2 class="text-center">나의 플레이 리스트</h2>

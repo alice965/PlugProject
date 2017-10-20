@@ -29,14 +29,14 @@ public class myPlayController {
 		List<Map> list = playlistDao.list();
 		
 		ModelAndView mav = new ModelAndView("t_expr");
-		mav.addObject("section", "myplay/list");
+		mav.addObject("section", "/myplay/list");
 		mav.addObject("list", list);
 		return mav;
 	}
 	@GetMapping("/add")
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
-	public String PlayaddGetHanle(Map map) {
-			map.put("section", "/myplay/add");
+	public String PlayAddGetHanle(Map map) {
+			map.put("section", "myplay/add");
 		return "t_expr";
 	}
 	
@@ -68,8 +68,8 @@ public class myPlayController {
 		return "redirect:/myplay/list";
 		}
 	
-	@GetMapping("/edit")
-	public String PlayEditGetHanle(Model model, @RequestParam(name="num") String num ) {
+	@GetMapping("/edit/{num}")
+	public String PlayEditGetHanle(Model model, @PathVariable String num ) {
 			Map map = playlistDao.readOne(num);
 			model.addAttribute("section", "myplay/edit");
 			model.addAttribute("map", map);
