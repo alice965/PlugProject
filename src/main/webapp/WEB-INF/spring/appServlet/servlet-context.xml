@@ -98,6 +98,7 @@
 		<property name="definitions">
 			<list>
 				<value>/WEB-INF/config/tiles-config.xml</value>
+				<value>/WEB-INF/config/tiles-config2.xml</value>
 				<value>/WEB-INF/config/tiles-config-advance.xml</value>
 			</list>
 		</property>

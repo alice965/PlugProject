@@ -25,4 +25,10 @@ public class IndexController {
 			mav.addObject("section", "index");
 		return mav;
 	}
+	@RequestMapping("/test")
+	public ModelAndView testHandle() {
+		ModelAndView mav = new ModelAndView("t_expr");
+			mav.addObject("section", "test");
+		return mav;
+	}
 } 

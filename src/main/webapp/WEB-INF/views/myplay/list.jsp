@@ -12,8 +12,20 @@
 </div>
 <br>
 <div class="w3-container">
-총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
-  <table class="w3-table-all" style="width: 95%">
+<div class="row">
+	<div class="col-xs-7">
+		총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
+	</div>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" size="20" id="search">
+	</div>
+	<div class="col-xs-2">
+		<button class="btn btn-primary" type="button">검색</button>
+	</div>
+
+</div>
+<br>
+  <table class="w3-table-all" style="width: 95%" id="list">
 		<thead>
 			<tr class="w3-Black">
 				<th style="width: 10%">번호</th>
@@ -22,19 +34,15 @@
 				<th style="width: 20%">참여자수</th>
 				<th style="width: 20%">입장하기</th>
 			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="obj" items="${list }">
-				<tr class="w3-hover-gray">
-					<td>${obj.NUM }</td>
-					<td><a href="/myplay/view/${obj.NUM}">${fn:substring(obj.TITLE, 0, 30) }</a></td>
-					<td><fmt:formatDate value="${obj.REGDATE }" pattern="yyyy.MM.dd"/></td>
-					<td><fmt:formatNumber value="${obj.COUNT }" pattern="#,###" /></td>
-					<td><button class="w3-button w3-blue w3-round-xxlarge">입장</button></td>
-				</tr>
-			</c:forEach>
+		</thead >
+		<tbody >
+			
 		</tbody>
 	</table>
+	<button id="cl" type="button">나와</button>
+	<div id="blist">
+	 test
+	</div>
 	<!-- 페이지 처리 -->
 	<div align="center">
 		<c:if test="${param.page ne 1 }">
@@ -57,4 +65,29 @@
 		<c:if test="${param.page ne last }">▶</c:if>
 	</div>
 </div>
+<script>
 
+var list = function(){
+	console.log(document.getElementById("blist").innerHTML);
+	var xhr = new XMLHttpRequest();
+	xhr.open("get", "/myplay/listJSON", true);
+	xhr.send();
+	xhr.onreadystatechange = function(){
+		console.log("???"+this.redayState);
+		if(this.redayState==4){
+			var obj = JSON.parse(this.responseText);
+			console.log("obj?" +obj);
+			var html = "<h4>tesasdfasfasdft</h4>";
+			for(i in obj) {
+				html+=obj[i].num + "<br>";
+			}
+			document.getElementById("blist").innerHTML = html;
+			console.log(document.getElementById("blist").innerHTML);
+		}
+	}
+}
+//window.onload=function(){
+//	list();
+//}
+list();
+</script>

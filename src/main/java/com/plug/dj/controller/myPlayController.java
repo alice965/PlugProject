@@ -45,6 +45,17 @@ public class myPlayController {
 		
 		return mav;
 	}
+	@RequestMapping("/listJSON")
+	public ModelAndView PlayListJSONHandle()throws SQLException {
+		List<Map> list = playlistDao.list();
+		System.out.println("list : "+ list);		
+		ModelAndView mav = new ModelAndView("json");
+		mav.addObject("section", "/myplay/listJSON");
+		mav.addObject("list", list);
+		
+		return mav;
+	}
+	
 	@GetMapping("/add")
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public String PlayAddGetHanle(Map map) {
