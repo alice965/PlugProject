@@ -62,7 +62,7 @@
 	<header>
 		<t:insertAttribute name="header" />
 	</header>
-	<div class="bg">
+	<div>
 	<nav>
 		<t:insertAttribute name="nav" />
 	</nav>
