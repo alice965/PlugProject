@@ -18,6 +18,13 @@
 		select * from member where (id=#{id})
 	</select>
 	
+	<insert id="addProfile">
+		insert into detail values(profile_seq.nextval, #{id}, #{url}, regdate)
+	</insert>
+	
+	<select id="readLatestProfileById" resultType="java.util.HashMap">
+		select * from (select * from detail where id=#{id} order by regdate desc) where rownum =1
+	</select>
 </mapper>
 
 
