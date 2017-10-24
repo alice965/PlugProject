@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.WebSocketSession;
+
+import com.plug.dj.controller.ws.BoothWSHandler;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,17 +30,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class BoothController {
 	@Autowired
 	com.plug.dj.model.BoothDao BoothDao; 
+	@Autowired
+	BoothWSHandler boothws;
 	
 	@RequestMapping(path="view")
-	public ModelAndView PlayViewHandle() throws SQLException{
+	public ModelAndView BoothViewHandle(WebSocketSession session) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
 		mav.addObject("section", "booth/view");
-		
 		return mav;
 		}
 	
 	@RequestMapping("/list")
-	public ModelAndView PlayListHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param)throws SQLException {
+	public ModelAndView BoothListHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param)throws SQLException {
 		ModelAndView mav = new ModelAndView("t_expr");
 		List<Map> list = BoothDao.listAll();
 		mav.addObject("section", "/booth/list");
@@ -47,7 +52,7 @@ public class BoothController {
 	}
 	
 	@RequestMapping("/listJSON")
-	public ModelAndView PlayListJSONHandle(HttpSession session)throws SQLException {
+	public ModelAndView BoothListJSONHandle(HttpSession session)throws SQLException {
 		String id=(String) session.getAttribute("auth_id");
 		List<Map> list = BoothDao.listAll();
 		System.out.println("list : "+ list);		
@@ -57,5 +62,16 @@ public class BoothController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(path="boothpage/{num}")
+	public ModelAndView BoothPageHandle(@PathVariable String num) throws SQLException{
+		ModelAndView mav = new ModelAndView("t_expr");
+		Map one=BoothDao.readOne(num);
+		BoothDao.increaseCnt(num);
+		mav.addObject("section", "booth/boothpage");
+		mav.addObject("one", one);
+		
+		return mav;
+		}
 	
 }

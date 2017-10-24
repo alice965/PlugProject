@@ -15,5 +15,11 @@ public class BoothDao {
 	public List<Map> listAll() {
 		return sql.selectList("booth.listAll");
 	}
+	public Map readOne(String num) {
+		return sql.selectOne("booth.readOne", num);
+	}
+	public int increaseCnt(String num) {
+		return sql.update("booth.increaseCnt", num);
+	}
 
 }
