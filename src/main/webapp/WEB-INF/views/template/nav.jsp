@@ -16,7 +16,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">DJ Booth<span class="sr-only"></span></a></li>
 				<li><a href="myplay/list?page=1">My Booth</a></li>
-				<li><a href="#">나의 프로필</a></li>
+				<li><a href="my/profile">나의 프로필</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
 						aria-haspopup="true" aria-expanded="false">

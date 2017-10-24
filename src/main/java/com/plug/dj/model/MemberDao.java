@@ -26,6 +26,14 @@ public class MemberDao {
 	public HashMap readOneById(String id) {
 		return sql.selectOne("member.readOneById", id);
 	}
+	
+	public int addProfile(Map map) {
+		return sql.insert("member.addProfile", map);
+	}
+	
+	public Map readLatestProfileById(String id) {
+		return sql.selectOne("member.readLatestProfileById", id);
+	}
 
 
 }
