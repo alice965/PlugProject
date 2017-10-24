@@ -8,8 +8,15 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-							<c:if test="${!empty temp }"> <!-- 앞서 joincontroller에서 오류가 나면 temp에 값을 넣음. temp가 비어있지 않다면 => join 실패. -->
-							<b style="color:red">join failed..</b>	
+							<c:if test="${!empty temp }">
+							<b style="color:red">[회원가입 실패 요인] </b><br/>
+							<c:if test="${!empty alertid }"> <!-- 앞서 joincontroller에서 오류가 나면 temp에 값을 넣음. temp가 비어있지 않다면 => join 실패. -->
+							<b style="color:red">같은 계정명이 있습니다.</b><br/>
+							</c:if>
+							<c:if test="${!empty alertnick }">
+							<b style="color:red">같은 닉네임이 있습니다.</b><br/>
+							</c:if>
+							<br/>
 							</c:if>
 							<form action="/join" method="post" autocomplete="off" id="form">
 									<div class="form-group">

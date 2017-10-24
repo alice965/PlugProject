@@ -6,24 +6,27 @@
 		insert into member(id, nickname, pass) values (#{id},#{nickname}, #{pass})		
 	</insert>
 	<insert id="addDetail">
-		insert into detail(id) values (#{id})		
+		insert into detail(id, regdate) values (#{id}, sysdate)		
 	</insert>
 	
-	<select id="checkByIdAndPass" resultType="java.lang.Integer">
+	<select id="checkById" resultType="java.lang.Integer">
 		select count(*) from member where (id=#{id})
-			 and pass=#{pass, jdbcType=VARCHAR }
 	</select>
-	
-	<select id="readOneById" resultType="java.util.HashMap">
-		select * from member where (id=#{id})
+	<select id="checkByNickname" resultType="java.lang.Integer">
+		select count(*) from member where (nickname=#{name})
 	</select>
+
 	
-	<insert id="addProfile">
-		insert into detail values(profile_seq.nextval, #{id}, #{url}, regdate)
-	</insert>
+	<update id="updateOneDetail">
+		update detail set gender=#{gender}, birth=#{birth}, genre=#{genre}, regdate=sysdate
+			where id=#{id} 
+	</update>
+	<update id="updateOneProfile">
+		update detail set url=#{url}, regdate=sysdate where id=#{id}
+	</update>
 	
 	<select id="readLatestProfileById" resultType="java.util.HashMap">
-		select * from (select * from detail where id=#{id} order by regdate desc) where rownum =1
+		select * from detail where (id=#{id})
 	</select>
 </mapper>
 

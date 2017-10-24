@@ -27,15 +27,31 @@ public class JoinController {
 	@PostMapping("/join")
 	public String joinPostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
-			System.out.println(map.values());
-			boolean b = memberDao.addOne(map);
-			//int countid = memberDao.existId(map);
-			//int countnick = memberDao.existNickname(map);
 			session.setAttribute("auth", map);
 			session.setAttribute("auth_id", map.get("id"));
+			session.setAttribute("auth_nickname", map.get("nickname"));
+			System.out.println(map);
+			boolean b = memberDao.addOne(map);
 			return "redirect:/";
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			int countid = memberDao.checkById((String)map.get("id"));
+			int countnick = memberDao.checkByNickname((String)map.get("nickname"));
+			System.out.println( countid + ".." + countnick);
+			
+			if(countid >= 1 && countnick >= 1 ){
+				model.addAttribute("alertid", "같은 계정명이 있습니다.");
+				System.out.println("같은 계정명");
+				model.addAttribute("alertnick", "같은 닉네임이 있습니다.");	
+				System.out.println("같은 닉네임");
+			}else if(countid >=1){
+				model.addAttribute("alertid", "같은 계정명이 있습니다.");
+				System.out.println("같은 계정명");
+			}else{
+				model.addAttribute("alertnick", "같은 닉네임이 있습니다.");	
+				System.out.println("같은 닉네임");
+			}
+
 			model.addAttribute("temp", "1");
 			model.addAttribute("section", "join");
 			return "t_expr";

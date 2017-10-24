@@ -14,7 +14,7 @@ public class MemberDao {
 	// 데이터베이스 등록
 	public boolean addOne(Map map) { //join
 		sql.insert("member.addBasic", map);
-		//sql.insert("member.addDetail", map);
+		sql.insert("member.addDetail", map);
 		return true;
 	}
 
@@ -27,13 +27,28 @@ public class MemberDao {
 		return sql.selectOne("member.readOneById", id);
 	}
 	
-	public int addProfile(Map map) {
-		return sql.insert("member.addProfile", map);
+	public int checkById(String id) {
+		return sql.selectOne("member.checkById", id);
+	}
+	
+	public int checkByNickname(String nickname) {
+		return sql.selectOne("member.checkByNickname", nickname);
+	}
+	
+	public boolean updateOneDetail(Map map) {
+		sql.insert("member.updateOneDetail", map);
+		return true;
+	}
+	
+	public boolean updateOneProfile(Map map){
+		sql.insert("member.updateOneProfile", map);
+		return true;
 	}
 	
 	public Map readLatestProfileById(String id) {
 		return sql.selectOne("member.readLatestProfileById", id);
 	}
+	
 
 
 }

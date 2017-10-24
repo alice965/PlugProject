@@ -39,6 +39,7 @@ public class LoginController {
 			System.out.println(t);
 			session.setAttribute("auth", u);
 			session.setAttribute("auth_id", u.get("ID"));
+			session.setAttribute("auth_nickname", u.get("NICKNAME"));
 			System.out.println("["+url+"]"+u.get("NICKNAME"));
 			if((String)param.get("keep") != null){ //로그인 유지 체크시.
 			 Cookie c = new Cookie("keep", (String)u.get("ID")); //사용자의 이메일로 쿠키 만듬.
