@@ -1,15 +1,14 @@
 package com.plug.dj.controller;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.plug.dj.model.MemberDao;
 import com.plug.dj.model.TestDao;
 
 
@@ -48,9 +46,11 @@ public class IndexController {
 	TestDao tDao;
 	@PostMapping("/testcheckbox")
 	@RequestMapping(path = "/testcheckbox", method = RequestMethod.POST)
-	public String testChkGPostHandle(@RequestParam Map param, ModelMap map, HttpSession session) throws SQLException {
-		System.out.println("파람:"+param);
-		int rst = tDao.save(param);
+	public String testChkGPostHandle(@RequestParam MultiValueMap param, ModelMap map, HttpSession session) throws SQLException {
+		System.out.println("파람:"+param.get("genre"));
+		String strparam=param.get("genre").toString();
+		System.out.println("strparam 파람:"+strparam);
+		int rst = tDao.save(strparam);
 		if (rst == 1) {
 			map.put("section", "/testcheckbox");
 			return "redirect:/testcheckbox";

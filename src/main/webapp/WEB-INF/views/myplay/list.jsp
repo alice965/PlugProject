@@ -35,14 +35,11 @@
 				<th style="width: 20%">입장하기</th>
 			</tr>
 		</thead >
-		<tbody >
+		<tbody id="blist" >
 			
 		</tbody>
 	</table>
-	<button id="cl" type="button">나와</button>
-	<div id="blist">
-	 test
-	</div>
+	
 	<!-- 페이지 처리 -->
 	<div align="center">
 		<c:if test="${param.page ne 1 }">
@@ -67,27 +64,38 @@
 </div>
 <script>
 
-var list = function(){
-	console.log(document.getElementById("blist").innerHTML);
-	var xhr = new XMLHttpRequest();
-	xhr.open("get", "/myplay/listJSON", true);
-	xhr.send();
-	xhr.onreadystatechange = function(){
-		console.log("???"+this.redayState);
-		if(this.redayState==4){
-			var obj = JSON.parse(this.responseText);
-			console.log("obj?" +obj);
-			var html = "<h4>tesasdfasfasdft</h4>";
-			for(i in obj) {
-				html+=obj[i].num + "<br>";
+	var list = function(){
+		console.log(document.getElementById("blist").innerHTML);
+		var xhr = new XMLHttpRequest();
+		xhr.open("get", "/myplay/listJSON", true);
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if(this.readyState==4){
+				var obj = JSON.parse(this.responseText);
+				var html = "";
+				for(i in obj) {
+					html+="<tr class=\"w3-hover-blue\">"+				
+				      "<td>"+obj[i].num+"</td>"+
+				      "<td><a href=\"/myplay/view/"+obj[i].num+"\">"+obj[i].title+"</a></td>"+
+				      //"<td>"+obj[i].title+"</td>"+
+				      "<td>"+obj[i].regdate+"</td>"+
+				      "<td>"+obj[i].count+"</td>"+
+				      "<td><button class=\"w3-button w3-black w3-round-xxlarge\" ><span class=\"enter\">입장하기</span></button></td>"+
+				      "</tr>"
+				}
+				document.getElementById("blist").innerHTML = html;
+				
+				$(".enter").click(function() {
+					console.log("눌렀어?");
+				});
 			}
-			document.getElementById("blist").innerHTML = html;
-			console.log(document.getElementById("blist").innerHTML);
 		}
 	}
+	
+	
+	
+window.onload=function(){
+	list();
 }
-//window.onload=function(){
-//	list();
-//}
-list();
+//list();
 </script>

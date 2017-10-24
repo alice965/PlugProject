@@ -32,7 +32,6 @@
 </div> <!-- row tag end -->
 <hr>
 
-
 <!-- 미디어 영역 -->
 <div class="panel panel-primary">
 

@@ -16,6 +16,9 @@
 	<div align="left">
 			설명  <pre style="font-family: 맑은 고딕; font-size: 12pt; ">${one.CONTENT }</pre>
 	</div>
+	<div align="left">
+			장르  <pre style="font-family: 맑은 고딕; font-size: 12pt; ">${one.GENRE }</pre>
+	</div>
 	<button type="button" id="edit">수정</button>
 	<button type="button" id="delete">삭제</button>
 	<button type="button" id="list">목록</button>

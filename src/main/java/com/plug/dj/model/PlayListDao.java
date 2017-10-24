@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.MultiValueMap;
 
 @Repository
 public class PlayListDao {
@@ -16,8 +17,8 @@ public class PlayListDao {
 		public int add(Map map) {
 			return sql.insert("myplay.add", map);
 		}
-		public List<Map> list() {
-			return sql.selectList("myplay.list");
+		public List<Map> myList(String id) {
+			return sql.selectList("myplay.myList", id);
 		}
 		public Map readOne(String num) {
 			return sql.selectOne("myplay.readOne", num);
@@ -34,6 +35,9 @@ public class PlayListDao {
 		
 		public List<Map> listPage(Map map){
 			return sql.selectList("myplay.listPage", map);
+		}
+		public List<Map> listAll() {
+			return sql.selectList("myplay.listAll");
 		}
 
 
