@@ -29,7 +29,7 @@
 										<input type="password" name="pass" tabindex="2" class="form-control" placeholder="Password" required id="pass"/>
 									</div>
 									<div class="form-group"><!-- name쓰면 파라미터로 전달됨. -->
-										<input type="password" id="pass_con" tabindex="2" class="form-control" placeholder="Confirm Password" />
+										<input type="password" id="pass_con" tabindex="2" class="form-control" placeholder="Confirm Password" required/>
 									<br/> <span id="pass_rst"></span>
 									</div>
 									<div class="form-group">

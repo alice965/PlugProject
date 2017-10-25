@@ -33,9 +33,9 @@ public class LoginController {
 	public ModelAndView sessionHandle(@RequestParam Map param, HttpSession session,  HttpServletResponse response,
 			@RequestParam(name="redirect", required=false) String url) throws SQLException {
 		ModelAndView mav = new ModelAndView();
-		int t = memberDao.existOne(param);
+		int t = memberDao.existOne(param); //파라미터로 전송된 아이디와 비밀번호 일치하는 것 1개 있는지 확인.
 		if (t == 1) {
-			HashMap u = memberDao.readOneById((String)param.get("id"));
+			HashMap u = memberDao.readOneById((String)param.get("id")); //readOneById로 아이디와 닉네임을 setAttribute하기
 			System.out.println(t);
 			session.setAttribute("auth", u);
 			session.setAttribute("auth_id", u.get("ID"));

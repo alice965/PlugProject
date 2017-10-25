@@ -19,7 +19,7 @@ public class MemberDao {
 	}
 
 	public int existOne(Map map) { //login. 아이디와 패스워드 일치하는지
-		return sql.selectOne("member.checkByIdAndPass", map);
+		return sql.selectOne("member.existOne", map);
 	}
 
 	// id나 email이 머고, pass가 머인 데이터가 있는지 확인할때
@@ -30,7 +30,6 @@ public class MemberDao {
 	public int checkById(String id) {
 		return sql.selectOne("member.checkById", id);
 	}
-	
 	public int checkByNickname(String nickname) {
 		return sql.selectOne("member.checkByNickname", nickname);
 	}
@@ -49,8 +48,11 @@ public class MemberDao {
 		return sql.selectOne("member.readLatestProfileById", id);
 	}
 	
-
-
+	public boolean updatePass(String id){
+		sql.update("member.updatePass", id);
+		return true;
+	}
+	
 }
 
 

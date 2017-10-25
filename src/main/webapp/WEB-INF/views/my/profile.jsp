@@ -74,6 +74,10 @@
 						</div>
 						<div class="form-group" align="center">
 						<input type="submit" id="sbt" value="변경">
+						<div align="right">
+						<a href="/service/changepass" tabindex="5">비밀번호 변경 | </a>
+						<a href="#" tabindex="5">회원탈퇴</a>
+						</div>
 						</div>
 						</form>	
 						<small>업데이트 날짜 : </small> ${profile.REGDATE }

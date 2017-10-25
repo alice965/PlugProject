@@ -9,6 +9,16 @@
 		insert into detail(id, regdate) values (#{id}, sysdate)		
 	</insert>
 	
+	<!-- 로그인시 체크 -->
+		<select id="existOne" resultType="java.lang.Integer"> <!-- 있는지 체크 -->
+		select count(*) from member where (id=#{id})
+			 and pass=#{pass, jdbcType=VARCHAR }
+	</select>
+	<select id="readOneById" resultType="java.util.HashMap"> <!-- id와 nickname을 auth에 저장 -->
+		select * from member where (id=#{id})
+	</select>
+	
+	<!-- 회원가입시 체크 -->
 	<select id="checkById" resultType="java.lang.Integer">
 		select count(*) from member where (id=#{id})
 	</select>
@@ -16,18 +26,22 @@
 		select count(*) from member where (nickname=#{name})
 	</select>
 
-	
+	<!-- 프로필 : 세부사항 업데이트 / 프로필사진 업데이트 / 최근 프로필 정보 불러오기-->	
 	<update id="updateOneDetail">
 		update detail set gender=#{gender}, birth=#{birth}, genre=#{genre}, regdate=sysdate
 			where id=#{id} 
 	</update>
 	<update id="updateOneProfile">
 		update detail set url=#{url}, regdate=sysdate where id=#{id}
-	</update>
-	
+	</update>	
 	<select id="readLatestProfileById" resultType="java.util.HashMap">
 		select * from detail where (id=#{id})
 	</select>
+	
+	<!-- 비밀번호 변경 member테이블에서만 변경하면 됨. -->
+	<update id="updatePass">
+		update member set pass=#{change, jdbcType=VARCHAR} where id=#{id}
+	</update> 
 </mapper>
 
 
