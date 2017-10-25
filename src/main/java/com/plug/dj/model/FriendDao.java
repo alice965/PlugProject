@@ -15,29 +15,23 @@ public class FriendDao {
 	
 	// 데이터베이스 등록
 		public int add(Map map) {
-			return sql.insert("myplay.add", map);
+			return sql.insert("friend.add", map);
 		}
 		public List<Map> myList(String id) {
-			return sql.selectList("myplay.myList", id);
+			return sql.selectList("friend.myList", id);
 		}
-		public Map readOne(String num) {
-			return sql.selectOne("myplay.readOne", num);
+		public Map readOne(Map map) {
+			return sql.selectOne("friend.readOne", map);
 		}
 		public int delete(String num) {
-			return sql.update("myplay.delete", num);
-		}
-		public int edit(Map map) {
-			return sql.update("myplay.edit", map);
-		}
-		public int countListPage() {
-			return sql.selectOne("myplay.countListPage");
+			return sql.update("friend.delete", num);
 		}
 		
-		public List<Map> listPage(Map map){
-			return sql.selectList("myplay.listPage", map);
-		}
 		public List<Map> listAll() {
-			return sql.selectList("myplay.listAll");
+			return sql.selectList("friend.listAll");
+		}
+		public Map getNick(Map param) {
+			return sql.selectOne("friend.readOne", param);
 		}
 
 

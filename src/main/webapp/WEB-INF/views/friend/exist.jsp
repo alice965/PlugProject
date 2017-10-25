@@ -3,13 +3,12 @@
 <div class="w3-container w3-teal">
 	<h4>친구추가</h4>
 </div>    <br>
-<form action="/friend/add" method="post">
-   <b> ${data.NICKNAME} </b>(${data.OTHER}) 님을 친구 추가 하시겠습니까? <br><br>
-   <input type="hidden" name="other" value="${data.OTHER}">
+   <b> ${data.NICKNAME} </b>(${data.OTHER}) 님은 이미 등록된 친구입니다. <br>
+   등록일 : ${data.ADDDATE}
+   <br><br>
     
-<button class="w3-btn w3-blue" type="submit">추가</button>
+<button class="w3-btn w3-blue" type="submit">친구 목록</button>
 <button class="w3-btn w3-blue" type="button" onclick="javascript:window.close()">취소</button>
-</form>
 
     
   

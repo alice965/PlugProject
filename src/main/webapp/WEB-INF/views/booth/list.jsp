@@ -80,8 +80,7 @@ var list = function(){
 			      "<td><a href=\"/booth/view/"+obj[i].num+"\">"+obj[i].title+"</a></td>"+
 			      
 			      "<td><div class=\"dropdown\"><div class=\"dropdown-toggle\" data-toggle=\"dropdown\">"
-			      +obj[i].nickname+"<span class=\"caret\"></span></div><ul class=\"dropdown-menu\"><li><a href=\"#\" id=\"popFriend\">친구추가</a></li><li><a href=\"#\">쪽지보내기</a></li></ul></div></td>"  +
-			    
+			      +obj[i].nickname+"<span class=\"caret\"></span></div><ul class=\"dropdown-menu\"><li><a href=\"#\" class=\"popFriend\">친구추가</a><input type=\"hidden\" value=\""+obj[i].id+"\"></li><li><a href=\"#\">쪽지보내기</a><input type=\"hidden\" value=\""+obj[i].id+"\"></li></ul></div></td>"  +
 			      "<td>"+obj[i].regdate+"</td>"+
 			      "<td>"+obj[i].count+"</td>"+
 			      "<td><button class=\"w3-button w3-black w3-round-xxlarge\" ><span id=\"enter\"><a href=\"/booth/boothpage/"+obj[i].num+"\">"+"입장하기</a></span></button></td>"+
@@ -89,8 +88,8 @@ var list = function(){
 			}
 			document.getElementById("blist").innerHTML = html;
 		}
-	$("#popFriend").click(function() {
-            var url="/friend/add";
+	$(".popFriend").click(function() {
+            var url="/friend/check?other="+$(this).next().val();
             window.open(url,"","width=400,height=400,left=200");
 	});
 	}
