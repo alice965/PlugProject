@@ -3,12 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="friend" >
-  	<insert id="add">
-		insert into friend values(#{one}, #{other}, sysdate)
+<mapper namespace="friend">
+	<select id="listReq" resultType="java.util.HashMap">
+		select f.*, m.* from friend f join member m on f.one=m.id where m.id=#{id} and f.status='snd'
+	</select>
+	<select id="listFriend" resultType="java.util.HashMap">
+		select f.*, m.* from friend f join member m on f.one=m.id where m.id=#{id} and f.status='frd'
+	</select>
+	<insert id="add">
+		insert into friend values(#{one}, #{other}, '', sysdate, 'req')
 	</insert>
 	<select id="readOne" resultType="java.util.HashMap">
-		select  f.*, m.* from friend f join member m on f.one= m.id where one=#{one}
+		select f.*, m.* from friend f join member m on f.one= m.id where m.id=#{one} and f.other=#{other}
 	</select>
-	
-  </mapper>
+	<select id="getNick" resultType="java.util.HashMap">
+		select * from member where id=#{other}
+	</select>
+
+</mapper>

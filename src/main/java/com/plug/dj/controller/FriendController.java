@@ -39,16 +39,14 @@ public class FriendController {
 	public String FriendCheckGetHanle(Map map, @RequestParam Map param, HttpSession session) {
 		map.put("section", "friend/check");
 		param.put("one", session.getAttribute("auth_id") );
+		
 		Map data=new HashMap();
 		Map pmap = mapper.convertValue(param, Map.class);
 		
-		data=fDao.readOne(param);
-		System.out.println("data : " + data);
-		
-		if(data.get("OTHER").equals(pmap.get("other"))) {
-			return "redirect:/friend/exist?other="+data.get("OTHER");
+		if(fDao.readOne(param)!=null) {
+			return "redirect:/friend/exist?other="+param.get("other");
 		}else {
-			return "redirect:/friend/add?other="+data.get("OTHER");
+			return "redirect:/friend/add?other="+param.get("other");
 		}
 	}
 	@GetMapping("/exist")
@@ -68,26 +66,46 @@ public class FriendController {
 	public String FriendAddGetHanle(Map map, @RequestParam Map param, HttpSession session) {
 		//화면 출력
 		map.put("section", "friend/add");
-		//세션 아이디 가져와서 파라미터 추가
-		param.put("one", session.getAttribute("auth_id") );
-		//add 페이지에 넘길 데이터 세팅
+		
+		Map nmap = fDao.getNick(param);
+		//System.out.println(nmap.get("NICKNAME"));
+		
 		Map data=new HashMap();
-		data=fDao.readOne(param);
+		data.put("one", session.getAttribute("auth_id") );
+		data.put("other", param.get("other"));
+		data.put("nickname",nmap.get("NICKNAME"));		
+		
 		map.put("data", data);
+		
 		return "t_pop";
 	}
 	
 	@PostMapping("/add")
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
-	public String PlayAddPostHandle(@RequestParam Map param, ModelMap map, HttpSession session) throws SQLException {
+	public String FriendAddPostHandle(@RequestParam Map param, ModelMap map, HttpSession session) throws SQLException {
 		param.put("one", session.getAttribute("auth_id") );
-		System.out.println("param? : "+param);
-		int rst = fDao.add(param);
-		if (rst == 1) {
-			map.put("section", "/friend/add");
-			return "redirect:/friend/add";
-		}
-		map.put("rst1", rst);
-		return "/friend/add";
+		fDao.add(param);
+		
+		return "/friend/addok";
+	}
+	
+	@RequestMapping("/list")
+	public ModelAndView FriendListHandle(@RequestParam Map param, HttpSession session)throws SQLException {
+		ModelAndView mav = new ModelAndView("t_expr");
+		String id = (String) session.getAttribute("auth_id");
+		mav.addObject("section", "/friend/list");
+		
+		List<Map> listReq = fDao.listReq(id);		//요청목록
+		
+		List<Map> listFriend = fDao.listFriend(id);	//친구목록
+		
+		System.out.println("listReq? : " +listReq);
+
+		mav.addObject("listReq", listReq);
+		mav.addObject("listFriend", listFriend);
+		mav.addObject("cntListReq", listReq.size());
+		mav.addObject("cntListFrd", listFriend.size());
+		
+		return mav;
 	}
 }

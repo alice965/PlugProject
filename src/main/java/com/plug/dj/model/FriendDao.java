@@ -17,9 +17,6 @@ public class FriendDao {
 		public int add(Map map) {
 			return sql.insert("friend.add", map);
 		}
-		public List<Map> myList(String id) {
-			return sql.selectList("friend.myList", id);
-		}
 		public Map readOne(Map map) {
 			return sql.selectOne("friend.readOne", map);
 		}
@@ -27,11 +24,15 @@ public class FriendDao {
 			return sql.update("friend.delete", num);
 		}
 		
-		public List<Map> listAll() {
-			return sql.selectList("friend.listAll");
+		public List<Map> listReq(String id) {
+			return sql.selectList("friend.listReq", id);
 		}
-		public Map getNick(Map param) {
-			return sql.selectOne("friend.readOne", param);
+		public List<Map> listFriend(String id) {
+			return sql.selectList("friend.listFriend", id);
+		}
+		
+		public Map getNick(Map map) {
+			return sql.selectOne("friend.getNick", map);
 		}
 
 
