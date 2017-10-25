@@ -48,8 +48,13 @@ public class MemberDao {
 		return sql.selectOne("member.readLatestProfileById", id);
 	}
 	
-	public boolean updatePass(String id){
-		sql.update("member.updatePass", id);
+	public boolean updatePass(Map map){ //change로 파라미터 넘겨주고 하므로 Map으로 받기. id는 없으니까 controller에서 추가.
+		sql.update("member.updatePass", map);
+		return true;
+	}
+	
+	public boolean updateOutFlag(Map map){
+		sql.update("member.updateOutFlag", map);
 		return true;
 	}
 	

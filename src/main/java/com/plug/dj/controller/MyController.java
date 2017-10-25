@@ -45,9 +45,15 @@ public class MyController {
 	}
 
 	@PostMapping("/profile")
-	public String ProfilePostHandle(@RequestParam Map map, @RequestParam String[] genre, HttpSession session, Model model) {
+	public String ProfilePostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
+			String id = (String) session.getAttribute("auth_id");
+			//null설정해주기 위해서 map에서 get해서 따로 저장해주기.
+			String gender = (String)map.get("gender");
+			String[] genre = (String[]) map.get("genre");
 			System.out.println(Arrays.toString(genre));
+			map.put("id", id);
+			map.put("gender", gender);
 			map.put("genre", Arrays.toString(genre));
 			System.out.println(map);
 			memberDao.updateOneDetail(map);

@@ -30,6 +30,7 @@ public class JoinController {
 			session.setAttribute("auth", map);
 			session.setAttribute("auth_id", map.get("id"));
 			session.setAttribute("auth_nickname", map.get("nickname"));
+			map.put("flag", "true");
 			System.out.println(map);
 			boolean b = memberDao.addOne(map);
 			return "redirect:/";

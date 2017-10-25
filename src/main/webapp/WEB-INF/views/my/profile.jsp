@@ -31,16 +31,18 @@
 					<h1>PROFILE</h1>
 					<div class="panel-body">
 					<div class="row">
-					
-						<form action="/my/profile" method="post" autocomplete="off" id="form">
 						<div class="form-group">
 						<b>EMAIL</b><br/>
 						<input type="email" name="id" tabindex="1" 
-						class="form-control" value="${auth.ID }" required id="id"/>
+						class="form-control" value="${auth.ID }" readonly id="id"/> <!-- readonly È¤Àº disabled -> ¼öÁ¤ ¾ÈµÊ. -->
 						</div>
 						<div class="form-group">
-						<b>NICKNAME : ${auth.NICKNAME }</b>
+						<b>NICKNAME</b><br/>
+						<input type="text" name="nickname" tabindex="2" 
+						class="form-control" value="${auth.NICKNAME }" required id="nickname"/>
 						</div>
+						
+						<form action="/my/profile" method="post" autocomplete="off" id="form">
 						<div class="form-group">
 						<b>GENDER</b><br/>
 						<input type="radio" name="gender" value="male" id="male"
@@ -76,7 +78,7 @@
 						<input type="submit" id="sbt" value="º¯°æ">
 						<div align="right">
 						<a href="/service/changepass" tabindex="5">ºñ¹Ð¹øÈ£ º¯°æ | </a>
-						<a href="#" tabindex="5">È¸¿øÅ»Åð</a>
+						<a href="/service/out" tabindex="5">È¸¿øÅ»Åð</a>
 						</div>
 						</div>
 						</form>	
