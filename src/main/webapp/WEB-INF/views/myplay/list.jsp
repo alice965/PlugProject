@@ -86,7 +86,6 @@
 				document.getElementById("blist").innerHTML = html;
 				
 				$(".enter").click(function() {
-					console.log("눌렀어?");
 				});
 			}
 		}

@@ -5,20 +5,44 @@
 
 <mapper namespace="friend">
 	<select id="listReq" resultType="java.util.HashMap">
-		select f.*, m.* from friend f join member m on f.one=m.id where m.id=#{id} and f.status='snd'
+		select othergroup.*, m.nickname
+		as onenick from (select f.*, m.nickname as othernick
+		from friend f join member m on f.other=m.id) othergroup join member m on
+		othergroup.one=m.id
+		where m.id=#{id} and othergroup.status='req'
+	</select>
+	<select id="listRcv" resultType="java.util.HashMap">
+		select othergroup.*, m.nickname	as onenick from 
+    	(select f.*, m.nickname as othernick
+		from friend f join member m on f.other=m.id) othergroup 
+        join member m on
+		othergroup.one=m.id
+		where othergroup.other=#{id} and othergroup.status='req'
 	</select>
 	<select id="listFriend" resultType="java.util.HashMap">
-		select f.*, m.* from friend f join member m on f.one=m.id where m.id=#{id} and f.status='frd'
+		select f.*, m.* from friend f
+		join member m on f.one=m.id where m.id=#{id} and f.status='frd'
 	</select>
 	<insert id="add">
-		insert into friend values(#{one}, #{other}, '', sysdate, 'req')
+		insert into friend values(#{one}, #{other}, '',
+		sysdate, 'req')
 	</insert>
 	<select id="readOne" resultType="java.util.HashMap">
-		select a.* , m.nickname as othernick from (select f.*, m.nickname as onenick from friend f join member m on f.one= m.id) a join member m on a.other =m.id
-where one=#{one} and other=#{other};
+		select a.* , m.nickname as
+		othernick from (select f.*, m.nickname as onenick from friend f join
+		member m on f.one= m.id) a join member m on a.other =m.id
+		where one=#{one} and other=#{other}
 	</select>
 	<select id="getNick" resultType="java.util.HashMap">
-		select * from member where id=#{other}
+		select * from member where
+		id=#{other}
 	</select>
+	<delete id="delete">
+		delete from friend where other=#{other} and
+		one=#{one}
+	</delete>
+	<update id="accept">
+		update friend set adddate=sysdate, status='frd' where one=#{one} and  other=#{other}
+	</update>
 
 </mapper>
