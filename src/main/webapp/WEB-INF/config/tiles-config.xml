@@ -13,4 +13,10 @@
 		<put-attribute name="section"
 			expression="/WEB-INF/views/${section}.jsp" />
 	</definition>
+	<!-- 팝업용 -->
+	<definition name="t_pop" template="/WEB-INF/views/template/popup.jsp">
+		<put-attribute name="title" value="Plug.DJ" />
+		<put-attribute name="section"
+			expression="/WEB-INF/views/${section}.jsp" />
+	</definition>
 </tiles-definitions>
