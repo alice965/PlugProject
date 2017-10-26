@@ -29,11 +29,11 @@
 		<thead>
 			<tr class="w3-Black">
 				<th style="width: 10%">번호</th>
-				<th style="width: 50%">방 제목</th>
-				<th style="width: 50%">DJ</th>
+				<th style="width: 50%">부스 이름</th>
+				<th style="width: 10%">부스 DJ</th>
 				<th style="width: 10%">생성일</th>
 				<th style="width: 10%">참여자수</th>
-				<th style="width: 20%">입장하기</th>
+				<th style="width: 10%">입장하기</th>
 			</tr>
 		</thead >
 		<tbody id="blist" >
@@ -77,21 +77,27 @@ var list = function(){
 			for(i in obj) {
 				html+="<tr class=\"w3-hover-blue\">"+				
 			      "<td>"+obj[i].num+"</td>"+
-			      "<td><a href=\"/myplay/view/"+obj[i].num+"\">"+obj[i].title+"</a></td>"+
-			      //"<td>"+obj[i].title+"</td>"+
-			      "<td>"+obj[i].nickname+"</td>"+
+			      "<td><a href=\"/booth/view/"+obj[i].num+"\">"+obj[i].title+"</a></td>"+
+			      
+			      "<td><div class=\"dropdown\"><div class=\"dropdown-toggle\" data-toggle=\"dropdown\">"
+			      +obj[i].nickname+"<span class=\"caret\"></span></div><ul class=\"dropdown-menu\"><li><a href=\"#\" class=\"popFriend\">친구추가</a><input type=\"hidden\" value=\""+obj[i].id+"\"></li><li><a href=\"#\">쪽지보내기</a><input type=\"hidden\" value=\""+obj[i].id+"\"></li></ul></div></td>"  +
 			      "<td>"+obj[i].regdate+"</td>"+
 			      "<td>"+obj[i].count+"</td>"+
-			      "<td><button class=\"w3-button w3-black w3-round-xxlarge\" ><span id=\"enter\">입장하기</span></button></td>"+
+			      "<td><button class=\"w3-button w3-black w3-round-xxlarge\" ><span id=\"enter\"><a href=\"/booth/boothpage/"+obj[i].num+"\">"+"입장하기</a></span></button></td>"+
 			      "</tr>"
 			}
 			document.getElementById("blist").innerHTML = html;
 		}
+	$(".popFriend").click(function() {
+            var url="/friend/check?other="+$(this).next().val();
+            window.open(url,"","width=400,height=400,left=200");
+	});
 	}
 }
-	$("#enter").click(function() {
-		console.log("눌렀어?");
-	});
+	
+	
+	
+	
 	
 	
 window.onload=function(){

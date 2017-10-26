@@ -3,6 +3,7 @@ package com.plug.dj.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,46 +33,47 @@ public class MyController {
 	SimpleDateFormat sdf;
 
 	@GetMapping("/profile")
-	public String loginHandle(Model model) {
-		model.addAttribute("section", "my/profile");
-		return "t_expr";
+	public ModelAndView ProfileHandle(HttpSession session, Model model) {
+		String id=(String) session.getAttribute("auth_id");
+		Map profilelist = memberDao.readLatestProfileById(id);
+		ModelAndView mav = new ModelAndView("t_expr");
+		mav.addObject("section", "/my/profile");
+		mav.addObject("profile", profilelist);
+		System.out.println("profilelist : " + profilelist);
+
+		return mav;
 	}
 
 	@PostMapping("/profile")
 	public String ProfilePostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
-			System.out.println(map.values());
-			return "redirect:/";
+			String id = (String) session.getAttribute("auth_id");
+			//null설정해주기 위해서 map에서 get해서 따로 저장해주기.
+			String gender = (String)map.get("gender");
+			String[] genre = (String[]) map.get("genre");
+			System.out.println(Arrays.toString(genre));
+			map.put("id", id);
+			map.put("gender", gender);
+			map.put("genre", Arrays.toString(genre));
+			System.out.println(map);
+			memberDao.updateOneDetail(map);
+			return "redirect:/my/profile";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "t_expr";
 		}
 	}
+	
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/pic_update")
 	public ModelAndView profilePostHandle(@RequestParam(name = "profile") MultipartFile f, HttpSession session)
 			throws InterruptedException {
-		System.out.println(f);
-		boolean rst = false;
-		
-		ModelAndView mav = new ModelAndView("redirect:/my/profile");
-		mav.addObject("rst", rst); //왜?
-
-		return mav;
-	}
-	/*
-	@SuppressWarnings("rawtypes")
-	@PostMapping("/profile")
-	public ModelAndView profilePostHandle(@RequestParam Map map, HttpSession session)
-			//@RequestParam(name = "profile") MultipartFile f
-			throws InterruptedException {
-		System.out.println(map);
 		String id = (String) session.getAttribute("auth_id");
+		String nickname = (String) session.getAttribute("auth_nickname");
 		boolean rst = false;
 		String fmt = sdf.format(System.currentTimeMillis());
-		MultipartFile f = (MultipartFile) map.get("profile");
 
-		String fileName = id + "_" + fmt + 
+		String fileName = nickname + "_" + fmt + 
 				f.getOriginalFilename().substring(f.getOriginalFilename().lastIndexOf("."));
 		try {
 			if (f.isEmpty())
@@ -83,8 +85,11 @@ public class MyController {
 			e.printStackTrace();
 		}
 		if (rst) {
-			map.replace("url", "/profiles/" + fileName);
-			memberDao.addProfile(map);
+			Map data = new HashMap<>();
+			data.put("id", id);
+			data.put("url", "/profiles/" + fileName);
+			memberDao.updateOneProfile(data);
+			System.out.println(data);
 		}
 
 		ModelAndView mav = new ModelAndView("redirect:/my/profile");
@@ -92,6 +97,5 @@ public class MyController {
 
 		return mav;
 	}
-	*/
 }
 

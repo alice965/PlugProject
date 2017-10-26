@@ -33,12 +33,14 @@ public class LoginController {
 	public ModelAndView sessionHandle(@RequestParam Map param, HttpSession session,  HttpServletResponse response,
 			@RequestParam(name="redirect", required=false) String url) throws SQLException {
 		ModelAndView mav = new ModelAndView();
-		int t = memberDao.existOne(param);
+		param.put("flag", "true");
+		int t = memberDao.existOne(param); //파라미터로 전송된 아이디와 비밀번호 일치하는 것 1개 있는지 확인.
 		if (t == 1) {
-			HashMap u = memberDao.readOneById((String)param.get("id"));
+			HashMap u = memberDao.readOneById((String)param.get("id")); //readOneById로 아이디와 닉네임을 setAttribute하기
 			System.out.println(t);
 			session.setAttribute("auth", u);
 			session.setAttribute("auth_id", u.get("ID"));
+			session.setAttribute("auth_nickname", u.get("NICKNAME"));
 			System.out.println("["+url+"]"+u.get("NICKNAME"));
 			if((String)param.get("keep") != null){ //로그인 유지 체크시.
 			 Cookie c = new Cookie("keep", (String)u.get("ID")); //사용자의 이메일로 쿠키 만듬.

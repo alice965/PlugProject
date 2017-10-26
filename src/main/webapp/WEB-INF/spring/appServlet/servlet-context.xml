@@ -104,5 +104,15 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- Websocket handler -->
+	<bean class="com.plug.dj.controller.ws.BoothWSHandler" id="boothws"/>
+	
+	<websocket:handlers>
+		<websocket:mapping handler="boothws" path="/ws/booth"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
 
 </beans>

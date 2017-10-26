@@ -6,7 +6,9 @@
 	<c:forEach var="i" items="${list}" varStatus="vs">
 	{
 		"num" : ${i.NUM},
+		"id" : "${i.ID}",
 		"title" : "${i.TITLE}",
+		"nickname" : "${i.NICKNAME}",
 		"regdate" : "<fmt:formatDate value="${i.REGDATE}" pattern="yyyy.MM.dd" />",
 		"count" : ${i.COUNT}
 	}
