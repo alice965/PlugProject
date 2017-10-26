@@ -35,7 +35,7 @@ public class IndexController {
 		return mav;
 	}
 	
-	@GetMapping("/testcheckbox")
+@GetMapping("/testcheckbox")
 	@RequestMapping(path = "/testcheckbox", method = RequestMethod.GET)
 	public ModelAndView testChkGetHandle(Map map) {
 		ModelAndView mav = new ModelAndView("t_expr");

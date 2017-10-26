@@ -14,7 +14,8 @@
 		insert into friend values(#{one}, #{other}, '', sysdate, 'req')
 	</insert>
 	<select id="readOne" resultType="java.util.HashMap">
-		select f.*, m.* from friend f join member m on f.one= m.id where m.id=#{one} and f.other=#{other}
+		select a.* , m.nickname as othernick from (select f.*, m.nickname as onenick from friend f join member m on f.one= m.id) a join member m on a.other =m.id
+where one=#{one} and other=#{other};
 	</select>
 	<select id="getNick" resultType="java.util.HashMap">
 		select * from member where id=#{other}
