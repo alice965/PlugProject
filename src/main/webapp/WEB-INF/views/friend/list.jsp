@@ -13,23 +13,22 @@
 	<!-- 탭 영역 -->
 	<div class="w3-row">
 		<a href="javascript:void(0)" onclick="openPage(event, 'flist');">
-			<div
-				class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">친구
-				리스트</div>
-		</a> <a href="javascript:void(0)" onclick="openPage(event, 'slist');">
-			<div
-				class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">보낸
-				친구 요청</div>
-		</a> <a href="javascript:void(0)" onclick="openPage(event, 'rlist');">
-			<div
-				class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">받은
-				친구 요청</div>
+			<div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">
+			친구 리스트</div>
+		</a> 
+		<a href="javascript:void(0)" onclick="openPage(event, 'slist');">
+			<div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">
+			보낸 친구 요청</div>
+		</a> 
+		<a href="javascript:void(0)" onclick="openPage(event, 'rlist');">
+			<div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">
+			받은 친구 요청</div>
 		</a>
 	</div>
 
 	<!-- 페이지 영역 -->
 	<!-- 친구 리스트 영역 -->
-	<div id="flist" class="w3-container tabPage" style="display: block">
+	<div id="flist" class="w3-container tabPage" style="display: none">
 		<h3>친구 리스트</h3>
 		<div class="col-xs-7">
 			총 <b>${cntListFrd}</b> 명의 친구가 등록되어 있습니다.
@@ -169,4 +168,6 @@
 				} else {
 				}
 			});
+	
+	window.onload(openPage(event, 'flist'));
 </script>

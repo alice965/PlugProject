@@ -24,7 +24,7 @@
 		join member m on f.one=m.id where m.id=#{id} and f.status='frd'
 	</select>
 	<insert id="add">
-		insert into friend values(#{one}, #{other}, '',
+		insert into friend values(friend_seq.nextval, #{one}, #{other}, '',
 		sysdate, 'req')
 	</insert>
 	<select id="readOne" resultType="java.util.HashMap">
