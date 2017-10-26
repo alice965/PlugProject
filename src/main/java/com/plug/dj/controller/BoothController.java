@@ -51,6 +51,18 @@ public class BoothController {
 		return mav;
 	}
 	
+	
+	@RequestMapping("/list_copy")
+	public ModelAndView BoothListCopyHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param)throws SQLException {
+		ModelAndView mav = new ModelAndView("t_expr");
+		List<Map> list = BoothDao.listAll();
+		mav.addObject("section", "/booth/list_copy");
+		mav.addObject("list", list);
+		mav.addObject("cnt", list.size());
+		
+		return mav;
+	}
+	
 	@RequestMapping("/listJSON")
 	public ModelAndView BoothListJSONHandle(HttpSession session)throws SQLException {
 		String id=(String) session.getAttribute("auth_id");
