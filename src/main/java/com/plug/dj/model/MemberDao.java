@@ -58,6 +58,10 @@ public class MemberDao {
 		return true;
 	}
 	
+	public String selectFlag(String id){
+		return sql.selectOne("member.selectFlag", id);
+	}
+	
 }
 
 
