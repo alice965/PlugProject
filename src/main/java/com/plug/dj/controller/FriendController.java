@@ -57,7 +57,6 @@ public class FriendController {
 		Map data=new HashMap();
 		data=fDao.readOne(param);
 		map.put("data", data);
-		
 		return "t_pop";
 	}
 	
@@ -96,16 +95,29 @@ public class FriendController {
 		mav.addObject("section", "/friend/list");
 		
 		List<Map> listReq = fDao.listReq(id);		//夸没格废
-		
+		List<Map> listRcv = fDao.listSnd(id);		//罐篮格废
 		List<Map> listFriend = fDao.listFriend(id);	//模备格废
-		
-		System.out.println("listReq? : " +listReq);
+		System.out.println("listFriend??" + listFriend);
 
 		mav.addObject("listReq", listReq);
+		mav.addObject("listRcv", listRcv);
 		mav.addObject("listFriend", listFriend);
 		mav.addObject("cntListReq", listReq.size());
 		mav.addObject("cntListFrd", listFriend.size());
 		
 		return mav;
 	}
+	
+	@RequestMapping(path="/delete")
+	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
+		System.out.println("delparam??" + param);
+		int r=fDao.delete(param);
+		return "redirect:/friend/list";
+		}
+	@RequestMapping(path="/accept")
+	public String FriendAcceptHandle(@RequestParam Map param) throws SQLException{
+		System.out.println("acceptparam??" + param);
+		int r=fDao.accept(param);
+		return "redirect:/friend/list";
+		}
 }
