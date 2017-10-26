@@ -33,9 +33,10 @@ public class LoginController {
 	public ModelAndView sessionHandle(@RequestParam Map param, HttpSession session,  HttpServletResponse response,
 			@RequestParam(name="redirect", required=false) String url) throws SQLException {
 		ModelAndView mav = new ModelAndView();
-		param.put("flag", "true");
+		String flag = memberDao.selectFlag((String)param.get("id"));
+		param.put("flag", flag);
 		int t = memberDao.existOne(param); //파라미터로 전송된 아이디와 비밀번호 일치하는 것 1개 있는지 확인.
-		if (t == 1) {
+		if (t == 1 && flag.equals("true")) {
 			HashMap u = memberDao.readOneById((String)param.get("id")); //readOneById로 아이디와 닉네임을 setAttribute하기
 			System.out.println(t);
 			session.setAttribute("auth", u);
@@ -54,9 +55,15 @@ public class LoginController {
 				mav.setViewName("redirect:/");
 			}
 		} else {
+			if((param.get("flag")).equals("false")){ 
+				System.out.println("탈퇴한 회원의 이메일입니다.");
+				mav.addObject("loginflag", "1"); //탈퇴한 회원일 때
+			}else{
+				mav.addObject("loginfail", "1"); //일치하는 것이 없을 때
+			}
 			mav.setViewName("t_expr");
 			mav.addObject("section", "login");
-			mav.addObject("temp", "temp");
+			
 			/*
 			mav.setViewName("redirect:/login");
 			mav.addObject("mode", "f");

@@ -6,14 +6,19 @@
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 			<h1>LOGIN</h1>
+			<c:if test="${!empty loginflag }">
+			<b style="color: red">로그인 실패 요인..</b><br/>
+			<small style="color: red">탈퇴한 회원의 이메일입니다.</small><br/>
+			</c:if>
+			<c:if test="${!empty loginfail }">
+			<b style="color: red">로그인 실패 요인..</b><br/>
+			<small style="color: red">아이디 또는 비밀번호가 일치하지 않습니다.</small><br/>
+			</c:if>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
 							<form id="login-form" action="/login" 
 							method="post" role="form" style="display: block;"autocomplete="off">
-							<c:if test="${!empty temp }">
-							<b style="color: red">login failed..</b>
-							</c:if>
 									<div class="form-group">
 										<input type="email" name="id" tabindex="1" class="form-control" placeholder="Email" value="" required id="id"/>
 									</div>

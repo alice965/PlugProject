@@ -12,7 +12,7 @@
 	<!-- 로그인시 체크 -->
 	<select id="existOne" resultType="java.lang.Integer"> <!-- 있는지 체크 -->
 		select count(*) from member where (id=#{id})
-			 and pass=#{pass, jdbcType=VARCHAR } and flag=#{flag}
+			 and pass=#{pass, jdbcType=VARCHAR } 
 	</select>
 	<select id="readOneById" resultType="java.util.HashMap"> <!-- id와 nickname을 auth에 저장 -->
 		select * from member where (id=#{id})
@@ -47,6 +47,11 @@
 	<update id="updateOutFlag">
 		update member set flag=#{flag} where id=#{id}
 	</update>
+	
+	<!-- flag값 가져오기 -->
+	<select id="selectFlag" resultType="String">
+		select flag from member where (id=#{id})
+	</select>
 </mapper>
 
 
