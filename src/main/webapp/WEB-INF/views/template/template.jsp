@@ -28,6 +28,8 @@
 
 <script src="https://apis.google.com/js/api.js"></script>
 
+<!-- fontawesome -->
+<script src="https://use.fontawesome.com/f029bfc79a.js"></script>
 
 </head>
 

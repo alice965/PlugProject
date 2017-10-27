@@ -80,6 +80,7 @@ public class BoothController {
 		ModelAndView mav = new ModelAndView("t_expr");
 		Map one=BoothDao.readOne(num);
 		BoothDao.increaseCnt(num);
+		System.out.println("one???"+one);
 		mav.addObject("section", "booth/boothpage");
 		mav.addObject("one", one);
 		

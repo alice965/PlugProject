@@ -13,9 +13,9 @@
 <div class="container">
 
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#flist">친구 리스트</a></li>
-    <li><a data-toggle="tab" href="#rlist">받은 친구 요청</a></li>
-    <li><a data-toggle="tab" href="#slist">보낸 친구 요청</a></li>
+    <li class="active"><a data-toggle="tab" href="#flist" id="f_list">친구 리스트</a></li>
+    <li><a data-toggle="tab" href="#rlist"  id="r_list">받은 친구 요청</a></li>
+    <li><a data-toggle="tab" href="#slist"  id="s_list">보낸 친구 요청</a></li>
   </ul>
 
   <div class="tab-content">
@@ -109,7 +109,20 @@
 		</table>
     </div>
   </div>
-</div>	
+</div>
+	
+<!--받은 요청인 경우,  해당 탭으로 열린 상태로 오픈  -->
+<!-- wait.jsp에서 src로 파라미터를 넘김 -->
+
+<c:choose>
+
+
+</c:choose>
+		<c:if test="${param.src eq 'wait' }">
+		<script>
+			$("#s_list").trigger("click");
+		</script>
+		</c:if>
 
 <script>
 	//삭제 스크립트

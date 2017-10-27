@@ -7,8 +7,14 @@
    등록일 : ${data.REQDATE}
    <br><br>
     
-<button class="w3-btn w3-blue" type="button" onclick="window.open('/friend/list')">친구 목록</button>
+<button class="w3-btn w3-blue" type="button" onclick="javascript:back()">친구 목록</button>
 <button class="w3-btn w3-blue" type="button" onclick="javascript:window.close()">닫기</button>
 
-    
+ <script>
+	function back() {
+		opener.location.href="/friend/list?src=pop";
+		window.close();
+	}
+
+</script>   
   

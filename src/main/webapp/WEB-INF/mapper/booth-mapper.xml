@@ -6,7 +6,7 @@
 		   select  b.*, m.* from booth b left join member m on b.id =  m.id order by num desc
 	</select>
 	<select id="readOne" resultType="java.util.HashMap" >
-		select * from booth where num = #{num}
+		select b.*, m.nickname from booth b join member m on b.ID=m.ID where b.num = #{num}
 	</select>
 	<update id="increaseCnt">
 		update booth set count = count +1 where num =#{num }

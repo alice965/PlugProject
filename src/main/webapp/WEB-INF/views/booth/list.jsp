@@ -102,6 +102,7 @@
    </div>
 </div>
 <script>
+
    $(".popFriend").click(function() {
             var url="/friend/check?other="+$(this).next().val();
             window.open(url,"","width=400,height=400,left=200");
