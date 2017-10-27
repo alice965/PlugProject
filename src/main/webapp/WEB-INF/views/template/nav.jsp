@@ -24,8 +24,8 @@
 						쪽지함<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">받은 쪽지함</a></li>
-						<li><a href="#">보낸 쪽지함</a></li>
+						<li><a href="/memo/receivelist/">받은 쪽지함</a></li>
+						<li><a	 href="/memo/sendlist/">보낸 쪽지함</a></li>
 					</ul>
 				</li>
 				<li><a href="/login">로그인</a></li>

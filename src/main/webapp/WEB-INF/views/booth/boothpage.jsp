@@ -16,7 +16,7 @@
 
 	<p>영상이 들어갈 위치</p>
 </div>
-<p></p>
+
 <div class="col-md-3" id="chat_message"
 	style="min-height: 65%; min-width: 300px; background-color: #6699ff; border-radius: 2em;">
 	<p>채팅이 들어갈 위치</p>
@@ -43,20 +43,3 @@
 </div>
 
 </html>
-
-<script>
-<<<<<<< HEAD
-var url=location.hostname;
-	var ws = new WebSocket("ws://"+url+"/ws/booth");
-	//var ws = new WebSocket("ws://192.168.219.103/ws/booth");
-	ws.onopen = function(e){
-=======
-	//var url=location.hostname;
-	//var ws = new WebSocket("ws://"+url+"/ws/booth");
-	var ws = new WebSocket("ws://192.168.219.103/ws/booth");
-	ws.onopen = function(e) {
->>>>>>> refs/heads/hanbi
-		var obj = JSON.parse(e.data);
-		console.log(obj);
-	}
-</script>

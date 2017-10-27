@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memo">
+	<insert id="addNewMemo">
+		insert into memo values(memo_seq.nextval, #{sender}, #{receiver},  #{title}, #{content} ) 
+	</insert>
+
+	<select id="addSendList">
+		 select * from memo where sender = #{sender}
+		</select>
+	
+	<select id="addReceiveList">
+		 select * from memo where receiver = #{receiver}
+	</select>
+	
+</mapper>
+
+
