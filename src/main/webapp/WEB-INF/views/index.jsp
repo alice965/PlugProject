@@ -22,10 +22,10 @@
 			<a class="btn btn-default" data-target="#modal-1" data-toggle="modal">자세히
 				알아보기</a>
 		</p>
-	</div>
+	</div>	
 	<!-- 소개2 -->
 	<div class="col-md-4">
-		<h4>서비스 소개</h4>
+		<h4>서비스 소개</h4>d
 		<p>Plug.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
 		<p>
 			<a class="btn btn-default" href="#">자세히 알아보기</a>
@@ -40,8 +40,8 @@
 		</p>
 	</div>
 
-</div>
-<!-- row tag end -->
+</div><!-- row tag end -->
+
 <hr>
 
 <!-- 미디어 영역 -->
@@ -49,8 +49,7 @@
 
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			<span class="glyphicon glyphicon-headphones"></span> &nbsp; &nbsp;최신
-			부스 목록
+			<span class="glyphicon glyphicon-headphones"></span> &nbsp; &nbsp;최신 부스 목록
 		</h3>
 	</div>
 	<!-- panel-heading -->
