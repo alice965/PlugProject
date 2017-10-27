@@ -115,14 +115,24 @@
 <!-- wait.jsp에서 src로 파라미터를 넘김 -->
 
 <c:choose>
+	<c:when test="${param.src eq 'exist' }">	<!-- 이미 친구인경우 -->
+		<script>
+				$("#f_list").trigger("click");
+		</script>
+	</c:when>
+	<c:when test="${param.src eq 'requested' }">
+		<script>
+				$("#r_list").trigger("click");
+		</script>
+	</c:when>
+	<c:when test="${param.src eq 'wait' }">
+		<script>
+				$("#s_list").trigger("click");
+		</script>
+	</c:when>
 
 
 </c:choose>
-		<c:if test="${param.src eq 'wait' }">
-		<script>
-			$("#s_list").trigger("click");
-		</script>
-		</c:if>
 
 <script>
 	//삭제 스크립트
@@ -144,6 +154,18 @@
 				var r = confirm("친구요청을 수락하시겠습니까?");
 				if (r == true) {
 					location.href = '/friend/accept?one='
+							+ $(this).next().val() + '&other='
+							+ $(this).next().next().val();
+				} else {
+				}
+			});
+	//친구 거절 스크립트
+	$(".deny").on(
+			"click",
+			function() {
+				var r = confirm("친구요청을 거절하시겠습니까?");
+				if (r == true) {
+					location.href = '/friend/delete?one='
 							+ $(this).next().val() + '&other='
 							+ $(this).next().next().val();
 				} else {

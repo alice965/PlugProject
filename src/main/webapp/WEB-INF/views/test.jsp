@@ -9,6 +9,12 @@
 
 
 <script>
+
+$( "#search_box" ).keyup(function() {
+	fnGetList()
+	});
+
+
 function fnGetList(sGetToken){
 	var $getval = $("#search_box").val();
 	if($getval==""){

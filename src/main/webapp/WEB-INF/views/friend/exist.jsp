@@ -12,7 +12,7 @@
 
  <script>
 	function back() {
-		opener.location.href="/friend/list?src=pop";
+		opener.location.href="/friend/list?src=exist";
 		window.close();
 	}
 

@@ -40,13 +40,15 @@ public class FriendController {
 		map.put("section", "friend/check");
 		param.put("one", session.getAttribute("auth_id") );
 		
-		Map data=new HashMap();
-		Map pmap = mapper.convertValue(param, Map.class);
+		//System.out.println("para??" +param);
+		//System.out.println("param.get??" +param.get("one"));
 		
 		if(fDao.readOne(param)==null) {
 				return "redirect:/friend/add?other="+param.get("other");
-			} else if(fDao.readOne(param).get("STATUS").equals("req")) {
-				return "redirect:/friend/wait?other="+param.get("other");
+			} else if(fDao.readOne(param).get("STATUS").equals("req")&&
+					param.get("one").equals(fDao.readOne(param).get("ONE"))) {
+					//System.out.println("daodao"+fDao.readOne(param).get("ONE") );
+				return "redirect:/friend/requested?other="+param.get("other");
 			} else {
 				return "redirect:/friend/exist?other="+param.get("other");
 			}
@@ -71,7 +73,12 @@ public class FriendController {
 	//	map.put("data", data);
 		return "t_pop";
 	}
-	
+	@GetMapping("/requested")
+	@RequestMapping(path = "/requested", method = RequestMethod.GET)
+	public String FriendRequestedGetHanle(Map map, @RequestParam Map param, HttpSession session) {
+		map.put("section", "friend/requested");
+		return "t_pop";
+	}
 	@GetMapping("/add")
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public String FriendAddGetHanle(Map map, @RequestParam Map param, HttpSession session) {
@@ -109,7 +116,7 @@ public class FriendController {
 		List<Map> listReq = fDao.listReq(id);		//夸没格废
 		List<Map> listRcv = fDao.listSnd(id);		//罐篮格废
 		List<Map> listFriend = fDao.listFriend(id);	//模备格废
-		System.out.println("listFriend??" + listFriend);
+		//System.out.println("listFriend??" + listFriend);
 
 		mav.addObject("listReq", listReq);
 		mav.addObject("listRcv", listRcv);
@@ -122,13 +129,13 @@ public class FriendController {
 	
 	@RequestMapping(path="/delete")
 	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
-		System.out.println("delparam??" + param);
+		//System.out.println("delparam??" + param);
 		int r=fDao.delete(param);
-		return "redirect:/friend/list";
+		return "redirect:/friend/list?src=requested";
 		}
 	@RequestMapping(path="/accept")
 	public String FriendAcceptHandle(@RequestParam Map param) throws SQLException{
-		System.out.println("acceptparam??" + param);
+		//System.out.println("acceptparam??" + param);
 		int r=fDao.accept(param);
 		return "redirect:/friend/list";
 		}

@@ -7,8 +7,4 @@
    	상대방이 수락하면 친구로 추가됩니다.
    <br><br>
     
-<button class="w3-btn w3-blue" type="button" onclick="window.open('/friend/list')">친구 목록</button>
 <button class="w3-btn w3-blue" type="button" onclick="javascript:window.close()">닫기</button>
-
-    
-  
