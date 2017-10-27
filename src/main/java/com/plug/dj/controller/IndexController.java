@@ -49,6 +49,7 @@ public class IndexController {
 		return mav;
 	}
 	
+	/*
 	@PostMapping("/test3")
 	@RequestMapping(path = "/test3", method = RequestMethod.POST)
 	public String test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
@@ -66,7 +67,7 @@ public class IndexController {
 			e.printStackTrace();
 			return "t_expr";
 		}
-	}
+	}*/
 	
 	
 	@GetMapping("/testcheckbox")

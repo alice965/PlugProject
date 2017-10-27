@@ -1,8 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<form action="/test3" method="post" autocomplete="off" id="form">
-<div align="center">
-<input name="src" placeholder="재생목록 갖고오기"/>
-<button type="submit" id="list">완료</button>
+
+<div class="container">
+    	<div class="row">
+			<div class="col-md-5" align="center">
+			<h1>YOUTUBE PLAYLIST</h1>
+			<h4><b>사용하는 법</b><br/></h4>
+			<h5>1. 원하는 채널의 재생목록에 들어갑니다.<br/> 
+			2. 재생목록의 src값을 복사합니다.<br/>
+			3. 아래 입력 창에 붙여넣기 합니다.<br/>
+			※최대 50개의 최신 동영상을 불러올 수 있습니다.</h5>
+			<input type="text" id="playlist" placeholder="재생목록 아이디 입력..">
+			<button id="send">재생목록 뽑기</button>
+			<h3>가져온 재생목록</h3>
+			<div class="col-lg-8" id="video-container">
+			</div>
+			<hr/>		
+			</div>
+			<div class="col-md-7">
+			<h3>동영상 재생</h3>
+				<div class="panel-body">
+					<div class="row">
+
+					</div>
+				</div>
+			</div>
+			</div>
 </div>
-</form>
+
+
+<script>
+var playlistId;
+
+document.getElementById("send").onclick = function() {
+	var playlist = document.getElementById("playlist").value;
+	var xhr = new XMLHttpRequest();
+	xhr.open("get", "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlist+
+			"&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I&maxResults=50", true);
+	xhr.send();
+	xhr.onreadystatechange = function(){
+		if(this.readyState==4){
+			var obj = JSON.parse(this.responseText);	   			
+		    var playlistItems = obj.items;
+		    var html = "";
+		    if (playlistItems) {
+				for(idx in obj.items) {
+					var snippet = obj.items[idx].snippet;
+						html +=  "<div align=\"left\" class=\"col-lg-5\"><img src=\"" + snippet.thumbnails.medium.url + 
+						"\" style=\"width:100px; height:75px\"></div><div style=\"width:385px; height:130px\" align=\"right\">"
+						+ '<br/>' + idx + ". " + snippet.title + "<br/><br/>" + "채널 아이디 : " + snippet.channelId + "<br/><hr/></div>";
+					// html += "동영상 보러가기 : <a href=\"https://www.youtube.com/watch?v=" + snippet.resourceId.videoId + "\">" + "보러가기</a>" + "<hr/>";
+				}	
+				document.getElementById("video-container").innerHTML = html;
+		    } else {
+		      $('#video-container').html('Sorry you have no uploaded videos');
+		    }
+		}
+	}	
+}
+</script>
