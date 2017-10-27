@@ -19,9 +19,9 @@
 			</div>
 			<div class="col-md-7">
 			<h3>동영상 재생</h3>
+			<button id="play">동영상 재생하기</button>
 				<div class="panel-body">
 					<div class="row">
-
 					</div>
 				</div>
 			</div>
@@ -31,6 +31,7 @@
 
 <script>
 var playlistId;
+var count;
 
 document.getElementById("send").onclick = function() {
 	var playlist = document.getElementById("playlist").value;
@@ -49,13 +50,18 @@ document.getElementById("send").onclick = function() {
 						html +=  "<div align=\"left\" class=\"col-lg-5\"><img src=\"" + snippet.thumbnails.medium.url + 
 						"\" style=\"width:100px; height:75px\"></div><div style=\"width:385px; height:130px\" align=\"right\">"
 						+ '<br/>' + idx + ". " + snippet.title + "<br/><br/>" + "채널 아이디 : " + snippet.channelId + "<br/><hr/></div>";
-					// html += "동영상 보러가기 : <a href=\"https://www.youtube.com/watch?v=" + snippet.resourceId.videoId + "\">" + "보러가기</a>" + "<hr/>";
+				
+				html += "동영상 추가하기 : <a href=\"/video/add?video_title=" + snippet.title
+				+ "&video_id=" + snippet.resourceId.videoId 
+				+ "&channel_url=" +  snippet.channelId + "\">" + "추가하기</a>" + "<hr/>";
 				}	
+				
 				document.getElementById("video-container").innerHTML = html;
 		    } else {
 		      $('#video-container').html('Sorry you have no uploaded videos');
 		    }
-		}
+	}
 	}	
 }
+
 </script>

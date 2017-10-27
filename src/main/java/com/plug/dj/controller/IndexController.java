@@ -42,12 +42,7 @@ public class IndexController {
 			mav.addObject("section", "test2");
 		return mav;
 	}
-	@RequestMapping("/test3")
-	public ModelAndView test3Handle() {
-		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "test3");
-		return mav;
-	}
+
 	
 	/*
 	@PostMapping("/test3")
