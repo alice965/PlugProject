@@ -1,12 +1,14 @@
 package com.plug.dj.controller;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,34 @@ public class IndexController {
 			mav.addObject("section", "test");
 		return mav;
 	}
+	@RequestMapping("/test2")
+	public ModelAndView test2Handle() {
+		ModelAndView mav = new ModelAndView("t_expr");
+			mav.addObject("section", "test2");
+		return mav;
+	}
+
+	
+	/*
+	@PostMapping("/test3")
+	@RequestMapping(path = "/test3", method = RequestMethod.POST)
+	public String test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
+		try {
+			//src=https://www.youtube.com/playlist?list=PLVfChAjsg5xPuZRxLIxCJAyb5J_DauDJu
+			String src = (String)map.get("src");
+			String[] list = src.split("=");
+			String playlist = list[1];
+			
+			String id = (String) session.getAttribute("auth_id");
+			map.put("id", id);
+			System.out.println(map);
+			return "redirect:/test3";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "t_expr";
+		}
+	}*/
+	
 	
 @GetMapping("/testcheckbox")
 	@RequestMapping(path = "/testcheckbox", method = RequestMethod.GET)
