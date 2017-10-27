@@ -3,49 +3,75 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script> 
-$(document).ready(function(){
-    $("#flip").mouseleave(function(){
-        $("#panel").slideUp("slow");
-    });
-});
-</script>
- 
-<style> 
-#panel, #flip {
-    padding: 5px;
-    text-align: center;
-    background-color: #e5eecc;
-    border: solid 1px #c3c3c3;
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style>
+.main {
+	width: 100%;
+	height: 100%;
+	position: relative;
+} /*position ???????????*/
+.main .work {
+	width: 100%;
+	height: auto;
+	position: relative;
+	overflow: hidden;
+} /*position work_title을 위해 지정*/
+.main .work .work_title {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	margin-top: -40%;
+	text-align: center;
+} /*position .main .work이 기준* 
+/* 마진top으로 글자높낮이를 조정하였고 */
+.main .work .media {
+	display: block;
+	width: 100%;
 }
 
-#panel {
-    padding: 50px;
+.main .work .caption {
+	background: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;		
+	opacity: 0;
+	transition: all 0.8s;
 }
-</style> <!-- 올리는거 -->
-<script> <!-- 내리는것 -->
-$(document).ready(function(){
-    $("#flip").mouseenter(function(){
-        $("#panel").slideDown("slow");
-    });
-});
-</script>
- 
- 
-<style> 
-#panel, #flip {
-    padding: 5px;
-    text-align: center;
-    background-color: #e5eecc;
-    border: solid 1px #c3c3c3;
+/*position .main .work이 기준*/
+.main .work a:hover .caption {
+	opacity: 1;
 }
 
-#panel {
-    padding: 50px;
-    display: none;
-}
+.main .work .caption h1 {
+	color: #fff;
+	font-size: 16px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	padding: 20px;
+	width: 100%; /*margin:auto를 사용할 수도 있다. 중간정렬*/
+	display: inline-block;
+} /*text-align해도 보더가 가운데 정렬이 안되서 인라인으로 바꿈.*/
 </style>
+
+<!--  
+   <section class="main clearfix">
+      <div class="work">
+         <a href="#">
+            <img src="/images/a.jpg" alt="" class="media">
+            <div class="caption">
+               <div class="work_title">
+                  <h1>Music App Interface</h1>
+               </div><!--work_title->
+            </div><!--caption->            
+         </a>
+      </div><!--work1->   
+
+   </section>
+ -->
 
 <div class="sub-top">
 	<h2 class="text-center">DJ Booth</h2>
@@ -60,126 +86,114 @@ $(document).ready(function(){
 			class="w3-btn w3-black w3-round-large">플레이리스트 만들기</button></a>
 </div>
 <br>
-<div class="w3-container">
+<div class="w3-container main">
 
 	<div class="row">
 		<!-- 첫번째 부스 -->
 		<div class="col-sm-3 panel-body" align="center">
-			<div class="media">
+			<div class="work">
 				<div class="media-top">
-					<a href="#"><img class="media-object" src="/images/a.jpg"></a>
+					<a href="#"> <img class="media-object media"
+						src="/images/a.jpg">
+						<div class="caption">
+							<div class="work_title">
+								<h1>부스명(db)</h1>
+								</br>
+								<h2>부스소개(db)</h2>
+							</div>
+						</div>
+					</a>
 				</div>
-				<!-- media-left -->
-				<!-- 
-				<div class="media-body">
-					<br>
-					<h4 class="media-heading">
-						<a href="#">부스 타이틀 타이틀</a>&nbsp;<span class="badge">New</span>
-					</h4>
-					<p>부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명
-						설명 설명</p>
-					<small>하우스/힙합, 댄스, 클럽음악</small>
-				</div>
-				 -->
-				 
 			</div>
 			<!-- media tag end -->
 		</div>
-		<!-- panel-body tag end 첫번째 부스 -->
-		<!-- 첫번째 부스 -->
+		<!-- 2번째 부스 -->
 		<div class="col-sm-3 panel-body" align="center">
-			<div class="media">
+			<div class="work">
 				<div class="media-top">
-					<a href="#"><img id="flip" class="media-object" src="/images/b.jpg"></a>
+					<a href="#"> <img class="media-object media"
+						src="/images/b.jpg">
+						<div class="caption">
+							<div class="work_title">
+								<h1>부스명(db)</h1>
+								</br>
+								<h2>부스소개(db)</h2>
+							</div>
+						</div>
+					</a>
 				</div>
-				<!-- media-left -->
-				
-				<div id="panel" class="media-body">
-					<br>
-					<h4 class="media-heading">
-						<a href="#">부스 타이틀 타이틀</a>&nbsp;<span class="badge">New</span>
-					</h4>
-					<p>부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명
-						설명 설명</p>
-					<small>하우스/힙합, 댄스, 클럽음악</small>
-					
-				</div>
-				
-				 
 			</div>
-			<!-- media -->
-		</div>
-		<!-- panel-body tag end 첫번째 부스 -->
-		<!-- 첫번째 부스 -->
-		<div class="col-sm-3 panel-body" align="center">
-			<div class="media">
-				<div class="media-top">
-					<a href="#"><img class="media-object" src="/images/c.jpg"></a>
-				</div>
-				<!-- media-left -->
-			<!-- 
-				<div class="media-body">
-					<br>
-					<h4 class="media-heading">
-						<a href="#">부스 타이틀 타이틀</a>&nbsp;<span class="badge">New</span>
-					</h4>
-					<p>부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명
-						설명 설명</p>
-					<small>하우스/힙합, 댄스, 클럽음악</small>
-				</div>
-				 -->
-			</div>
-			<!-- media  -->
+			<!-- media tag end -->
 		</div>
 
-
+		<!-- 3번째 부스 -->
 		<div class="col-sm-3 panel-body" align="center">
-			<div class="media">
+			<div class="work">
 				<div class="media-top">
-					<a href="#"><img class="media-object" src="/images/default.png"></a>
-				</div>
-				<!-- media-left -->
-				<!-- 
-					<div class="media-body">
-					<br>
-				
-					<h4 class="media-heading">
-						<a href="#">부스 타이틀 타이틀</a>&nbsp;<span class="badge">New</span>
-					</h4>
-					<p>부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명 설명 설명부스 설명
-						설명 설명</p>
-					<small>하우스/힙합, 댄스, 클럽음악</small>
-					 -->
+					<a href="#"> <img class="media-object media"
+						src="/images/c.jpg">
+						<div class="caption">
+							<div class="work_title">
+								<h1>부스명(db)</h1>
+								</br>
+								<h2>부스소개(db)</h2>
+							</div>
+						</div>
+					</a>
 				</div>
 			</div>
-			<!-- media  -->
+			<!-- media tag end -->
+		</div>
+
+		<!-- 4번째 부스 -->
+		<div class="col-sm-3 panel-body" align="center">
+			<div class="work">
+				<div class="media-top">
+					<a href="#"> <img class="media-object media"
+						src="/images/default.png">
+						<div class="caption">
+							<div class="work_title">
+								<h1>부스명(db)</h1>
+								</br>
+								<h2>부스소개(db)</h2>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<!-- media tag end -->
 		</div>
 
 	</div>
 
-
-	<!-- 페이지 처리 -->
-	<div align="center">
-		<c:if test="${param.page ne 1 }">
-			<a href="/booth/list?page=${param.page -1 }"
-				style="text-decoration: none"> <b style="color: #9c9892;">◀</b>
-			</a>
-		</c:if>
-		<c:forEach var="i" begin="1" end="${size }" varStatus="vs">
-			<c:choose>
-				<c:when test="${i eq param.page }">
-					<b style="color: #ff9800;">${i }</b>
-				</c:when>
-				<c:otherwise>
-					<a href="/booth/list?page=${i }" style="text-decoration: none"><b
-						style="color: #9c9892;">${i }</b></a>
-				</c:otherwise>
-			</c:choose>
-			<c:if test="${!vs.last }"> | </c:if>
-		</c:forEach>
-		<c:if test="${param.page ne last }">▶</c:if>
-	</div>
 </div>
+
+
+<!-- 페이지 처리 -->
+<div align="center">
+	<c:if test="${param.page ne 1 }">
+		<a href="/booth/list?page=${param.page -1 }"
+			style="text-decoration: none"> <b style="color: #9c9892;">◀</b>
+		</a>
+	</c:if>
+	<c:forEach var="i" begin="1" end="${size }" varStatus="vs">
+		<c:choose>
+			<c:when test="${i eq param.page }">
+				<b style="color: #ff9800;">${i }</b>
+			</c:when>
+			<c:otherwise>
+				<a href="/booth/list?page=${i }" style="text-decoration: none"><b
+					style="color: #9c9892;">${i }</b></a>
+			</c:otherwise>
+		</c:choose>
+		<c:if test="${!vs.last }"> | </c:if>
+	</c:forEach>
+	<c:if test="${param.page ne last }">▶</c:if>
+</div>
+
+
+
+
 <script>
 	var list = function() {
 		console.log(document.getElementById("blist").innerHTML);
