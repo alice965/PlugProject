@@ -43,12 +43,14 @@ public class FriendController {
 		Map data=new HashMap();
 		Map pmap = mapper.convertValue(param, Map.class);
 		
-		if(fDao.readOne(param)!=null) {
-			return "redirect:/friend/exist?other="+param.get("other");
-		}else {
-			return "redirect:/friend/add?other="+param.get("other");
+		if(fDao.readOne(param)==null) {
+				return "redirect:/friend/add?other="+param.get("other");
+			} else if(fDao.readOne(param).get("STATUS").equals("req")) {
+				return "redirect:/friend/wait?other="+param.get("other");
+			} else {
+				return "redirect:/friend/exist?other="+param.get("other");
+			}
 		}
-	}
 	@GetMapping("/exist")
 	@RequestMapping(path = "/exist", method = RequestMethod.GET)
 	public String FriendExitGetHanle(Map map, @RequestParam Map param, HttpSession session) {
@@ -57,6 +59,16 @@ public class FriendController {
 		Map data=new HashMap();
 		data=fDao.readOne(param);
 		map.put("data", data);
+		return "t_pop";
+	}
+	@GetMapping("/wait")
+	@RequestMapping(path = "/wait", method = RequestMethod.GET)
+	public String FriendWaitGetHanle(Map map, @RequestParam Map param, HttpSession session) {
+		//param.put("one", session.getAttribute("auth_id") );
+		map.put("section", "friend/wait");
+	//	Map data=new HashMap();
+	//	data=fDao.readOne(param);
+	//	map.put("data", data);
 		return "t_pop";
 	}
 	

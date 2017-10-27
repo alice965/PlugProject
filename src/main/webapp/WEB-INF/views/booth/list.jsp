@@ -46,14 +46,14 @@
                   <td>
                   <!-- 다른 사람 아이디라면 드롭다운  -->
                   <c:choose>
-                     <c:when test="${'${id}' ne '${obj.ID}'}">
+                     <c:when test="${auth_id ne obj.ID}">
                         <div class="dropdown">
                            <div class="dropdown-toggle" data-toggle="dropdown">
                               ${obj.NICKNAME}<span class="caret"></span>
                           </div>
                           <ul class="dropdown-menu">
                              <li><a href="#" class="popFriend">친구추가</a><input type="hidden" value="${obj.ID}"></li>
-                             <li><a href="#">쪽지보내기</a><input type="hidden" value="${obj.ID}"></li>
+                             <li><a href="#" class="popMemo">쪽지보내기</a><input type="hidden" value="${obj.ID}"></li>
                           </ul>
                        </div>
                      </c:when>
@@ -77,7 +77,7 @@
             </tr>
           </c:forEach>
       </tbody>
-   </table>
+   </table><br>
    
    <!-- 페이지 처리 -->
    <div align="center">
@@ -106,4 +106,8 @@
             var url="/friend/check?other="+$(this).next().val();
             window.open(url,"","width=400,height=400,left=200");
    });
+   $(".popMemo").click(function() {
+       var url="/memo/send?other="+$(this).next().val();
+       window.open(url,"","width=600,height=600,left=200");
+});
 </script>
