@@ -107,9 +107,11 @@
 	
 	<!-- Websocket handler -->
 	<bean class="com.plug.dj.controller.ws.BoothWSHandler" id="boothws"/>
+	<bean class="com.plug.dj.controller.ws.ChatWSHandler" id="chatws"/>
 	
 	<websocket:handlers>
 		<websocket:mapping handler="boothws" path="/ws/booth"/>
+		<websocket:mapping handler="chatws" path="/ws/chat"/>
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>

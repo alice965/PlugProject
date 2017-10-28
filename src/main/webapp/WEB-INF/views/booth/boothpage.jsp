@@ -31,33 +31,33 @@
 <div class="row">
 
 	<!-- 왼쪽 영역 (영상 플레이) -->
-	<div class="col-md-9" style="min-height: 65%; background-color: black;">
+	<div class="col-md-8" style="min-height: 65%; background-color: black;">
 		<p>영상이 들어갈 위치</p>
 	</div>
 
 		<!-- 오른쪽 영역 (채팅과 재생목록 -->
-	<div class="col-md-3"  	style="min-height: 65%; min-width: 300px; background-color: #6699ff; border-radius: 2em;">
+	<div class="col-md-4"  	style="min-height: 40%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
 		
 			<!-- 탭 영역 -->
 		  <ul class="nav nav-tabs">
-			    <li class="active"><a data-toggle="tab" href="#chat">채팅창</a></li>
-			    <li><a data-toggle="tab" href="#">채팅참여자</a></li>
-			    <li><a data-toggle="tab" href="#slist">재생목록</a></li>
+			    <li class="active"><a data-toggle="tab" href="#chat" id="chattab">채팅창</a></li>
+			    <li><a data-toggle="tab" href="#people">채팅참여자</a></li>
+			    <li><a data-toggle="tab" href="#plist">재생목록</a></li>
 		  </ul>
 		
+		<!-- 탭  클릭시 펼쳐지는 페이지 -->
 		  <div class="tab-content">
 			    <div id="chat" class="tab-pane fade in active">
+			    	<!-- 채팅 영역 -->
+						<div style="padding:3px; overflow-y:scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size:10pt;" align="left"  id="log">
+						</div>
+						<div id="cnt"></div>
+						<input type="text" id="chat_input_field" style="width:95%;  margin-top: 5px; padding:4px;" placeholder="여기에 메시지를 입력하세요" />
 			    </div>
 		   </div>
-		    </div> <!-- 컨테이너 종료 태그 -->
+	</div> 
    
-	<!-- 채팅 영역 -->
-	<div id="chat"  style="min-width: 300px;">
-		<form class="chat_input_form" >
-			<input id="chat_input_field" type="text" value="" autocomplete="off"
-				placeholder="여기에 메시지를 입력하세요" maxlength="256">
-		</form>
-	</div>
+	
 
 </div> <!-- /row -->
 
@@ -73,4 +73,47 @@
 	<br/></div>	
 </div>
 
-</html>
+
+
+<script>
+	//세션 아이디, 닉네임을 소켓으로 보내기
+	window.onload =function(){
+		
+	}
+	
+	//채팅 영역 웹소켓 부분
+	document.getElementById("chat_input_field").onchange=function(){
+		if(this.value.length != 0){
+			ws.send(this.value);
+			this.value="";
+		}
+	}
+	var ws = new WebSocket("ws://192.168.219.102/ws/chat");
+	
+	ws.onopen = function(e){
+		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
+		ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
+		var obj = JSON.parse(e.data);
+		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt+ " ] 명</small>";
+	}
+	ws.onmessage = function(a){
+		console.log("a : "+a.data);
+		var obj = JSON.parse(a.data);
+			document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt+ " ] 명</small>";
+		if(obj.mode == "join"){
+			var html = obj.user + "채팅방 입장 <br>";
+		}else if(obj.mode =="exit"){
+			var html = "<b>[ "+obj.user+ "]</b>님이 퇴장하셨습니다.<br>" ;
+		}else if(obj.mode=="info"){
+			
+		}
+		else{
+			var html = "<b>[ "+obj.sender+ "]</b>"+obj.msg +"<br>" ;
+		}
+		
+		document.getElementById("log").innerHTML += html;
+		document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
+		
+	}
+	$("#chattab").trigger("click");
+</script>

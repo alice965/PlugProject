@@ -87,4 +87,9 @@ public class BoothController {
 		return mav;
 		}
 	
+//	@RequestMapping({ "boothpage/chat" })
+//	public void chatHandle() {
+//	}
+	
+	
 }
