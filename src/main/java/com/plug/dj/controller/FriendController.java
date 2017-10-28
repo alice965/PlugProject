@@ -32,7 +32,6 @@ public class FriendController {
 	
 	@Autowired
 	com.plug.dj.model.FriendDao fDao; 
-		
 	
 	@GetMapping("/check")
 	@RequestMapping(path = "/check", method = RequestMethod.GET)

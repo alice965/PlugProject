@@ -42,6 +42,14 @@ public class IndexController {
 			mav.addObject("section", "test2");
 		return mav;
 	}
+	
+	@RequestMapping("/modal")
+	public ModelAndView modal2Handle() {
+		ModelAndView mav = new ModelAndView("t_expr");
+			mav.addObject("section", "modal");
+		return mav;
+	}
+
 
 	
 	/*

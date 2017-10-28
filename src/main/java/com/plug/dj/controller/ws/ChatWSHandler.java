@@ -24,6 +24,9 @@ public class ChatWSHandler extends TextWebSocketHandler {
 	@Autowired
 	ObjectMapper mapper;
 	
+	@Autowired
+	com.plug.dj.model.MemberDao mDao; 
+	
 	@PostConstruct //빈 설정 init-method
 	public void chatWSInit() {
 		System.out.println("ChatWsHandler..chatInit");
@@ -31,13 +34,17 @@ public class ChatWSHandler extends TextWebSocketHandler {
 	}
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("afterConnectionEstablished");
-		System.out.println("session??" + session);
+		///////////닉네임 얻어오기 위한  코드/////////////
+		Map<String, Object> sessionWhat = session.getAttributes();
+		String userId=(String)sessionWhat.get("auth_id");
+		
+		Map mmap=mDao.readOneById(userId);
+		String nickname = (String) mmap.get("NICKNAME");
+		////////////닉네임 얻어오기 끝////////////////
+		
 		list.add(session);
-		//커넥션이 생길때 카운트 수만 셈.
 		String json = String.format("{\"mode\":\"join\", \"cnt\":%d ,\"user\" : \"%s\"}", list.size(),
-				"사용자" + session.getId());
-			//System.out.println(json +" at afterConnectionEstablished." );
+				nickname);
 		for(WebSocketSession wss : list) {
 			if(wss != session) {
 				wss.sendMessage(new TextMessage(json));
@@ -47,10 +54,16 @@ public class ChatWSHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		System.out.println("afterConnectionClosed");
+///////////닉네임 얻어오기 위한  코드/////////////
+		Map<String, Object> sessionWhat = session.getAttributes();
+		String userId=(String)sessionWhat.get("auth_id");
+		
+		Map mmap=mDao.readOneById(userId);
+		String nickname = (String) mmap.get("NICKNAME");
+		////////////닉네임 얻어오기 끝////////////////
+		
 		list.remove(session);
-		String json = String.format("{\"mode\":\"exit\", \"cnt\":%d ,\"user\" : \"%s\"}", list.size(),"사용자" + session.getId());
-			//System.out.println(json + " at afterConnectionEstablished.");
+		String json = String.format("{\"mode\":\"exit\", \"cnt\":%d ,\"user\" : \"%s\"}", list.size(), nickname);
 		for (WebSocketSession wss : list) {
 				wss.sendMessage(new TextMessage(json));
 		}
@@ -59,17 +72,21 @@ public class ChatWSHandler extends TextWebSocketHandler {
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println("handleTextMessage");
-		//System.out.println("message?????????" +message);
+		///////////닉네임 얻어오기 위한  코드/////////////
+		Map<String, Object> sessionWhat = session.getAttributes();
+		String userId=(String)sessionWhat.get("auth_id");
+		
+		Map mmap=mDao.readOneById(userId);
+		String nickname = (String) mmap.get("NICKNAME");
+		////////////닉네임 얻어오기 끝////////////////
 		
 		Map map = new HashMap<>();
 		map.put("mode", "chat");
-		map.put("sender", "사용자 :"+session.getId());
+		map.put("sender", nickname);
 		map.put("msg", message.getPayload());
 		map.put("cnt", list.size());
 	
 		String json = mapper.writeValueAsString(map);
-			//System.out.println(json);
 		
 		for(WebSocketSession wss: list) {
 			wss.sendMessage(new TextMessage(json));

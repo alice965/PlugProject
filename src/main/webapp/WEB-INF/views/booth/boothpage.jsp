@@ -152,7 +152,6 @@
 	
 	
 /////// 채팅 영역 스크립트///////
-	//세션 아이디, 닉네임을 소켓으로 보내기
 	
 	//채팅 영역 웹소켓 부분
 	document.getElementById("chat_input_field").onchange=function(){
@@ -161,7 +160,7 @@
 			this.value="";
 		}
 	}
-	var ws = new WebSocket("ws://192.168.123.2/ws/chat");
+	var ws = new WebSocket("ws://192.168.219.102/ws/chat");
 	
 	ws.onopen = function(e){
 		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
@@ -174,7 +173,7 @@
 		var obj = JSON.parse(a.data);
 			document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt+ " ] 명</small>";
 		if(obj.mode == "join"){
-			var html = obj.user + "채팅방 입장 <br>";
+			var html = obj.user + "님께서 채팅방에 입장하셨습니다. <br>";
 		}else if(obj.mode =="exit"){
 			var html = "<b>[ "+obj.user+ "]</b>님이 퇴장하셨습니다.<br>" ;
 		}else if(obj.mode=="info"){
@@ -188,5 +187,6 @@
 		document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
 		
 	}
+	//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
 	$("#chattab").trigger("click");
 </script>
