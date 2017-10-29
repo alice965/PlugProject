@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.io.File;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +30,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class myPlayController {
 	@Autowired
 	com.plug.dj.model.PlayListDao playlistDao; 
+	
+	@Autowired
+	ServletContext application;
+	
+	@Autowired
+	SimpleDateFormat sdf;
 	
 	@RequestMapping("/list")
 	public ModelAndView PlayListHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param, HttpSession session)throws SQLException {
@@ -70,12 +80,44 @@ public class myPlayController {
 	
 	@PostMapping("/add")
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
-	public String PlayAddPostHandle(@RequestParam Map param, @RequestParam String[] genre, ModelMap map, HttpSession session) throws SQLException {
-		//ArrayList 만들고, 아이디를 리스트로 넣고 저장
-		System.out.println(Arrays.toString(genre));
-		param.put("id", session.getAttribute("auth_id") );
+	public String PlayAddPostHandle(@RequestParam Map param, @RequestParam String[] genre, 
+									ModelMap map, HttpSession session,
+									@RequestParam(name ="boothpic") MultipartFile f) throws SQLException {
+		String id = (String) session.getAttribute("auth_id");
+		//세션에서 아이디를 가져와서 파람에 추가
+		param.put("id", id );
+		
+		//리퀘스트 파람으로 장르를 배열로 가져와서 스트링으로 추가
 		param.put("genre", Arrays.toString(genre));
-		System.out.println("param : "+param);
+		
+		//리퀘스트 파람으로 boothpic을 가져와서 파일처리
+		boolean b = false;
+		String fmt = sdf.format(System.currentTimeMillis());
+
+		String fileName = "booth"+id +"_"+ fmt;
+		try {
+			if (f.isEmpty()) throw new Exception();
+			File dst = new File(application.getRealPath("/images/booth"), fileName);
+			f.transferTo(dst);
+			b = !b;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
+		if(param.get("url")==null) {
+			param.put("id", id);
+			param.put("url", "/images/booth/default.jpg");
+		}else {
+			if (b) {
+				param.put("id", id);
+				param.put("url", "/images/booth/" + fileName);
+			}
+		}
+		
+		
+		
+
+		//////기존 플레이리스트 소스 있던거
 		int rst = playlistDao.add(param);
 		if (rst == 1) {
 			map.put("section", "/myplay/list");
@@ -84,6 +126,7 @@ public class myPlayController {
 		map.put("rst1", rst);
 		return "/myplay/add";
 	}
+	
 	
 	@RequestMapping(path="view/{num}")
 	public ModelAndView PlayViewHandle(@PathVariable String num) throws SQLException{
