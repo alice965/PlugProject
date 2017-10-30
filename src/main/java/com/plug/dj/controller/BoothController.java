@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.plug.dj.controller.ws.BoothWSHandler;
+import com.plug.dj.model.VideoDao;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class BoothController {
 	@Autowired
 	com.plug.dj.model.BoothDao BoothDao; 
+	@Autowired
+	VideoDao VideoDao;
+	@Autowired
+	com.plug.dj.model.MemberDao MemberDao;
 	@Autowired
 	BoothWSHandler boothws;
 	
@@ -81,8 +86,19 @@ public class BoothController {
 		Map one=BoothDao.readOne(num);
 		BoothDao.increaseCnt(num);
 		System.out.println("one???"+one);
+		
+		List<Map> video = VideoDao.selectVideoList(num);
+		if(video.size() == 0){ //재생목록이 없을 경우
+			mav.addObject("nolist", "재생목록이 없습니다.");
+			System.out.println("재생목록이 없습니다.");	
+		}else{
+			mav.addObject("video", video);
+			System.out.println("정보 : " + video);
+		}
+		
 		mav.addObject("section", "booth/boothpage");
 		mav.addObject("one", one);
+		
 		
 		return mav;
 		}
