@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="selectVideoList" resultType="java.util.HashMap">
-		select * from videolist where (num=#{num})
+		select * from videolist where (num=#{num}) order by adddate
 	</select>
 	
 </mapper>
