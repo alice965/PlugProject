@@ -53,17 +53,21 @@ document.getElementById("send").onclick = function() {
 		    if (playlistItems) {
 				for(idx in obj.items) {
 					var snippet = obj.items[idx].snippet;
+					if(snippet.thumbnails != null){ //비공개동영상이 아닐경우만.
 						html +=  "<div align=\"left\" class=\"col-lg-5\"><img src=\"" + snippet.thumbnails.medium.url + 
 						"\" style=\"width:100px; height:75px\"></div><div style=\"width:385px; height:130px\" align=\"right\">"
 						+ '<br/>' + idx + ". " + snippet.title + "<br/><br/>" + "채널 아이디 : " + snippet.channelId + "<br/><hr/></div>";
 				
-				html += "동영상 추가하기 : <a href=\"/video/add?video_title=" + snippet.title
-				+ "&video_id=" + snippet.resourceId.videoId 
-				+ "&channel_url=" +  snippet.channelId 
-				+ "&num=" + num + "\">" + "추가하기</a>" + "<hr/>";
-				}	
+					html += "동영상 추가하기 : <a href=\"/video/add?video_title=" + snippet.title
+					+ "&image=" + snippet.thumbnails.medium.url
+					+ "&video_id=" + snippet.resourceId.videoId 
+					+ "&channel_url=" +  snippet.channelId 
+					+ "&num=" + num + "\">" + "추가하기</a>" + "<hr/>";
+					}	
 				
 				document.getElementById("video-container").innerHTML = html;
+				}
+				
 		    } else {
 		      $('#video-container').html('Sorry you have no uploaded videos');
 		    }

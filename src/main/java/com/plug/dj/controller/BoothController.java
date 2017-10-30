@@ -31,7 +31,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class BoothController {
 	@Autowired
 	com.plug.dj.model.BoothDao BoothDao; 
+	@Autowired
 	VideoDao VideoDao;
+	@Autowired
+	com.plug.dj.model.MemberDao MemberDao;
 	@Autowired
 	BoothWSHandler boothws;
 	
@@ -83,13 +86,19 @@ public class BoothController {
 		Map one=BoothDao.readOne(num);
 		BoothDao.increaseCnt(num);
 		System.out.println("one???"+one);
-		System.out.println(Integer.parseInt(num));
-		HashMap video = VideoDao.selectVideoList(Integer.parseInt(num));
-		System.out.println(video);
+		
+		List<Map> video = VideoDao.selectVideoList(num);
+		if(video.size() == 0){ //재생목록이 없을 경우
+			mav.addObject("nolist", "재생목록이 없습니다.");
+			System.out.println("재생목록이 없습니다.");	
+		}else{
+			mav.addObject("video", video);
+			System.out.println("정보 : " + video);
+		}
 		
 		mav.addObject("section", "booth/boothpage");
 		mav.addObject("one", one);
-		mav.addObject("video", video);
+		
 		
 		return mav;
 		}

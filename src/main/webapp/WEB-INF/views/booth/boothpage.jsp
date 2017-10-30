@@ -61,10 +61,26 @@
                 </ul>
                 </div>
                 
-                <!-- 재생목록 갖고오기 -->
-                <c:forEach var="i" items="${video}" varStatus="vs">
-                	제목 : "${i.video_title }"<br/>
-                </c:forEach>
+                <!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
+				<c:if test="${!empty nolist }"> 
+				<b style="color: red">재생목록이 없습니다.</b><br/>
+				</c:if>
+				<c:if test="${!empty video }">
+				<c:forEach var="obj" items="${video }">
+				<div align="left" class="col-lg-5">
+				<img src="${obj.IMAGE}"  style="width:80px; height:55px"> 	
+				</div>
+				<div style="width:500px; height:130px" align="right">	
+						${obj.VIDEO_TITLE} <br/>
+						추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br/>
+						추가한 날짜 : ${obj.ADDDATE } <br/>
+				</div>
+						<hr/>
+				</c:forEach>
+				</c:if>
+				<!-- 재생목록 갖고오기 : 재생목록 있을 경우 -->
+
+				
 			    </div>
 		   </div>
 </div> <!-- 컨테이너 종료 태그 -->

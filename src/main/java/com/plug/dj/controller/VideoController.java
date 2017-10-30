@@ -1,6 +1,7 @@
 package com.plug.dj.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,10 @@ import com.plug.dj.model.VideoDao;
 public class VideoController {
 	@Autowired
 	VideoDao VideoDao;
+	@Autowired
 	BoothDao BoothDao;
+	@Autowired
+	com.plug.dj.model.MemberDao MemberDao;
 	
 	@RequestMapping(path="/playlist/{num}")
 	public ModelAndView PlaylistHandle(@PathVariable String num) throws SQLException{
@@ -64,10 +68,13 @@ public class VideoController {
 	@GetMapping("/add") //링크로 바로 들어가면 get
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public String test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
-		//MAP으로 전달되는 것들 : VIDEO_TITLE, VIDEO_ID, CHANNER_URL (NUM :방의 NUM은 나중에..)
-		//추가로 지정해야 되는 것들 : ADD_ID
+		//MAP으로 전달되는 것들 : VIDEO_TITLE, VIDEO_ID, CHANNER_URL, IMAGE, NUM :방의 NUM
+		//추가로 지정해야 되는 것들 : ADD_ID (추가한 사람의 닉네임)
 		try {
 			map.put("add_id", session.getAttribute("auth_id"));
+			//닉네임
+			HashMap u = MemberDao.readOneById((String)map.get("add_id"));
+			map.put("add_nickname", u.get("NICKNAME")); //대소문자 구분하기!
 			System.out.println("비디오 추가 : " + map);
 			VideoDao.addVideo(map);
 			return "redirect:/video/playlist";
