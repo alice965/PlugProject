@@ -1,5 +1,6 @@
 package com.plug.dj.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,5 +16,9 @@ public class VideoDao {
 	public boolean addVideo(Map map) { //join
 		sql.insert("video.addVideo", map);
 		return true;
+	}
+	
+	public HashMap selectVideoList(int num) {
+		return sql.selectOne("video.selectVideoList", num);
 	}
 }

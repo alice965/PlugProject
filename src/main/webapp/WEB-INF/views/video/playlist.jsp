@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <div class="container">
     	<div class="row">
@@ -11,6 +13,8 @@
 			3. 아래 입력 창에 붙여넣기 합니다.<br/>
 			※최대 50개의 최신 동영상을 불러올 수 있습니다.</h5>
 			<input type="text" id="playlist" placeholder="재생목록 아이디 입력..">
+			<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
+			<input type="text" id="num" placeholder="${num }" value="${num }">
 			<button id="send">재생목록 뽑기</button>
 			<h3>가져온 재생목록</h3>
 			<div class="col-lg-8" id="video-container">
@@ -32,8 +36,10 @@
 <script>
 var playlistId;
 var count;
+var num;
 
 document.getElementById("send").onclick = function() {
+	num = document.getElementById("num").value;
 	var playlist = document.getElementById("playlist").value;
 	var xhr = new XMLHttpRequest();
 	xhr.open("get", "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlist+
@@ -53,7 +59,8 @@ document.getElementById("send").onclick = function() {
 				
 				html += "동영상 추가하기 : <a href=\"/video/add?video_title=" + snippet.title
 				+ "&video_id=" + snippet.resourceId.videoId 
-				+ "&channel_url=" +  snippet.channelId + "\">" + "추가하기</a>" + "<hr/>";
+				+ "&channel_url=" +  snippet.channelId 
+				+ "&num=" + num + "\">" + "추가하기</a>" + "<hr/>";
 				}	
 				
 				document.getElementById("video-container").innerHTML = html;

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!--부스 타이틀 영역  -->
 <div style="background-color: #6699ff;">
@@ -21,7 +23,7 @@
 					<i class="fa fa-users fa-lg" aria-hidden="true" style="font-size:30px;color:gray;"></i> 
 					${one.COUNT }
 				</h4>
-			</div>
+			</div>	
 		</div>
 		
 	</div>
@@ -45,11 +47,27 @@
 			    <li><a data-toggle="tab" href="#slist">재생목록</a></li>
 		  </ul>
 		
+		<!-- 재생목록 -->
 		  <div class="tab-content">
-			    <div id="chat" class="tab-pane fade in active">
+			    <div id="playlist" class="tab-pane fade in active">
+			    <div class="dropdown">
+                <div class="dropdown-toggle" data-toggle="dropdown">
+                	재생목록 추가하기<span class="caret"></span>
+                </div>
+                <ul class="dropdown-menu">
+                <li><a href="#" class="popFriend">제목으로 갖고오기</a><input type="hidden"></li>
+                <li><a href="/video/playlist/${one.NUM }" class="popMemo">채널에서 갖고오기</a><input type="hidden"></li>
+                <li><a href="#" class="popMemo">재생목록 갖고오기</a><input type="hidden"></li>
+                </ul>
+                </div>
+                
+                <!-- 재생목록 갖고오기 -->
+                <c:forEach var="i" items="${video}" varStatus="vs">
+                	제목 : "${i.video_title }"<br/>
+                </c:forEach>
 			    </div>
 		   </div>
-		    </div> <!-- 컨테이너 종료 태그 -->
+</div> <!-- 컨테이너 종료 태그 -->
    
 	<!-- 채팅 영역 -->
 	<div id="chat"  style="min-width: 300px;">
