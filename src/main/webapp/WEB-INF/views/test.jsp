@@ -23,7 +23,7 @@ function fnGetList(sGetToken){
 		return;
 	}
 	$("#get_view").empty();
-	$("#nav_view").empty()
+	$("#nav_view").empty();
 
 
 	var sTargetUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance"

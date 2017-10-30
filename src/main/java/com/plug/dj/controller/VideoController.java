@@ -30,15 +30,15 @@ public class VideoController {
 	@Autowired
 	com.plug.dj.model.MemberDao MemberDao;
 	
-	@RequestMapping(path="/playlist/{num}")
-	public ModelAndView PlaylistHandle(@PathVariable String num) throws SQLException{
-		ModelAndView mav = new ModelAndView("t_expr");
-		System.out.println(num);
-		mav.addObject("section", "video/playlist");
-		mav.addObject("num", num);
-		
-		return mav;
-		}
+	//@RequestMapping(path="/playlist/{num}")
+	//public ModelAndView PlaylistHandle(@PathVariable String num) throws SQLException{
+	//	ModelAndView mav = new ModelAndView("t_expr");
+	//	System.out.println(num);
+	//	mav.addObject("section", "video/playlist");
+	//	mav.addObject("num", num);
+	
+	//	return mav;
+	//	}
 	
 	//@GetMapping("/playlist/{num}")
 	//public String PlayEditGetHanle(Model model, @PathVariable String num ) {
@@ -58,12 +58,12 @@ public class VideoController {
 	//	}
 	
 	//방에서 바로 온 것이 아닐 경우..?
-	@GetMapping("/playlist")
-	public ModelAndView playlistHandle() {
-		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "video/playlist");
-		return mav;
-	}
+	//@GetMapping("/playlist")
+	//public ModelAndView playlistHandle() {
+	//	ModelAndView mav = new ModelAndView("t_expr");
+	//		mav.addObject("section", "video/playlist");
+	//	return mav;
+	//}
 	
 	@GetMapping("/add") //링크로 바로 들어가면 get
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
@@ -77,7 +77,7 @@ public class VideoController {
 			map.put("add_nickname", u.get("NICKNAME")); //대소문자 구분하기!
 			System.out.println("비디오 추가 : " + map);
 			VideoDao.addVideo(map);
-			return "redirect:/video/playlist";
+			return "redirect:/booth/boothpage/" + map.get("num");
 		} catch (Exception e) {
 			//이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
 			e.printStackTrace();

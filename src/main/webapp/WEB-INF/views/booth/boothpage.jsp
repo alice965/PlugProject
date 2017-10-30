@@ -1,31 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!--부스 타이틀 영역  -->
 <div style="background-color: #6699ff;">
-	<div id="booth_name"><h2>${one.TITLE }</h2></div>
+	<div id="booth_name">
+		<h2>${one.TITLE }</h2>
+	</div>
 	<div id="booth_info">
 		<div class="row">
 
 			<!-- 방장 닉네임 -->
-			<div class="col-md-2"> 
-				<h4>&nbsp;
-					<i class="fa fa-headphones fa-lg" aria-hidden="true" style="font-size:30px;color:gray;"></i> 
-					${one.NICKNAME }
+			<div class="col-md-2">
+				<h4>
+					&nbsp; <i class="fa fa-headphones fa-lg" aria-hidden="true"
+						style="font-size: 30px; color: gray;"></i> ${one.NICKNAME }
 				</h4>
 			</div>
 			<!-- 참여자 수 -->
 			<div class="col-md-2">
-				<h4>&nbsp;
-					<i class="fa fa-users fa-lg" aria-hidden="true" style="font-size:30px;color:gray;"></i> 
-					${one.COUNT }
+				<h4>
+					&nbsp; <i class="fa fa-users fa-lg" aria-hidden="true"
+						style="font-size: 30px; color: gray;"></i> ${one.COUNT }
 				</h4>
-			</div>	
+			</div>
 		</div>
-		
+
 	</div>
 </div>
 
@@ -38,118 +40,356 @@
 	</div>
 
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
-	<div class="col-md-4"  	style="min-height: 40%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
+	<div class="col-md-4"
+		style="min-height: 40%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
 		<!-- 탭 영역 -->
 		<ul class="nav nav-tabs">
-			  <li class="active"><a data-toggle="tab" href="#chat" id="chattab">채팅창</a></li>
-			  <li><a data-toggle="tab" href="#plist">재생목록</a></li>
+			<li class="active"><a data-toggle="tab" href="#chat"
+				id="chattab">채팅창</a></li>
+			<li><a data-toggle="tab" href="#vlist">재생목록</a></li>
 		</ul>
-		
-	<!-- 탭  클릭시 펼쳐지는 페이지 -->
-	<div class="tab-content">
-	<!-- 채팅 영역 -->
-		<div id="chat" class="tab-pane fade in active">
-			<div id="log" style="padding:3px; overflow-y:scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size:10pt;" align="left">
-			</div>
-			<div id="cnt"></div>
-			<input type="text" id="chat_input_field" style="width:95%;  margin-top: 5px; padding:4px;" placeholder="여기에 메시지를 입력하세요" />
-		</div> <!-- /chat -->
 
-		
-		<!-- 재생목록 -->
-		<div id="plist" class="tab-pane fade in active" >
-		<div id="playlist" style="padding:3px; overflow-y:scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size:10pt;" align="center">
-						
-			<div class="tab-content">
-			<div id="playlist" class="tab-pane fade in active">
-			    <div class="dropdown" >
-                <div class="dropdown-toggle" data-toggle="dropdown">
-                	<h4><b>재생목록 추가하기<span class="caret"></span></b></h4>
-                </div>
-                
-                <ul class="dropdown-menu" style="left:33%;">
-                <li><a href="#" class="popFriend">제목으로 갖고오기</a
-                ><input type="hidden"></li>
-                <li><a href="/video/playlist/${one.NUM }" class="popMemo">채널에서 갖고오기</a><input type="hidden"></li>
-                <li><a href="#" class="popMemo">재생목록 갖고오기</a><input type="hidden"></li>
-                </ul>
-                </div>
-            </div>
-            </div>
-              <hr/>  
-                
-                <!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
-				<c:if test="${!empty nolist }"> 
-				<b style="color: red">재생목록이 없습니다.</b><br/>
-				</c:if>
-				<c:if test="${!empty video }">
-				<c:forEach var="obj" items="${video }">
-				<div align="left" class="col-lg-3">
-				<img src="${obj.IMAGE}"  style="width:80px; height:55px"> 	
+		<!-- 탭  클릭시 펼쳐지는 페이지 -->
+		<div class="tab-content">
+			<!-- 채팅 영역 -->
+			<div id="chat" class="tab-pane fade in active">
+				<div id="log"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size: 10pt;"
+					align="left"></div>
+				<div id="cnt"></div>
+				<input type="text" id="chat_input_field"
+					style="width: 95%; margin-top: 5px; padding: 4px;"
+					placeholder="여기에 메시지를 입력하세요" />
+			</div>
+			<!-- /chat -->
+
+
+			<!-- 재생목록 -->
+			<div id="vlist" class="tab-pane fade in active">
+				<div id="videolist"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size: 10pt;"
+					align="center">
+
+					<div class="tab-content">
+						<div id="videolist" class="tab-pane fade in active">
+							<div class="dropdown">
+								<div class="dropdown-toggle" data-toggle="dropdown">
+									<h4>
+										<b>재생목록 추가하기<span class="caret"></span></b>
+									</h4>
+								</div>
+
+								<ul class="dropdown-menu" style="left: 33%;">
+									<li><a class="btn btn-default" data-target="#modal-1"
+										data-toggle="modal">키워드로 갖고오기</a><input type="hidden"></li>
+									<li><a class="btn btn-default" data-target="#modal-2"
+										data-toggle="modal">재생목록 갖고오기</a><input type="hidden"></li>
+									<li><a class="btn btn-default" data-target="#modal-3"
+										data-toggle="modal">채널에서 갖고오기</a><input type="hidden"></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<hr />
+
+					<!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
+					<c:if test="${!empty nolist }">
+						<b style="color: red">재생목록이 없습니다.</b>
+						<br />
+					</c:if>
+					<!-- 재생목록 갖고오기 : 재생목록 있을 경우 -->
+					<c:if test="${!empty video }">
+						<c:forEach var="obj" items="${video }">
+							<div class="row">
+								<div align="left" class="col-xs-3">
+									<!-- xs가 제일 작은 사이즈. -->
+									<img src="${obj.IMAGE}" style="width: 100px; height: 65px">
+								</div>
+								<div class="col-xs-9" align="left">
+									${obj.VIDEO_TITLE} <br /> 추가한 사람 : ${obj.ADD_ID }
+									(${obj.ADD_NICKNAME }) <br /> 추가한 날짜 :
+									<fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+									<br />
+								</div>
+							</div>
+							<hr />
+						</c:forEach>
+					</c:if>
 				</div>
-				<div style="width:380px; height:55px" align="right">	
-						${obj.VIDEO_TITLE} <br/>
-						추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br/>
-						추가한 날짜 : <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
-						  <br/>
+			</div>
+		</div>
+	</div>
+	<!-- 컨테이너 종료 태그 -->
+
+	<!-- modal2 -->
+	<div class="modal fade" id="modal-2" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content"
+				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">재생목록에서 갖고오기</h3>
 				</div>
-						<hr/>
-				</c:forEach>
-				</c:if>
-				<!-- 재생목록 갖고오기 : 재생목록 있을 경우 -->
+
+				<div class="modal-body">
+					<div class="well">
+						<h4>
+							<b>HOW TO USE?</b><br />
+						</h4>
+						<h6>
+							1. 원하는 채널의 재생목록에 들어갑니다.<br /> 2. 재생목록의 src값을 복사합니다.<br /> 3. 아래
+							입력 창에 붙여넣기 합니다.<br /> ※최대 50개의 재생목록 동영상을 불러올 수 있습니다.
+						</h6>
+						<input type="text" id="playlist" placeholder="재생목록 아이디 입력..">
+						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
+						<input type="text" id="num2" placeholder="${num }" value="${num }"
+							style="width: 100px" disabled>
+						<button id="send2">재생목록 뽑기</button>
+					</div>
+					<div class="well">
+						<h4>LIST</h4>
+						<div id="video-container2"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
 		</div>
+	</div>
+	<!-- modal2종료 -->
+
+	<!-- modal3 -->
+	<div class="modal fade" id="modal-3" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content"
+				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">채널에서 갖고오기</h3>
+				</div>
+
+				<div class="modal-body">
+					<div class="well">
+						<h4>
+							<b>HOW TO USE?</b><br />
+						</h4>
+						<h6>
+							1. 원하는 채널에 들어갑니다.<br /> 주소창에서 https://www.youtube.com/channel/
+							뒤에 있는 아이디값을 복사합니다.<br /> 3. 아래 입력 창에 붙여넣기 합니다.<br /> ※최대 50개의
+							재생목록 동영상을 불러올 수 있습니다.
+						</h6>
+						<input type="text" id="channelId" placeholder="채널 아이디 입력..">
+						<input type="text" id="num3" placeholder="${num }" value="${num }"
+							style="width: 100px" disabled>
+						<button id="send3">재생목록 뽑기</button>
+					</div>
+					<div class="well">
+						<h4>LIST</h4>
+						<div id="video-container3"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
 		</div>
-	</div>		
-	</div> <!-- 컨테이너 종료 태그 -->
-</div> <!-- row종료 태그 -->
-   
+	</div>
+	<!-- modal2종료 -->
+</div>
+<!-- row종료 태그 -->
+
+
+
+
+
 
 <!-- 하단 좋아요 싫어요 부분 -->
-<div style="background-color:yellow">
-	<div id="like" class="col-md-3" style="border-radius: 2em; background-color:#66ff99;"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>좋아요<br></div>
-	<div id="book" class="col-md-3" style="border-radius: 2em; background-color:#ffcc66;"><i class="fa fa-star-o" aria-hidden="true"></i>북마크<br></div>
-	<div id="dislike" class="col-md-3" style="border-radius: 2em; background-color:#ff0066;"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br></div>
-	<div id="watingroom" class="col-md-3" style="background-color: #cc66ff; border-radius: 2em;">대기열넣을곳
-	<br/></div>	
+<div style="background-color: yellow">
+	<div id="like" class="col-md-3"
+		style="border-radius: 2em; background-color: #66ff99;">
+		<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>좋아요<br>
+	</div>
+	<div id="book" class="col-md-3"
+		style="border-radius: 2em; background-color: #ffcc66;">
+		<i class="fa fa-star-o" aria-hidden="true"></i>북마크<br>
+	</div>
+	<div id="dislike" class="col-md-3"
+		style="border-radius: 2em; background-color: #ff0066;">
+		<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br>
+	</div>
+	<div id="watingroom" class="col-md-3"
+		style="background-color: #cc66ff; border-radius: 2em;">
+		대기열넣을곳 <br />
+	</div>
 </div>
-	
+
 <script>
-/////// 채팅 영역 스크립트///////
-	
+	/////// 채팅 영역 스크립트///////
+
 	//채팅 영역 웹소켓 부분
-	document.getElementById("chat_input_field").onchange=function(){
-		if(this.value.length != 0){
+	document.getElementById("chat_input_field").onchange = function() {
+		if (this.value.length != 0) {
 			ws.send(this.value);
-			this.value="";
+			this.value = "";
 		}
 	}
-	var ws = new WebSocket("ws://192.168.219.102/ws/chat");
-	
-	ws.onopen = function(e){
+	var ws = new WebSocket("ws://192.168.10.81/ws/chat");
+
+	ws.onopen = function(e) {
 		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
 		//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
 		var obj = JSON.parse(e.data);
-		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt+ " ] 명</small>";
+		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
+				+ " ] 명</small>";
 	}
-	ws.onmessage = function(a){
-		console.log("a : "+a.data);
+	ws.onmessage = function(a) {
+		console.log("a : " + a.data);
 		var obj = JSON.parse(a.data);
-			document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt+ " ] 명</small>";
-		if(obj.mode == "join"){
+		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
+				+ " ] 명</small>";
+		if (obj.mode == "join") {
 			var html = obj.user + "님께서 채팅방에 입장하셨습니다. <br>";
-		}else if(obj.mode =="exit"){
-			var html = "<b>[ "+obj.user+ "]</b>님이 퇴장하셨습니다.<br>" ;
-		}else if(obj.mode=="info"){
-			
+		} else if (obj.mode == "exit") {
+			var html = "<b>[ " + obj.user + "]</b>님이 퇴장하셨습니다.<br>";
+		} else if (obj.mode == "info") {
+
+		} else {
+			var html = "<b>[ " + obj.sender + "]</b>" + obj.msg + "<br>";
 		}
-		else{
-			var html = "<b>[ "+obj.sender+ "]</b>"+obj.msg +"<br>" ;
-		}
-		
+
 		document.getElementById("log").innerHTML += html;
-		document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
-		
+		document.getElementById("log").scrollTop = document
+				.getElementById("log").scrollHeight;
+
 	}
 	//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
 	$("#chattab").trigger("click");
+
+	//재생목록에서 갖고오기===================================================================================================
+	document.getElementById("send2").onclick = function() {
+		var num = document.getElementById("num2").value;
+		var playlist = document.getElementById("playlist").value;
+		var xhr = new XMLHttpRequest();
+		xhr
+				.open(
+						"get",
+						"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
+								+ playlist
+								+ "&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I&maxResults=50",
+						true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4) {
+				var obj = JSON.parse(this.responseText);
+				var playlistItems = obj.items;
+				var html = "";
+				if (playlistItems) {
+					for (idx in obj.items) {
+						var snippet = obj.items[idx].snippet;
+						if (snippet.thumbnails != null) { //비공개동영상이 아닐경우만.
+							//row가 한줄 한줄_img로 한 줄 한 줄 / xs가 제일 작은 사이즈(합이 12)
+							html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">"
+									+ idx
+									+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"" + snippet.thumbnails.medium.url + 
+						"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">"
+									+ '<br/>' + snippet.title + "<br/>";
+
+							html += "동영상 추가하기 : <a href=\"/video/add?video_title="
+									+ snippet.title
+									+ "&image="
+									+ snippet.thumbnails.medium.url
+									+ "&video_id="
+									+ snippet.resourceId.videoId
+									+ "&channel_url="
+									+ snippet.channelId
+									+ "&num="
+									+ num
+									+ "\">"
+									+ "추가하기</a>"
+									+ "<hr/></div></div>";
+						}
+
+						document.getElementById("video-container2").innerHTML = html;
+					}
+
+				} else {
+					$('#video-container2').html(
+							'Sorry you have no uploaded videos');
+				}
+			}
+		}
+	}
+
+	//채널에서 갖고오기===================================================================================================
+	document.getElementById("send3").onclick = function() {
+		var num = document.getElementById("num3").value;
+		var channelId = document.getElementById("channelId").value;
+		var xhr = new XMLHttpRequest();
+		xhr.open("get",
+				"https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id="
+						+ channelId
+						+ "&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I", true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4) {
+				var obj = JSON.parse(this.responseText); //채널아이디에서 playlistId값 얻어오기
+				var playlistId = obj.items[0].contentDetails.relatedPlaylists.uploads;		
+				var xhr2 = new XMLHttpRequest();
+				//console.log(playlistId);
+				xhr2.open(
+						"get",
+						"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
+								+ playlistId
+								+ "&maxResults=50&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I",
+						true);
+				xhr2.send();
+				xhr2.onreadystatechange = function() {
+					if (this.readyState == 4) {
+						var obj2 = JSON.parse(this.responseText);
+						var playlistItems = obj2.items;
+						var html = "";
+						if (playlistItems) {
+							for (idx in obj2.items) {
+								var snippet = obj2.items[idx].snippet;
+								if (snippet.thumbnails != null) { //비공개동영상이 아닐경우만.
+									//row가 한줄 한줄_img로 한 줄 한 줄 / xs가 제일 작은 사이즈(합이 12)
+									html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">"
+											+ idx
+											+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"" + snippet.thumbnails.medium.url + 
+								"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">"
+											+ '<br/>' + snippet.title + "<br/>";
+
+									html += "동영상 추가하기 : <a href=\"/video/add?video_title="
+											+ snippet.title
+											+ "&image="
+											+ snippet.thumbnails.medium.url
+											+ "&video_id="
+											+ snippet.resourceId.videoId
+											+ "&channel_url="
+											+ snippet.channelId
+											+ "&num="
+											+ num
+											+ "\">"
+											+ "추가하기</a>"
+											+ "<hr/></div></div>";
+								}
+
+								document.getElementById("video-container3").innerHTML = html;
+							}
+
+						} else {
+							$('#video-container3').html(
+									'Sorry you have no uploaded videos');
+						}
+					}
+				}
+
+			}
+		}
+	}
 </script>
