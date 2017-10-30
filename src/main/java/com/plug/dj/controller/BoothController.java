@@ -33,6 +33,16 @@ public class BoothController {
 	@Autowired
 	BoothWSHandler boothws;
 	
+	@RequestMapping("/boothmain")
+	public ModelAndView BoothMainHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param) throws SQLException{
+		ModelAndView mav = new ModelAndView("t_expr");
+		List<Map> list = BoothDao.listAll();
+		mav.addObject("section", "booth/boothmain");
+		mav.addObject("list", list);
+		mav.addObject("cnt", list.size());
+		return mav;
+		}
+	
 	@RequestMapping(path="view")
 	public ModelAndView BoothViewHandle(WebSocketSession session) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
@@ -86,10 +96,6 @@ public class BoothController {
 		
 		return mav;
 		}
-	
-//	@RequestMapping({ "boothpage/chat" })
-//	public void chatHandle() {
-//	}
 	
 	
 }
