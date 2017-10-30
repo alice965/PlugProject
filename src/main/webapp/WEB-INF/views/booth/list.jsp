@@ -16,6 +16,7 @@
    <div class="col-xs-7">
       총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
    </div>
+   
    <div class="col-xs-3">
       <input class="form-control" type="text" size="20" id="search">
    </div>
