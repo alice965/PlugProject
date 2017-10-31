@@ -3,51 +3,51 @@
 
 <form name="form1" method="post" onSubmit="return false;">
 		<input type="text" id="search_box"><button onClick="fnGetList();">가져오기</button>
-	</form>
-	<div id="get_view"></div>
-	<div id="nav_view"></div>
+</form>
+<div id="get_view"></div>
 
 
 <script>
-
-$( "#search_box" ).keyup(function() {
-	fnGetList()
-	});
-
-
-function fnGetList(sGetToken){
+function fnGetList(){
 	var $getval = $("#search_box").val();
 	if($getval==""){
 		alert("검색어를 입력하세요.");
 		$("#search_box").focus();
 		return;
 	}
-	$("#get_view").empty();
-	$("#nav_view").empty()
+	$("#video-container1").empty();
 
+var TargetUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance"
+	+ "&q="+ encodeURIComponent($getval) +"&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I&maxResults=50";
 
-	var sTargetUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance"
-						+ "&q="+ encodeURIComponent($getval) +"&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I";
-	if(sGetToken){
-		sTargetUrl += "&pageToken="+sGetToken;
-	}
-	$.ajax({
-		type: "POST",
-		url: sTargetUrl,
-		dataType: "jsonp",
-		success: function(jdata) {
-			console.log(jdata);
-
-			$(jdata.items).each(function(i){
-				//console.log(this.snippet.channelId);
-				$("#get_view").append("<p class='box'><a href='https://youtu.be/"+this.id.videoId+"' target='_blank'><img src='"+this.snippet.thumbnails.default.url+"'><span>"+this.snippet.title+"</span></a></p>");
-			}).promise().done(function(){
-				if(jdata.prevPageToken){
-					$("#nav_view").append("<a href='javascript:fnGetList(\""+jdata.prevPageToken+"\");'><이전페이지></a>");
-				}
-				if(jdata.nextPageToken){
-					$("#nav_view").append("<a href='javascript:fnGetList(\""+jdata.nextPageToken+"\");'><다음페이지></a>");
-				}
+$.ajax({
+	type: "POST",
+	url: TargetUrl,
+	dataType: "jsonp",
+	success: function(jdata) {
+		//console.log(jdata);
+		var html = "";
+		$(jdata.items).each(function(i){ //items반복문으로 돔.
+				html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">"
+					+ i
+					+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"" + this.snippet.thumbnails.medium.url + 
+		"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">"
+					+ '<br/>' + this.snippet.title + "<br/>";
+				
+					html += "동영상 추가하기 : <a href=\"/video/add?video_title="
+						+ this.snippet.title
+						+ "&image="
+						+ this.snippet.thumbnails.medium.url
+						+ "&video_id="
+						+ this.id.videoId
+						+ "&channel_url="
+						+ this.snippet.channelId
+						//+ "&num="
+						//+ num
+						+ "\">"
+						+ "추가하기</a>"
+						+ "<hr/></div></div>";	
+					document.getElementById("get_view").innerHTML = html;
 			});
 		},
 		error:function(xhr, textStatus) {
