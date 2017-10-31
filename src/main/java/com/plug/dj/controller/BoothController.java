@@ -49,6 +49,7 @@ public class BoothController {
 		List<Map> list = BoothDao.listAll();				
 		mav.addObject("section", "booth/boothmain");
 		mav.addObject("list", list);
+		System.out.println("list!!" + list);
 		mav.addObject("cnt", list.size());
 		
 		
@@ -57,6 +58,7 @@ public class BoothController {
 			System.out.println("listInterest!!" + listInterest);
 		mav.addObject("interest", listInterest);
 		mav.addObject("cntint", listInterest.size());
+		
 		return mav;
 		}
 	

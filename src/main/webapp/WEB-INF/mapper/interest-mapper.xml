@@ -8,9 +8,10 @@
 		insert into interest values(interest_seq.nextval, #{userid}, #{bthnum}, sysdate)
 	</insert>
 	<select id="listInterest" resultType="java.util.HashMap">
-		select b.*, a.* from
-(select i.* ,m.id, m.nickname from interest i join member m on i.userid=m.id) a
-join booth b on a.bthnum=b.num where a.userid=#{id}
+		select inst.*, m.nickname, m.id from
+(select i.*, b.* from interest i 
+        join booth b on b.num=i.bthnum where i.userid=#{userid})inst
+join member m on inst.id=m.id
 	</select>
 	<delete id="delete"> 
 		delete from interest where no=#{no} 
