@@ -59,10 +59,78 @@ public class MyController {
 			memberDao.updateOneDetail(map);
 			return "redirect:/my/profile";
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();	
 			return "t_expr";
 		}
 	}
+	
+	
+
+	@GetMapping("/mybooth")
+	public ModelAndView BoothHandle(HttpSession session, Model model) {
+		String id=(String) session.getAttribute("auth_id");
+		Map profilelist = memberDao.readLatestProfileById(id);
+		ModelAndView mav = new ModelAndView("t_expr");
+		mav.addObject("section", "/my/mybooth");
+		mav.addObject("profile", profilelist);
+		System.out.println("profilelist : " + profilelist);
+
+		return mav;
+	}
+
+	@PostMapping("/mybooth")
+	public String BoothPostHandle(@RequestParam Map map, HttpSession session, Model model) {
+		try {
+			String id = (String) session.getAttribute("auth_id");
+			//null설정해주기 위해서 map에서 get해서 따로 저장해주기.
+			String gender = (String)map.get("gender");
+			String[] genre = (String[]) map.get("genre");
+			System.out.println(Arrays.toString(genre));
+			map.put("id", id);
+			map.put("gender", gender);
+			map.put("genre", Arrays.toString(genre));
+			System.out.println(map);
+			memberDao.updateOneDetail(map);
+			return "redirect:/my/mybooth";
+		} catch (Exception e) {
+			e.printStackTrace();	
+			return "t_expr";
+		}
+	}
+	
+	@GetMapping("/alarm")
+	public ModelAndView AlarmHandle(HttpSession session, Model model) {
+		String id=(String) session.getAttribute("auth_id");
+		Map profilelist = memberDao.readLatestProfileById(id);
+		ModelAndView mav = new ModelAndView("t_expr");
+		mav.addObject("section", "/my/alarm");
+		mav.addObject("profile", profilelist);
+		System.out.println("profilelist : " + profilelist);
+
+		return mav;
+	}
+
+	@PostMapping("/alarm")
+	public String AlarmPostHandle(@RequestParam Map map, HttpSession session, Model model) {
+		try {
+			String id = (String) session.getAttribute("auth_id");
+			//null설정해주기 위해서 map에서 get해서 따로 저장해주기.
+			String gender = (String)map.get("gender");
+			String[] genre = (String[]) map.get("genre");
+			System.out.println(Arrays.toString(genre));
+			map.put("id", id);
+			map.put("gender", gender);
+			map.put("genre", Arrays.toString(genre));
+			System.out.println(map);
+			memberDao.updateOneDetail(map);
+			return "redirect:/myalarm";
+		} catch (Exception e) {
+			e.printStackTrace();	
+			return "t_expr";
+		}
+	}
+	
+	
 	
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/pic_update")

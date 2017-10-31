@@ -59,6 +59,7 @@
 
 </style>
 	
+	
 	<header>
 		<t:insertAttribute name="header" />
 	</header>
