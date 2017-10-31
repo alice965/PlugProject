@@ -107,7 +107,7 @@
             window.open(url,"","width=400,height=400,left=200");
    });
    $(".popMemo").click(function() {
-       var url="/memo/send?other="+$(this).next().val();
+       var url="/memo/send?receiver="+$(this).next().val();
        window.open(url,"","width=600,height=600,left=200");
 });
 </script>

@@ -25,10 +25,25 @@ public class MemoController {
 		map.put("section", "memo/send");
 		return "t_pop";
 	}
-	
-
 	@PostMapping("/send")
 	public String addPost(@RequestParam Map param, Map model, HttpSession session) {
+		try {
+			param.put("sender", session.getAttribute("auth_id"));
+			int r = memoDao.addNewMemo(param);
+		} catch (Exception e) {
+		}
+		model.put("section", "memo/send");
+		return "t_expr";
+	}
+
+	
+	@GetMapping("/receivelist")
+	public String receivelistHandle(Map map) {
+		map.put("section", "memo/receivelist");
+		return "t_expr";
+	}
+	@PostMapping("/receivelist")
+	public String receivelistMemo(@RequestParam Map param, Map model, HttpSession session) {
 		try {
 			param.put("sender", session.getAttribute("auth_id"));
 			int r = memoDao.addNewMemo(param);
@@ -40,7 +55,25 @@ public class MemoController {
 		model.put("section", "memo/send");
 		return "t_expr";
 	}
+	
+	@GetMapping("/sendlist")
+	public String SendlistHandle(Map map) {
+		map.put("section", "memo/sendlist");
+		return "t_expr";
+	}
+	@PostMapping("/sendlist")
+	public String sendlist(@RequestParam Map param, Map model, HttpSession session) {
+		try {
+			param.put("sender", session.getAttribute("auth_id"));
+			int r = memoDao.addNewMemo(param);
 
+
+		} catch (Exception e) {
+	
+		}
+		model.put("section", "memo/sendlist");
+		return "t_expr";
+	}
 
 	
 

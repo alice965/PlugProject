@@ -3,17 +3,16 @@
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memo">
 	<insert id="addNewMemo">
-		insert into memo values(memo_seq.nextval, #{sender}, #{receiver},  #{title}, #{content} ) 
+		insert into memo(num, sender, receiver, title, content, sendtime) values (memo_seq.nextval, #{sender}, #{'receiver'},  #{title}, #{content}, sysdate) 
 	</insert>
 
-	<select id="addSendList">
-		 select * from memo where sender = #{sender}
+	<select id="addSendList" resultType="java.util.HashMap">
+		 select * from memo where sender=#{sender}
+		 
 		</select>
 	
-	<select id="addReceiveList">
-		 select * from memo where receiver = #{receiver}
+	<select id="addReceiveList" resultType="java.util.HashMap">
+		 select * from memo where receiver=#{receiver}
+		 
 	</select>
-	
 </mapper>
-
-

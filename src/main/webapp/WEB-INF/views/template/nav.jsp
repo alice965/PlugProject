@@ -13,10 +13,26 @@
 			<a class="navbar-brand" href="/index">Plug.DJ</a>
 		</div>
 		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapase-1">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="/booth/list">DJ Booth<span
+			id="bs-example-navbar-collapase-1" text-align:right;>
+			<ul class="nav navbar-nav"  >
+			
+
+	
+	<!-- 비회원메뉴 -->
+				<li class="active" ><a href="/booth/list">DJ Booth<span
 						class="sr-only"></span></a></li>
+						
+									<c:choose>
+		<c:when test="${empty auth }">
+	<li><a href="/login">로그인</a></li>
+		<li><a href="/join">회원가입</a></li>
+		</c:when>
+						
+						
+					<c:otherwise>
+
+						
+						
 				<li><a href="/myplay/list?page=1">My Booth</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -27,29 +43,33 @@
 						<li><a href="/my/mybooth">나의 부스</a></li>
 						<li><a href="/my/alarm">알리미</a></li>
 					</ul></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false"> 쪽지함<span class="caret"></span>
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 쪽지함<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="/memo/receivelist/">받은 쪽지함</a></li>
 						<li><a href="/memo/sendlist/">보낸 쪽지함</a></li>
 					</ul></li>
-				<li><a href="/login">로그인</a></li>
-				<li><a href="/join">회원가입</a></li>
-				<li><a href="/logout">로그아웃</a></li>
 
-				<c:choose>
+				<li><a href="/logout">로그아웃</a></li>
+		</c:otherwise>
+	</c:choose>
+					<c:choose>
 					<c:when test="${empty auth.ID }">
 						<li>방문객님 환영합니다.</li>
 					</c:when>
-					<c:otherwise><<li>${auth.NICKNAME }님안녕하세요</li>
+					<c:otherwise>
+					
+					<li>${auth.NICKNAME }님안녕하세요</li>
+					
 					</c:otherwise>
 				</c:choose>
 
 			</ul>
 
-			<form class="navbar-form navbar-left">
+
+
+
+			<form class="navbar-form navbar-left" >
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="음악검색">
 				</div>
