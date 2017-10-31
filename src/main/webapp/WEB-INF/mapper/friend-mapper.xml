@@ -22,7 +22,9 @@
 	</select>
 	<select id="listFriend" resultType="java.util.HashMap">
 		select f.*, m.* from friend f
-		join member m on f.one=m.id where m.id=#{id} and f.status='frd'
+      join member m on f.one=m.id 
+            where (m.id=#{id} and f.status='frd') or
+            (f.other=#{id} and f.status='frd')
 	</select>
 	<insert id="add">
 		insert into friend values(friend_seq.nextval, #{one}, #{other}, '',

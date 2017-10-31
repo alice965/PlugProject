@@ -37,8 +37,8 @@
 				<c:forEach var="obj" items="${listFriend }">
 					<tr>
 						<td>${obj.NICKNAME }</td>
-						<td>${obj.ID }</td>
-						<td>${obj.ADDATE }</td>
+						<td>${obj.OTHER }</td>
+						<td>${obj.ADDDATE }</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -112,10 +112,11 @@ public class FriendController {
 		String id = (String) session.getAttribute("auth_id");
 		mav.addObject("section", "/friend/list");
 		
+		
 		List<Map> listReq = fDao.listReq(id);		//夸没格废
 		List<Map> listRcv = fDao.listSnd(id);		//罐篮格废
 		List<Map> listFriend = fDao.listFriend(id);	//模备格废
-		//System.out.println("listFriend??" + listFriend);
+		System.out.println("模备 颇恩??" + param);
 
 		mav.addObject("listReq", listReq);
 		mav.addObject("listRcv", listRcv);

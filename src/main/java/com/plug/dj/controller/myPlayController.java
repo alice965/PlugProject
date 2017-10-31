@@ -86,7 +86,7 @@ public class myPlayController {
 		String id = (String) session.getAttribute("auth_id");
 		//세션에서 아이디를 가져와서 파람에 추가
 		param.put("id", id );
-		System.out.println("param?? : " + param);
+		
 		//리퀘스트 파람으로 장르를 배열로 가져와서 스트링으로 추가
 		param.put("genre", Arrays.toString(genre));
 		
@@ -104,15 +104,11 @@ public class myPlayController {
 			e.printStackTrace();
 		}
 		//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
-		if(param.get("url")==null) {
+		if(b) {
 			param.put("id", id);
-			param.put("url", "/images/booth/default.jpg");
-		}else {
-			if (b) {
-				param.put("id", id);
-				param.put("url", "/images/booth/" + fileName);
-			}
+			param.put("url", "/images/booth/" + fileName);
 		}
+		System.out.println("sdfparam?? : " + param);
 
 		//////기존 플레이리스트 소스 있던거
 		int rst = playlistDao.add(param);

@@ -11,7 +11,7 @@
 
 .main .work {
 	width: 250px;
-	height: auto;
+	height: 250px;
 	position: relative;
 	overflow: hidden;
 }
@@ -114,6 +114,7 @@
 											<!-- 부스번호와 내 관심부스번호가 같다면 (관심부스라면) -->
 											<c:if test="${obj.NUM eq inst.NUM}">
 												<c:set var="instbth" value="true" />
+												<c:set var="bthno" value="${inst.NO }" />
 											</c:if>
 										</c:forEach>
 										<!-- 관심부스 트루라면 하얀별, 아니라면 테두리 별을 찍는다.-->
@@ -121,7 +122,7 @@
 											<c:when test="${instbth}">
 												<i class="fa fa-star fa-lg bookmarked" aria-hidden="true"
 													style="font-size: 17px; color: orange;"></i>
-												<input type="hidden" value="${obj.NO}">
+												<input type="hidden" value="${bthno}">
 											</c:when>
 											<c:otherwise>
 												<i class="fa fa-star-o fa-lg bookmark" aria-hidden="true"
@@ -137,7 +138,7 @@
 						<div class="work">
 							<div class="media-top">
 									<div style="border-radius: 3px">
-										<img class="media-object media" src="${obj.URL }">
+										<img class="media-object media" src="${obj.URL }" style="width:250px; height:250px;">
 										<!-- 이미지 보더 radius -->
 									</div>
 									<div class="caption">
@@ -160,8 +161,6 @@
 					<!-- /부스 전체 -->
 				</c:forEach>
 			</div>
-
-
 			<!------------------ 관심 부스 탭 시작--------------------------------------- -->
 			<div id="bookmark" class="tab-pane fade">
 				총 <b>${cntint}</b> 개의 관심 부스가 등록되어 있습니다.
@@ -271,9 +270,8 @@
 	$(".bookmark").click(function() {
 		var r = confirm("관심부스에 추가하시겠습니까?");
 		if (r == true) {
-			location.href = '/booth/addInterest?bthnum=' + $(this).next().val()
+			location.href = '/booth/addInterest?bthnum=' + $(this).next().val();
 		} else {
-			window.close();
 		}
 	});
 	//관심부스 마우스 클릭 삭제
@@ -281,10 +279,9 @@
 		console.log( $(this).next().val());
 		var r = confirm("관심부스에서 삭제하시겠습니까?");
 		if (r == true) {
-			location.href = '/booth/deleteInterest?no=' + $(this).next().val()
+			location.href = '/booth/deleteInterest?no=' + $(this).next().val();
 			
 		} else {
-			window.close();
 		}
 	});
 	$(".popFriend").click(function() {
