@@ -15,7 +15,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapase-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="booth/list">DJ Booth<span class="sr-only"></span></a></li>
+				<li class="active"><a href="booth/boothmain">DJ Booth<span class="sr-only"></span></a></li>
 				<li><a href="myplay/list?page=1">My Booth</a></li>
 				<li><a href="my/profile">나의 프로필</a></li>
 				<li class="dropdown">

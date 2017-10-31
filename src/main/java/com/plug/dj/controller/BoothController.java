@@ -36,17 +36,42 @@ public class BoothController {
 	@Autowired
 	com.plug.dj.model.MemberDao MemberDao;
 	@Autowired
+	com.plug.dj.model.InterestDao iDao;
+	@Autowired
 	BoothWSHandler boothws;
 	
 	@RequestMapping("/boothmain")
-	public ModelAndView BoothMainHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param) throws SQLException{
+	public ModelAndView BoothMainHandle(HttpSession session, @RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
-		List<Map> list = BoothDao.listAll();
+		String id=(String) session.getAttribute("auth_id");
+		
+		//전체 부스
+		List<Map> list = BoothDao.listAll();				
 		mav.addObject("section", "booth/boothmain");
 		mav.addObject("list", list);
+		System.out.println("list!!" + list);
 		mav.addObject("cnt", list.size());
+		
+		
+		//관심 부스
+		List<Map> listInterest = iDao.listInterest(id);		
+			System.out.println("listInterest!!" + listInterest);
+		mav.addObject("interest", listInterest);
+		mav.addObject("cntint", listInterest.size());
+		
 		return mav;
 		}
+	
+	@RequestMapping("/addInterest")
+	public String BoothAddInterestHandle(HttpSession session,@RequestParam Map param) throws SQLException{
+		//System.out.println("delparam??" + param);
+		String id=(String) session.getAttribute("auth_id");
+		param.put("userid", id);
+		System.out.println("param?????" + param);
+		int r=iDao.addInterest(param);
+		return "redirect:/booth/boothmain";
+		}
+	
 	
 	@RequestMapping(path="view")
 	public ModelAndView BoothViewHandle(WebSocketSession session) throws SQLException{
@@ -111,6 +136,12 @@ public class BoothController {
 		
 		
 		return mav;
+		}
+	@RequestMapping(path="/deleteInterest")
+	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
+		//System.out.println("delparam??" + param);
+		int r=iDao.delete(param);
+		return "redirect:/booth/boothmain";
 		}
 	
 	

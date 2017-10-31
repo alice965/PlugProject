@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="interest" >
+  	<insert id="addInterest">
+		insert into interest values(interest_seq.nextval, #{userid}, #{bthnum}, sysdate)
+	</insert>
+	<select id="listInterest" resultType="java.util.HashMap">
+		select inst.*, m.nickname, m.id from
+(select i.*, b.* from interest i 
+        join booth b on b.num=i.bthnum where i.userid=#{userid})inst
+join member m on inst.id=m.id
+	</select>
+	<delete id="delete"> 
+		delete from interest where no=#{no} 
+	</delete>
+	
+	
+  </mapper>
+  
