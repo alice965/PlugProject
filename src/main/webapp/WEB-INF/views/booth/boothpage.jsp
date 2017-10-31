@@ -65,7 +65,7 @@
 
 
 			<!-- 재생목록 -->
-			<div id="vlist" class="tab-pane fade in active">
+			<div id="vlist" class="tab-pane fade">
 				<div id="videolist"
 					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size: 10pt;"
 					align="center">
