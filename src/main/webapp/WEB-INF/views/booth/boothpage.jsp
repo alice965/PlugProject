@@ -101,14 +101,14 @@
 					<c:if test="${!empty video }">
 						<c:forEach var="obj" items="${video }">
 							<div class="row">
-								<div align="left" class="col-xs-3">
+								<div align="left" class="col-xs-4">
 									<!-- xs가 제일 작은 사이즈. -->
-									<img src="${obj.IMAGE}" style="width: 100px; height: 65px">
+									<img src="${obj.IMAGE}" style="width: 120px; height: 70px">
 								</div>
-								<div class="col-xs-9" align="left">
-									${obj.VIDEO_TITLE} <br /> 추가한 사람 : ${obj.ADD_ID }
+								<div class="col-xs-8" align="left">
+									${obj.VIDEO_TITLE} <br /><small> 추가한 사람 : ${obj.ADD_ID }
 									(${obj.ADD_NICKNAME }) <br /> 추가한 날짜 :
-									<fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+									<fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" /></small>
 									<br />
 								</div>
 							</div>
@@ -120,6 +120,48 @@
 		</div>
 	</div>
 	<!-- 컨테이너 종료 태그 -->
+
+	<!-- modal1 -->
+	<div class="modal fade" id="modal-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content"
+				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">키워드로 갖고오기</h3>
+				</div>
+
+				<div class="modal-body">
+					<div class="well">
+						<h4>
+							<b>HOW TO USE?</b><br />
+						</h4>
+						<h6>
+							● 찾고자하는 키워드를 입력창에 검색합니다.<br /> ※최대 50개의 재생목록 동영상을 불러올 수 있습니다.
+						</h6>
+						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
+						<form name="form1" method="post" onSubmit="return false;">
+							<input type="text" id="search_box" placeholder="검색어 입력.."> <input type="text"
+								id="num1" placeholder="${num }" value="${num }"
+								style="width: 100px" disabled>
+							<button onClick="fnGetList();">가져오기</button>
+						</form>
+					</div>
+					<div class="well">
+						<!-- 우물효과를 줌 -->
+						<h4>LIST</h4>
+						<div id="video-container1"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!-- modal1종료 -->
 
 	<!-- modal2 -->
 	<div class="modal fade" id="modal-2" role="dialog">
@@ -145,7 +187,7 @@
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<input type="text" id="num2" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
-						<button id="send2">재생목록 뽑기</button>
+						<button id="send2">가져오기</button>
 					</div>
 					<div class="well">
 						<h4>LIST</h4>
@@ -185,7 +227,7 @@
 						<input type="text" id="channelId" placeholder="채널 아이디 입력..">
 						<input type="text" id="num3" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
-						<button id="send3">재생목록 뽑기</button>
+						<button id="send3">가져오기</button>
 					</div>
 					<div class="well">
 						<h4>LIST</h4>
@@ -199,7 +241,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- modal2종료 -->
+	<!-- modal3종료 -->
 </div>
 <!-- row종료 태그 -->
 
@@ -270,10 +312,75 @@
 	//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
 	$("#chattab").trigger("click");
 
+	//키워드로(target) 갖고오기===================================================================================================
+	function fnGetList() {
+		var $getval = $("#search_box").val();
+		if ($getval == "") {
+			alert("검색어를 입력하세요.");
+			$("#search_box").focus();
+			return;
+		}
+		$("#video-container1").empty();
+
+		var TargetUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance"
+				+ "&q="
+				+ encodeURIComponent($getval)
+				+ "&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I&maxResults=50";
+
+		$
+				.ajax({
+					type : "POST",
+					url : TargetUrl,
+					dataType : "jsonp",
+					success : function(jdata) {
+						//console.log(jdata);
+						var num = document.getElementById("num1").value;
+						var html = "";
+						$(jdata.items)
+								.each(
+										function(i) { //items반복문으로 돔.
+											html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">"
+													+ i
+													+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"" + this.snippet.thumbnails.medium.url + 
+		"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">"
+													+ '<br/>'
+													+ this.snippet.title
+													+ "<br/>";
+
+											html += "동영상 추가하기 : <a href=\"/video/add?video_title="
+													+ this.snippet.title
+													+ "&image="
+													+ this.snippet.thumbnails.medium.url
+													+ "&video_id="
+													+ this.id.videoId
+													+ "&channel_url="
+													+ this.snippet.channelId
+													+ "&num="
+													+ num
+													+ "\">"
+													+ "추가하기</a>"
+													+ "<hr/></div></div>";
+											document
+													.getElementById("video-container1").innerHTML = html;
+										});
+					},
+					error : function(xhr, textStatus) {
+						console.log(xhr.responseText);
+						alert("지금은 시스템 사정으로 인하여 요청하신 작업이 이루어지지 않았습니다.\n잠시후 다시 이용하세요.[2]");
+						return;
+					}
+				});
+	}
+
 	//재생목록에서 갖고오기===================================================================================================
 	document.getElementById("send2").onclick = function() {
 		var num = document.getElementById("num2").value;
 		var playlist = document.getElementById("playlist").value;
+		if(playlist==""){
+			alert("재생목록 아이디를 입력하세요");
+			$("#playlist").focus();
+			return;
+		}
 		var xhr = new XMLHttpRequest();
 		xhr
 				.open(
@@ -329,6 +436,11 @@
 	document.getElementById("send3").onclick = function() {
 		var num = document.getElementById("num3").value;
 		var channelId = document.getElementById("channelId").value;
+		if(channelId==""){
+			alert("채널 아이디를 입력하세요");
+			$("#channelId").focus();
+			return;
+		}
 		var xhr = new XMLHttpRequest();
 		xhr.open("get",
 				"https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id="
@@ -338,15 +450,16 @@
 		xhr.onreadystatechange = function() {
 			if (this.readyState == 4) {
 				var obj = JSON.parse(this.responseText); //채널아이디에서 playlistId값 얻어오기
-				var playlistId = obj.items[0].contentDetails.relatedPlaylists.uploads;		
+				var playlistId = obj.items[0].contentDetails.relatedPlaylists.uploads;
 				var xhr2 = new XMLHttpRequest();
 				//console.log(playlistId);
-				xhr2.open(
-						"get",
-						"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
-								+ playlistId
-								+ "&maxResults=50&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I",
-						true);
+				xhr2
+						.open(
+								"get",
+								"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
+										+ playlistId
+										+ "&maxResults=50&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I",
+								true);
 				xhr2.send();
 				xhr2.onreadystatechange = function() {
 					if (this.readyState == 4) {
