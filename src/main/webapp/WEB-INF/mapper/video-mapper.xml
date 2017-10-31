@@ -12,6 +12,10 @@
 		select * from videolist where (num=#{num}) order by adddate
 	</select>
 	
+	<!-- 재생목록만 불러오기.. videoId만 불러오기.. -->
+	<select id="selectVideo_IdList" resultType="java.util.HashMap">
+		select video_id from videolist where (num=#{num}) order by adddate
+	</select>
 </mapper>
 
 

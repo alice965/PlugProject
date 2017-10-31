@@ -22,4 +22,8 @@ public class VideoDao {
 	public List<Map> selectVideoList(String num) {
 		return sql.selectList("video.selectVideoList", num);
 	}
+	
+	public List<Map> selectVideo_IdList(String num){
+		return sql.selectList("video.selectVideo_IdList", num);
+	}
 }

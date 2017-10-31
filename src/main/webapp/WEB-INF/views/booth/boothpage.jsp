@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<!-- http://1004lucifer.blogspot.kr/2015/04/youtube-player-api.html -->
+
 <!--부스 타이틀 영역  -->
 <div style="background-color: #6699ff;">
 	<div id="booth_name">
@@ -36,12 +38,19 @@
 
 	<!-- 왼쪽 영역 (영상 플레이) -->
 	<div class="col-md-8" style="min-height: 65%; background-color: black;">
-		<p>영상이 들어갈 위치</p>
+		<div id="Iframe"></div>
+		<button type="button" onclick="playYoutube();">Play</button>
+		<!-- 유투브 플레이 -->
+		<c:if test="${!empty video }">
+			<c:forEach var="list" items="${video }">
+				<input type="hidden" value="${list.VIDEO_ID }" id="video_list" />
+			</c:forEach>
+		</c:if>
 	</div>
 
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
 	<div class="col-md-4"
-		style="min-height: 40%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
+		style="min-height: 60%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
 		<!-- 탭 영역 -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#chat"
@@ -54,7 +63,7 @@
 			<!-- 채팅 영역 -->
 			<div id="chat" class="tab-pane fade in active">
 				<div id="log"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size: 10pt;"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 55%; background-color: #D5D5D5; font-size: 10pt;"
 					align="left"></div>
 				<div id="cnt"></div>
 				<input type="text" id="chat_input_field"
@@ -67,7 +76,7 @@
 			<!-- 재생목록 -->
 			<div id="vlist" class="tab-pane fade">
 				<div id="videolist"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 52%; background-color: #D5D5D5; font-size: 10pt;"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 60%; background-color: #D5D5D5; font-size: 10pt;"
 					align="center">
 
 					<div class="tab-content">
@@ -106,10 +115,11 @@
 									<img src="${obj.IMAGE}" style="width: 120px; height: 70px">
 								</div>
 								<div class="col-xs-8" align="left">
-									${obj.VIDEO_TITLE} <br /><small> 추가한 사람 : ${obj.ADD_ID }
-									(${obj.ADD_NICKNAME }) <br /> 추가한 날짜 :
-									<fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" /></small>
-									<br />
+									${obj.VIDEO_TITLE} <br />
+									<small> 추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME })
+										<br /> 추가한 날짜 : <fmt:formatDate value="${obj.ADDDATE}"
+											pattern="yyyy.MM.dd" />
+									</small> <br />
 								</div>
 							</div>
 							<hr />
@@ -142,9 +152,9 @@
 						</h6>
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<form name="form1" method="post" onSubmit="return false;">
-							<input type="text" id="search_box" placeholder="검색어 입력.."> <input type="text"
-								id="num1" placeholder="${num }" value="${num }"
-								style="width: 100px" disabled>
+							<input type="text" id="search_box" placeholder="검색어 입력..">
+							<input type="text" id="num1" placeholder="${num }"
+								value="${num }" style="width: 100px" disabled>
 							<button onClick="fnGetList();">가져오기</button>
 						</form>
 					</div>
@@ -271,6 +281,49 @@
 </div>
 
 <script>
+
+	//유투브 업로드
+	//YOUTUBE API 업로드
+	var tag = document.createElement('script');
+	tag.src = "http://www.youtube.com/iframe_api";
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+	/**
+	 * onYouTubeIframeAPIReady 함수는 필수로 구현해야 한다.
+	 * 플레이어 API에 대한 JavaScript 다운로드 완료 시 API가 이 함수 호출한다.
+	 * 페이지 로드 시 표시할 플레이어 개체를 만들어야 한다.
+	 */
+	var player;
+	var videolist = document.getElementById("video_list").value;
+	function onYouTubeIframeAPIReady() {
+		player = new YT.Player('Iframe', {
+			height : '480', // <iframe> 태그 지정시 필요없음
+			width : '1060', // <iframe> 태그 지정시 필요없음
+			videoId : videolist, // <iframe> 태그 지정시 필요없음
+			playerVars : { // <iframe> 태그 지정시 필요없음
+				controls : '2'
+			}
+		});
+	}
+
+	function playYoutube() {
+		// 플레이어 자동실행 (주의: 모바일에서는 자동실행되지 않음)
+		player.playVideo();
+		player.loadPlaylist({ 
+		    'playlist': [ //오류가 뜰 수 있음.
+		    	  <c:forEach var="t" items="${video }" varStatus="vs">
+		  			'${t.VIDEO_ID }' <c:if test="${!vs.last }">,</c:if>
+		  		 </c:forEach>
+		      ],
+		    'listType': 'playlist',
+		    'index': 0,
+		    'startSeconds': 0,
+		    'suggestedQuality': 'large'
+		});
+
+	}
+
 	/////// 채팅 영역 스크립트///////
 
 	//채팅 영역 웹소켓 부분
@@ -376,7 +429,7 @@
 	document.getElementById("send2").onclick = function() {
 		var num = document.getElementById("num2").value;
 		var playlist = document.getElementById("playlist").value;
-		if(playlist==""){
+		if (playlist == "") {
 			alert("재생목록 아이디를 입력하세요");
 			$("#playlist").focus();
 			return;
@@ -436,7 +489,7 @@
 	document.getElementById("send3").onclick = function() {
 		var num = document.getElementById("num3").value;
 		var channelId = document.getElementById("channelId").value;
-		if(channelId==""){
+		if (channelId == "") {
 			alert("채널 아이디를 입력하세요");
 			$("#channelId").focus();
 			return;

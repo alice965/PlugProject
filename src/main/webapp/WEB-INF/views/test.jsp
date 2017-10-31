@@ -1,61 +1,133 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!--
+User: 1004lucifer
+Date: 2015. 4. 14.
+-->
 
-<form name="form1" method="post" onSubmit="return false;">
-		<input type="text" id="search_box"><button onClick="fnGetList();">가져오기</button>
-</form>
-<div id="get_view"></div>
+<body>
+    <div id="gangnamStyleIframe"></div>
+    <button type="button" onclick="playYoutube();">Play</button> <!-- 유투브 플레이 -->
+    <button type="button" onclick="pauseYoutube();">Pause</button> <!-- 유투브 중지 -->
+    <button type="button" onclick="stopYoutube();">Stop</button> <!-- 유투브 중지하고 처음으로 -->
+    <button type="button" onclick="changeVideoAndStart();">ChangeVideo And Start</button>
+    <button type="button" onclick="changeVideoObjectAndStart();">ChangeVideoObject And Start</button>
+    <button type="button" onclick="changeVideoListAndStart();">ChangeVideoList And Start</button>
+    <button type="button" onclick="changeVideoListObjectAndStart();">ChangeVideoListObject(Video IDs) And Start</button>
+    <button type="button" onclick="changeVideoListObjectAndStart2();">ChangeVideoListObject(playlist ID) And Start</button>
+</body>
 
 
 <script>
-function fnGetList(){
-	var $getval = $("#search_box").val();
-	if($getval==""){
-		alert("검색어를 입력하세요.");
-		$("#search_box").focus();
-		return;
-	}
-	$("#video-container1").empty();
-
-var TargetUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance"
-	+ "&q="+ encodeURIComponent($getval) +"&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I&maxResults=50";
-
-$.ajax({
-	type: "POST",
-	url: TargetUrl,
-	dataType: "jsonp",
-	success: function(jdata) {
-		//console.log(jdata);
-		var html = "";
-		$(jdata.items).each(function(i){ //items반복문으로 돔.
-				html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">"
-					+ i
-					+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"" + this.snippet.thumbnails.medium.url + 
-		"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">"
-					+ '<br/>' + this.snippet.title + "<br/>";
-				
-					html += "동영상 추가하기 : <a href=\"/video/add?video_title="
-						+ this.snippet.title
-						+ "&image="
-						+ this.snippet.thumbnails.medium.url
-						+ "&video_id="
-						+ this.id.videoId
-						+ "&channel_url="
-						+ this.snippet.channelId
-						//+ "&num="
-						//+ num
-						+ "\">"
-						+ "추가하기</a>"
-						+ "<hr/></div></div>";	
-					document.getElementById("get_view").innerHTML = html;
-			});
-		},
-		error:function(xhr, textStatus) {
-			console.log(xhr.responseText);
-			alert("지금은 시스템 사정으로 인하여 요청하신 작업이 이루어지지 않았습니다.\n잠시후 다시 이용하세요.[2]");
-			return;
-		}
-	});
-}
-
-</script>
+        /**
+         * Youtube API 로드
+         */
+        var tag = document.createElement('script');
+        tag.src = "http://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+ 
+        /**
+         * onYouTubeIframeAPIReady 함수는 필수로 구현해야 한다.
+         * 플레이어 API에 대한 JavaScript 다운로드 완료 시 API가 이 함수 호출한다.
+         * 페이지 로드 시 표시할 플레이어 개체를 만들어야 한다.
+         */
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('gangnamStyleIframe', {
+                height: '315',            // <iframe> 태그 지정시 필요없음
+                width: '560',             // <iframe> 태그 지정시 필요없음
+                videoId: '9bZkp7q19f0',   // <iframe> 태그 지정시 필요없음
+                playerVars: {             // <iframe> 태그 지정시 필요없음
+                    controls: '2'
+                },
+                events: {
+                    'onReady': onPlayerReady,               // 플레이어 로드가 완료되고 API 호출을 받을 준비가 될 때마다 실행
+                    'onStateChange': onPlayerStateChange    // 플레이어의 상태가 변경될 때마다 실행
+                }
+            });
+        }
+        function onPlayerReady(event) {
+            console.log('onPlayerReady 실행');
+        }
+        var playerState;
+        function onPlayerStateChange(event) {
+            playerState = event.data == YT.PlayerState.ENDED ? '종료됨' :
+                    event.data == YT.PlayerState.PLAYING ? '재생 중' :
+                    event.data == YT.PlayerState.PAUSED ? '일시중지 됨' :
+                    event.data == YT.PlayerState.BUFFERING ? '버퍼링 중' :
+                    event.data == YT.PlayerState.CUED ? '재생준비 완료됨' :
+                    event.data == -1 ? '시작되지 않음' : '예외';
+ 
+            console.log('onPlayerStateChange 실행: ' + playerState);
+ 
+            // 재생여부를 통계로 쌓는다.
+            collectPlayCount(event.data);
+        }
+ 
+        function playYoutube() {
+            // 플레이어 자동실행 (주의: 모바일에서는 자동실행되지 않음)
+            player.playVideo();
+        }
+        function pauseYoutube() {
+            player.pauseVideo();
+        }
+        function stopYoutube() {
+            player.seekTo(0, true);     // 영상의 시간을 0초로 이동시킨다.
+            player.stopVideo();
+        }
+        var played = false;
+        function collectPlayCount(data) {
+            if (data == YT.PlayerState.PLAYING && played == false) {
+                // todo statistics
+                played = true;
+                console.log('statistics');
+            }
+        }
+ 
+        /**
+         * loadVideoById 함수는 지정한 동영상을 로드하고 재생한다.
+         * 인수구문: loadVideoByUrl(mediaContentUrl:String, startSeconds:Number, suggestedQuality:String):Void
+         * 개체구문: loadVideoByUrl({mediaContentUrl:String, startSeconds:Number, endSeconds:Number, suggestedQuality:String}):Void
+         * loadVideoById 함수 뿐만 아니라 다른 대체적인 함수들도 개체구문이 기능이 더 많다.
+         */
+        function changeVideoAndStart() {
+            player.loadVideoById("iCkYw3cRwLo", 0, "large");
+        }
+        function changeVideoObjectAndStart() {
+            // 0초부터 10초까지 재생을 시킨다.
+            player.loadVideoById({
+                'videoId': 'bHQqvYy5KYo',
+                'startSeconds': 0,
+                'endSeconds': 10
+            });
+        }
+ 
+        /**
+         * loadPlaylist 함수는 지정한 재생목록을 로드하고 재생한다.
+         * 인수구문: loadPlaylist(playlist:String|Array, index:Number, startSeconds:Number, suggestedQuality:String):Void
+         * 개체구문: loadPlaylist({list:String, listType:String, index:Number, startSeconds:Number, suggestedQuality:String}):Void
+         * [주의: 개체구문의 loadPlaylist 함수에서의 재생목록ID 와 동영상ID 의 사용방법이 다르다.]
+         */
+        function changeVideoListAndStart() {
+            player.loadPlaylist(['wcLNteez3c4', 'LOsNP2D2kSA', 'rX372ZwXOEM'], 0, 0, 'large');
+        }
+        function changeVideoListObjectAndStart() {
+            player.loadPlaylist({
+                'playlist': ['9HPiBJBCOq8', 'Mp4D0oHEnjc', '8y1D8KGtHfQ', 'jEEF_50sBrI'],
+                'listType': 'playlist',
+                'index': 0,
+                'startSeconds': 0,
+                'suggestedQuality': 'small'
+            });
+        }
+        function changeVideoListObjectAndStart2() {
+            player.loadPlaylist({
+                'list': 'UUPW9TMt0le6orPKdDwLR93w',
+                'listType': 'playlist',
+                'index': 0,
+                'startSeconds': 0,
+                'suggestedQuality': 'small'
+            });
+        }
+ </script>

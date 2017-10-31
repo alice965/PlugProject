@@ -123,10 +123,13 @@ public class BoothController {
 		System.out.println("one???"+one);
 		
 		List<Map> video = VideoDao.selectVideoList(num);
+		List<Map> videolist = VideoDao.selectVideo_IdList(num);
+		
 		if(video.size() == 0){ //재생목록이 없을 경우
 			mav.addObject("nolist", "재생목록이 없습니다.");
 			System.out.println("재생목록이 없습니다.");	
 		}else{
+			System.out.println("비디오 리스트 : " + videolist);
 			mav.addObject("video", video);
 			System.out.println("정보 : " + video);
 		}
