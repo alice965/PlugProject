@@ -12,7 +12,6 @@
 			</button>
 			<a class="navbar-brand" href="/index">Plug.DJ</a>
 		</div>
-<<<<<<< HEAD
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapase-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="booth/boothmain">DJ Booth<span class="sr-only"></span></a></li>
@@ -31,12 +30,10 @@
 				<li><a href="/login">로그인</a></li>
 				<li><a href="/join">회원가입</a></li>
 				<li><a href="/logout">로그아웃</a></li>
-=======
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapase-1" text-align:right;>
 			<ul class="nav navbar-nav"  >
 			
->>>>>>> refs/heads/hanbi
 
 	
 	<!-- 비회원메뉴 -->
@@ -92,7 +89,7 @@
 
 			<form class="navbar-form navbar-left" >
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="음악검색">
+					<input type="text" class="form-control" placeholder="부스 검색">
 				</div>
 				<button type="submit" class="btn btn-default">검색</button>
 			</form>
