@@ -36,12 +36,17 @@ public class FriendController {
 	@GetMapping("/check")
 	@RequestMapping(path = "/check", method = RequestMethod.GET)
 	public String FriendCheckGetHanle(Map map, @RequestParam Map param, HttpSession session) {
+		
 		map.put("section", "friend/check");
-		param.put("one", session.getAttribute("auth_id") );
+		String id = (String) session.getAttribute("auth_id");
 		
-		//System.out.println("para??" +param);
-		//System.out.println("param.get??" +param.get("one"));
+		map.put("sid",id);
 		
+		param.put("one", id );
+		
+		
+		Map pMap = fDao.readOne(param);
+		System.out.println("친구 리드원pMap??" + pMap);
 		if(fDao.readOne(param)==null) {
 				return "redirect:/friend/add?other="+param.get("other");
 			} else if(fDao.readOne(param).get("STATUS").equals("req")&&
@@ -76,6 +81,9 @@ public class FriendController {
 	@RequestMapping(path = "/requested", method = RequestMethod.GET)
 	public String FriendRequestedGetHanle(Map map, @RequestParam Map param, HttpSession session) {
 		map.put("section", "friend/requested");
+		String id = (String) session.getAttribute("auth_id");
+		map.put("sid",id);
+		map.put("other", param.get("other"));
 		return "t_pop";
 	}
 	@GetMapping("/add")
@@ -110,28 +118,34 @@ public class FriendController {
 	public ModelAndView FriendListHandle(@RequestParam Map param, HttpSession session)throws SQLException {
 		ModelAndView mav = new ModelAndView("t_expr");
 		String id = (String) session.getAttribute("auth_id");
-		mav.addObject("section", "/friend/list");
+		mav.addObject("section", "friend/list");
 		
 		
 		List<Map> listReq = fDao.listReq(id);		//요청목록
 		List<Map> listRcv = fDao.listSnd(id);		//받은목록
 		List<Map> listFriend = fDao.listFriend(id);	//친구목록
 		System.out.println("친구 파람??" + param);
-
+		
+		mav.addObject("sid", id); //세션 아이디를 넘겨서, 받은 친구쪽 onenick과 비교
 		mav.addObject("listReq", listReq);
 		mav.addObject("listRcv", listRcv);
 		mav.addObject("listFriend", listFriend);
 		mav.addObject("cntListReq", listReq.size());
 		mav.addObject("cntListFrd", listFriend.size());
+		mav.addObject("cntListRcv", listRcv.size());
+		
+		System.out.println("listReq.size()??" + listReq.size());
 		
 		return mav;
 	}
 	
 	@RequestMapping(path="/delete")
 	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
-		//System.out.println("delparam??" + param);
+		System.out.println("delparam??" + param);
 		int r=fDao.delete(param);
-		return "redirect:/friend/list?src=requested";
+		System.out.println(r);
+		return "redirect:/friend/list";
+		//return "redirect:/friend/list?src=requested";
 		}
 	@RequestMapping(path="/accept")
 	public String FriendAcceptHandle(@RequestParam Map param) throws SQLException{

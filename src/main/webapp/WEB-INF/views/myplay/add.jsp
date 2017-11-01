@@ -62,7 +62,7 @@
 $("#submitbtn").click(function() {
 	var chk=$(".gr:checked").length;
 	if(chk==0){
-		alert("장르가 선택되지 않았습니다. /n 하나 이상의 장르를 선택해주세요");}
+		alert("장르가 선택되지 않았습니다. \n 하나 이상의 장르를 선택해주세요");}
 	else{
 		$("#form").submit();
 	}
