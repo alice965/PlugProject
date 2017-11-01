@@ -158,7 +158,7 @@
 // 돋보기 모양 검색 버튼 클릭시 스크립트
 $("#searchbtn").click(function() {
     var keyword=$("#searchval").val();
-    location.href="/search?keyword="+keyword;
+    location.href="/booth/boothmain?keyword="+keyword;
 });
 
 

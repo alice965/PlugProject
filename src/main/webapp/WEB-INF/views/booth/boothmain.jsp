@@ -66,6 +66,24 @@
 		<div class="tab-content">
 		<!-- 전체 부스 보기 탭 시작 -->
 			<div id="blist" class="tab-pane fade in active">
+			<!-- 검색 영역 시작 -->
+  <div class="panel-group" >
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title"> 
+          <a data-toggle="collapse" href="#collapse1">검색 옵션&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down" aria-hidden="true"></i> </a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+      <!-- 검색 조건 영역 시작 -->
+        <div class="panel-body">
+        	
+      </div>
+      <!-- 검색 조건 영역 끝 -->
+    </div>
+  </div>
+ </div>
+ <!-- --------검색 영역 끝 -->
 				총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
 				<hr>
 				<!--부스 -->

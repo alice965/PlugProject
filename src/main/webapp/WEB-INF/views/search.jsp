@@ -30,6 +30,7 @@
   </div>
  </div>
 <!-- 검색 결과 출력 부분 -->
+<p>총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.</p>
  <div class="table-responsive">          
   <table class="table  table-hover">
     <thead>

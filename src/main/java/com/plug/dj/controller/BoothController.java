@@ -39,6 +39,8 @@ public class BoothController {
 	com.plug.dj.model.InterestDao iDao;
 	@Autowired
 	BoothWSHandler boothws;
+	@Autowired
+	com.plug.dj.model.SearchDao sDao; 
 	
 	@RequestMapping("/boothmain")
 	public ModelAndView BoothMainHandle(HttpSession session, @RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param) throws SQLException{
@@ -49,13 +51,11 @@ public class BoothController {
 		List<Map> list = BoothDao.listAll();				
 		mav.addObject("section", "booth/boothmain");
 		mav.addObject("list", list);
-		System.out.println("list!!" + list);
 		mav.addObject("cnt", list.size());
 		
 		
 		//관심 부스
 		List<Map> listInterest = iDao.listInterest(id);		
-			System.out.println("listInterest!!" + listInterest);
 		mav.addObject("interest", listInterest);
 		mav.addObject("cntint", listInterest.size());
 		
@@ -67,7 +67,6 @@ public class BoothController {
 		//System.out.println("delparam??" + param);
 		String id=(String) session.getAttribute("auth_id");
 		param.put("userid", id);
-		System.out.println("param?????" + param);
 		int r=iDao.addInterest(param);
 		return "redirect:/booth/boothmain";
 		}
@@ -142,6 +141,22 @@ public class BoothController {
 		int r=iDao.delete(param);
 		return "redirect:/booth/boothmain";
 		}
+	
+	@GetMapping("/search")
+	public ModelAndView searchGetHandle(@RequestParam Map param) {
+		ModelAndView mav = new ModelAndView("t_expr");
+		
+			mav.addObject("section", "search");
+			String keyword = (String) param.get("keyword");
+			System.out.println("keyword :" + keyword);
+			
+			List<Map> searchList = sDao.listAll(keyword);
+			
+			System.out.println(searchList);
+			mav.addObject("searchList", searchList);
+			
+		return mav;
+	}
 	
 	
 }
