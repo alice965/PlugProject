@@ -30,12 +30,7 @@ public class IndexController {
 			mav.addObject("section", "index");
 		return mav;
 	}
-	@RequestMapping("/search")
-	public ModelAndView searchHandle() {
-		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "search");
-		return mav;
-	}
+	
 	@RequestMapping("/test")
 	public ModelAndView testHandle() {
 		ModelAndView mav = new ModelAndView("t_expr");
