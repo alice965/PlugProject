@@ -34,11 +34,11 @@
 <!-- 메인 영역 -->
 <div class="row">
 
-<<<<<<< HEAD
+
 	<!-- 왼쪽 영역 (영상 플레이) -->
 	<div class="col-md-8" style="min-height: 65%; background-color: black;">
 		<p>영상이 들어갈 위치</p>
-=======
+
 
 
 <div class="col-md-9" style="min-height: 65%; background-color: black;">
@@ -56,7 +56,6 @@
 			<input id="chat_input_field" type="text" value="" autocomplete="off"
 				placeholder="여기에 메시지를 입력하세요" maxlength="256">
 		</form>
->>>>>>> refs/heads/hanbi
 	</div>
 
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
@@ -290,7 +289,7 @@
 	</div>
 </div>
 
-<<<<<<< HEAD
+
 <script>
 	/////// 채팅 영역 스크립트///////
 
@@ -529,4 +528,4 @@
 </script>
 =======
 </html>
->>>>>>> refs/heads/hanbi
+
