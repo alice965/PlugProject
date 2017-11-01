@@ -34,18 +34,15 @@ button {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="obj" items="${data }">
+		
+			<c:forEach var="obj" items="${data}">
 				<tr>
-					<td><a href="/product/show/${obj.NUM}">${obj.NAME }</a> <small>(<fmt:formatNumber
-								value="${obj.GAB }" pattern="#,##0.00" />일 남음)
-					</small></td>
-					<td id="p_${obj.NUM }"><fmt:formatNumber value="${obj.SPRICE }" pattern="#,###" /></td>
-					<td><fmt:formatNumber value="${obj.EPRICE }" pattern="#,###" /></td>
-					<td><c:if test="${!empty obj.ENDDATE }">~<fmt:formatDate
-								value="${obj.ENDDATE }" pattern="yyyy.MM.dd" />
-						</c:if></td>
+					<td><a href="/memo/show/${obj.num}">${obj.title}</a>
+					</td>
+				
 				</tr>
 			</c:forEach>
+
 		</tbody>
 	</table>
 

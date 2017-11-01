@@ -17,6 +17,7 @@ input {
 	font-family: 맑은 고딕;
 	padding: 3px;
 }
+
 button {
 	padding: 7px;
 }
@@ -29,21 +30,15 @@ button {
 				<th style="width: 10%">쪽지번호</th>
 				<th style="width: 55%">쪽지제목</th>
 				<th style="width: 15%">보낸이</th>
-				
+
 				<th style="width: 20%">보낸날짜</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="obj" items="${data }">
 				<tr>
-					<td><a href="/product/show/${obj.NUM}">${obj.NAME }</a> <small>(<fmt:formatNumber
-								value="${obj.GAB }" pattern="#,##0.00" />일 남음)
-					</small></td>
-					<td id="p_${obj.NUM }"><fmt:formatNumber value="${obj.SPRICE }" pattern="#,###" /></td>
-					<td><fmt:formatNumber value="${obj.EPRICE }" pattern="#,###" /></td>
-					<td><c:if test="${!empty obj.ENDDATE }">~<fmt:formatDate
-								value="${obj.ENDDATE }" pattern="yyyy.MM.dd" />
-						</c:if></td>
+					<td><a href="/memo/show/${obj.NUM}">${obj.title}</a></td>
+
 				</tr>
 			</c:forEach>
 		</tbody>

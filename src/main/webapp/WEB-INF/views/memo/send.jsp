@@ -4,9 +4,9 @@
 <div align="center">
 <h3>쪽지보내기</h3>
 	<div align="left" style="width: 70%; line-height: 30px;">
-	<form action="/memo/send" method="memo" autocomplete="off">
+	<form action="/memo/send" method="post" autocomplete="off">
 		<p>
-			<b>받을사람</b><br /><input type="text" name="receiver" placeholder="받을사람"
+			<b>받을사람</b><br /><input type="text" name="receiver" placeholder="받을사람" value="${param.receiver}"
 				 style="width: 100%;" />
 		</p>
 		<p>
