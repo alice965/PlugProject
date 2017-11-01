@@ -1,6 +1,7 @@
 package com.plug.dj.controller;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,7 +68,7 @@ public class VideoController {
 	
 	@GetMapping("/add") //링크로 바로 들어가면 get
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
-	public String test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
+	public String addGetHandle(@RequestParam Map map, HttpSession session, Model model) {
 		//MAP으로 전달되는 것들 : VIDEO_TITLE, VIDEO_ID, CHANNER_URL, IMAGE, NUM :방의 NUM
 		//추가로 지정해야 되는 것들 : ADD_ID (추가한 사람의 닉네임)
 		try {
@@ -84,4 +85,28 @@ public class VideoController {
 			return "t_expr";
 		}
 	}
+	
+	@GetMapping("/add2") //링크로 바로 들어가면 get
+	@RequestMapping(path = "/add2", method = RequestMethod.GET)
+	public String add2GetHandle(@PathVariable String num, @RequestParam Map map, HttpSession session, Model model) {
+		//MAP으로 전달되는 것들 : VIDEO_TITLE, VIDEO_ID, CHANNER_URL, IMAGE, NUM :방의 NUM
+		//추가로 지정해야 되는 것들 : ADD_ID (추가한 사람의 닉네임)
+		try {
+			//num, video_num, add_id, video_title, video_id, channel_url, 
+			//adddate, image, add_nickname
+			System.out.println(map);
+			map.put("add_id", session.getAttribute("auth_id"));
+			//닉네임
+			//HashMap u = MemberDao.readOneById((String)map.get("add_id"));
+			//map.put("add_nickname", u.get("NICKNAME")); //대소문자 구분하기!
+			//System.out.println("비디오 추가 : " + map);
+			//VideoDao.addVideo(map);
+			return "redirect:/booth/boothpage/" + num;
+		} catch (Exception e) {
+			//이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
+			e.printStackTrace();
+			return "t_expr";
+		}
+	}
+	
 }
