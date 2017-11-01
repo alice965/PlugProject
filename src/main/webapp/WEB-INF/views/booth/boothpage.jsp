@@ -310,6 +310,7 @@
 	function playYoutube() {
 		// 플레이어 자동실행 (주의: 모바일에서는 자동실행되지 않음)
 		player.playVideo();
+		//console.log(player.getPlaylist());
 		player.loadPlaylist({ 
 		    'playlist': [ //오류가 뜰 수 있음.
 		    	  <c:forEach var="t" items="${video }" varStatus="vs">
