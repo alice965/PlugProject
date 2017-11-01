@@ -42,7 +42,12 @@ public class ChatWSHandler extends TextWebSocketHandler {
 		String nickname = (String) mmap.get("NICKNAME");
 		////////////닉네임 얻어오기 끝////////////////
 		
-		list.add(session);
+		list.add(session); //리스트에 세션을 모두 넣어둠. size하면 현재 세션이 나옴.
+		
+			
+		///////////////프사를 출력해봅시다///////////////////////////
+		
+		//화면으로 보낼 json 정의
 		String json = String.format("{\"mode\":\"join\", \"cnt\":%d ,\"user\" : \"%s\"}", list.size(),
 				nickname);
 		for(WebSocketSession wss : list) {

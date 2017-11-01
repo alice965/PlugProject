@@ -72,14 +72,6 @@ public class BoothController {
 		return "redirect:/booth/boothmain";
 		}
 	
-	
-	@RequestMapping(path="view")
-	public ModelAndView BoothViewHandle(WebSocketSession session) throws SQLException{
-		ModelAndView mav = new ModelAndView("t_expr");
-		mav.addObject("section", "booth/view");
-		return mav;
-		}
-	
 	@RequestMapping("/list")
 	public ModelAndView BoothListHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param)throws SQLException {
 		ModelAndView mav = new ModelAndView("t_expr");
@@ -130,13 +122,20 @@ public class BoothController {
 			mav.addObject("video", video);
 			System.out.println("Á¤º¸ : " + video);
 		}
-		
 		mav.addObject("section", "booth/boothpage");
 		mav.addObject("one", one);
-		
-		
 		return mav;
 		}
+	
+	@RequestMapping(path="view")
+	public ModelAndView BoothViewHandle(WebSocketSession session) throws SQLException{
+		ModelAndView mav = new ModelAndView("t_expr");
+		mav.addObject("section", "booth/view");
+		return mav;
+		}
+	
+	
+	
 	@RequestMapping(path="/deleteInterest")
 	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
 		//System.out.println("delparam??" + param);

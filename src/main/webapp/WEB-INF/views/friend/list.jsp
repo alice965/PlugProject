@@ -30,24 +30,53 @@
 				<tr class="w3-Blue">
 					<th style="width: 30%">닉네임</th>
 					<th style="width: 30%">아이디</th>
-					<th style="width: 10%">친구추가일</th>
+					<th style="width: 20%">친구추가일</th>
+					<th style="width: 15%">삭제</th>
 				</tr>
 			</thead>
 			<tbody>
+			<!-- 컨트롤러에서 받은 아이디가 onenick과 일치하는지 체크 -->
 				<c:forEach var="obj" items="${listFriend }">
-					<tr>
-						<td>${obj.NICKNAME }</td>
-						<td>${obj.ID }</td>
-						<td>${obj.ADDATE }</td>
+			<c:choose>
+					<c:when test="${obj.ONE eq sid}">
+						<tr>
+						<td>${obj.OTHERNICK }</td>
+						<td>${obj.OTHER }</td>
+						<td>
+							<fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+						</td>
+						<td>
+							<button class="deleteFriend">삭제</button> 
+								<input type="hidden"	value="${obj.OTHER }"> 
+								<input type="hidden" 	value="${obj.ONE }">
+						</td>
 					</tr>
+					</c:when>
+					<c:otherwise>
+						<tr>
+						<td>${obj.ONENICK }</td>
+						<td>${obj.ONE }</td>
+						<td>
+							<fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+						</td>
+						<td>
+							<button class="deleteFriend">삭제</button> 
+								<input type="hidden"	value="${obj.ONE}"> 
+								<input type="hidden" 	value="${obj.OTHER}">
+						</td>
+						</tr>
+					</c:otherwise>
+			</c:choose>
 				</c:forEach>
+				
+			<!-- ------------ -->
 			</tbody>
 		</table>
     </div>
     <div id="rlist" class="tab-pane fade">
       <h3>받은 친구 요청</h3>
       <div class="col-xs-7">
-			총 <b>${cntListSnd }</b> 건의 친구 요청을 받았습니다.
+			총 <b>${cntListRcv }</b> 건의 친구 요청을 받았습니다.
 		</div>
 		<table class="w3-table-all" style="width: 95%" id="list">
 			<thead>
@@ -63,15 +92,17 @@
 					<tr>
 						<td>${obj.ONENICK }</td>
 						<td>${obj.ONE }</td>
-						<td>${obj.REQDATE }</td>
 						<td>
-							<button class="accept">승인</button> <input type="hidden"
-							value="${obj.ONE }"> <input type="hidden"
-							value="${obj.OTHER }">
+							<fmt:formatDate value="${obj.REQDATE}" pattern="yyyy.MM.dd" />
+						</td>
+						<td>
+							<button class="accept">승인</button> 
+								<input type="hidden"	value="${obj.ONE}"> 
+								<input type="hidden"	value="${obj.OTHER}">
 
-							<button class="deny">거절</button> <input type="hidden"
-							value="${obj.ONE }"> <input type="hidden"
-							value="${obj.OTHER }">
+							<button class="deny">거절</button> 
+								<input type="hidden"	value="${obj.ONE }"> 
+								<input type="hidden" 	value="${obj.OTHER }">
 						</td>
 					</tr>
 				</c:forEach>
@@ -97,11 +128,13 @@
 					<tr>
 						<td>${obj.OTHERNICK }</td>
 						<td>${obj.OTHER }</td>
-						<td>${obj.REQDATE }</td>
 						<td>
-							<button class="delete">취소</button> <input type="hidden"
-							value="${obj.ONE }"> <input type="hidden"
-							value="${obj.OTHER }">
+							<fmt:formatDate value="${obj.REQDATE}" pattern="yyyy.MM.dd" />
+						</td>
+						<td>
+							<button class="delete">취소</button> 
+								<input type="hidden"	value="${obj.ONE }"> 
+								<input type="hidden" 	value="${obj.OTHER }">
 						</td>
 					</tr>
 				</c:forEach>
@@ -135,7 +168,18 @@
 </c:choose>
 
 <script>
-	//삭제 스크립트
+//친구삭제 스크립트
+$(".deleteFriend").on(
+		"click",
+		function() {
+			var r = confirm("친구를 삭제하시겠습니까?");
+			if (r == true) {
+				location.href = '/friend/delete?one='
+						+ $(this).next().val() + '&other='
+						+ $(this).next().next().val();
+			} 
+		});
+	//친구요청 취소 스크립트
 	$(".delete").on(
 			"click",
 			function() {

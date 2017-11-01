@@ -10,7 +10,7 @@
 		from friend f join member m on f.other=m.id) othergroup 
 		join member m on
 		othergroup.one=m.id 
-		where m.id=#{id} and othergroup.status='req'
+		where othergroup.one=#{id} and othergroup.status='req'
 	</select>
 	<select id="listRcv" resultType="java.util.HashMap">
 		select othergroup.*, m.nickname	as onenick from 
@@ -21,8 +21,9 @@
 		where othergroup.other=#{id} and othergroup.status='req'
 	</select>
 	<select id="listFriend" resultType="java.util.HashMap">
-		select f.*, m.* from friend f
-		join member m on f.one=m.id where m.id=#{id} and f.status='frd'
+		select t1.*, m1.nickname as othernick from  (select f.*, m.nickname as onenick from friend f
+      join member m on m.id=f.one ) t1 join member m1 on  t1.other = m1.id where t1.status='frd' and 
+      (one = #{id} or other=#{id})
 	</select>
 	<insert id="add">
 		insert into friend values(friend_seq.nextval, #{one}, #{other}, '',
@@ -45,10 +46,6 @@
 	<update id="accept">
 		update friend set adddate=sysdate, status='frd' where one=#{one} and  other=#{other}
 	</update>
-	<!-- 친구를 수락하면 상대방의 상태도 친구로 만들어서 추가줘야 함.. 추가날짜만 있고 요청일은 없음.-->
-	<insert id="acceptUpdate">
-		insert into friend values(friend_seq.nextval, #{other}, #{one}, sysdate,
-		'', 'frd')
-	</insert>
+	
 
 </mapper>
