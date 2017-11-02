@@ -50,6 +50,7 @@ public class MemoController {
 		return mav;
 	}
 
+	
 	@GetMapping("/sendlist")
 	public ModelAndView sendListHandle() {
 		ModelAndView mav = new ModelAndView("t_expr");
@@ -58,11 +59,12 @@ public class MemoController {
 		return mav;
 	}
 
+	
 	@GetMapping("/receivelist")
 	public ModelAndView receiverListHandle() {
 		ModelAndView mav = new ModelAndView("t_expr");
 		mav.addObject("section", "memo/receivelist");
-	//	mav.addObject("data", memoDao.ReceiveList());
+		mav.addObject("data", memoDao.ReceiveList());
 		return mav;
 	}
 }

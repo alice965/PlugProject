@@ -2,6 +2,7 @@ package com.plug.dj.controller;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,76 +19,80 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.plug.dj.controller.ws.BoothWSHandler;
 import com.plug.dj.model.TestDao;
-
+import com.plug.dj.model.VideoDao;
 
 @Controller
 public class IndexController {
+	@Autowired
+	com.plug.dj.model.BoothDao BoothDao;
+
+	BoothWSHandler boothws;
 
 	@RequestMapping({ "/", "/index" })
-	public ModelAndView rootHandle() {
+	public ModelAndView rootHandle(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam Map param)
+			throws SQLException {
 		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "index");
+		List<Map> list = BoothDao.listNew();
+		mav.addObject("section", "index"); //앞에그럼 변수명  뒤에가 변수값
+		mav.addObject("list", list);
 		return mav;
 	}
+
 	@RequestMapping("/test")
 	public ModelAndView testHandle() {
 		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "test");
+		mav.addObject("section", "test");
 		return mav;
 	}
+
 	@RequestMapping("/test2")
 	public ModelAndView test2Handle() {
 		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "test2");
+		mav.addObject("section", "test2");
 		return mav;
 	}
-	
+
 	@RequestMapping("/modal")
 	public ModelAndView modal2Handle() {
 		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "modal");
+		mav.addObject("section", "modal");
 		return mav;
 	}
 
-
-	
 	/*
-	@PostMapping("/test3")
-	@RequestMapping(path = "/test3", method = RequestMethod.POST)
-	public String test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
-		try {
-			//src=https://www.youtube.com/playlist?list=PLVfChAjsg5xPuZRxLIxCJAyb5J_DauDJu
-			String src = (String)map.get("src");
-			String[] list = src.split("=");
-			String playlist = list[1];
-			
-			String id = (String) session.getAttribute("auth_id");
-			map.put("id", id);
-			System.out.println(map);
-			return "redirect:/test3";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "t_expr";
-		}
-	}*/
-	
-	
-@GetMapping("/testcheckbox")
+	 * @PostMapping("/test3")
+	 * 
+	 * @RequestMapping(path = "/test3", method = RequestMethod.POST) public String
+	 * test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
+	 * try { //src=https://www.youtube.com/playlist?list=
+	 * PLVfChAjsg5xPuZRxLIxCJAyb5J_DauDJu String src = (String)map.get("src");
+	 * String[] list = src.split("="); String playlist = list[1];
+	 * 
+	 * String id = (String) session.getAttribute("auth_id"); map.put("id", id);
+	 * System.out.println(map); return "redirect:/test3"; } catch (Exception e) {
+	 * e.printStackTrace(); return "t_expr"; } }
+	 */
+
+	@GetMapping("/testcheckbox")
 	@RequestMapping(path = "/testcheckbox", method = RequestMethod.GET)
 	public ModelAndView testChkGetHandle(Map map) {
 		ModelAndView mav = new ModelAndView("t_expr");
-			mav.addObject("section", "testcheckbox");
+		mav.addObject("section", "testcheckbox");
 		return mav;
 	}
+
 	@Autowired
 	TestDao tDao;
+
 	@PostMapping("/testcheckbox")
 	@RequestMapping(path = "/testcheckbox", method = RequestMethod.POST)
-	public String testChkGPostHandle(@RequestParam MultiValueMap param, ModelMap map, HttpSession session) throws SQLException {
-		System.out.println("파람:"+param.get("genre"));
-		String strparam=param.get("genre").toString();
-		System.out.println("strparam 파람:"+strparam);
+	public String testChkGPostHandle(@RequestParam MultiValueMap param, ModelMap map, HttpSession session)
+			throws SQLException {
+		System.out.println("파람:" + param.get("genre"));
+		String strparam = param.get("genre").toString();
+		System.out.println("strparam 파람:" + strparam);
 		int rst = tDao.save(strparam);
 		if (rst == 1) {
 			map.put("section", "/testcheckbox");
@@ -96,4 +101,4 @@ public class IndexController {
 		map.put("rst1", rst);
 		return "/testcheckbox";
 	}
-} 
+}

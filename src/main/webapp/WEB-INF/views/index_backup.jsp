@@ -1,66 +1,151 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
- 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing:border-box}
+body {font-family: Verdana,sans-serif;margin:0}
+.mySlides {display:none}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 3.5s;
+  animation-name: fade;
+  animation-duration: 3.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+</style>
 
 <div class="container">
 	<!-- 페이지 상단 이미지 영역 -->
-	
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
+	<div class="slideshow-container">
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-<!-- 1번 -->
-      <div class="item active">
-        <img src="/images/main/main1.jpg" alt="Los Angeles" style="width:100%;">
-        <div class="carousel-caption">
-          <h2> Welcome to Plug.DJ  ! </h2>
-          <hr/>　
-            <br/>　
-          
-          <p>Plug.DJ에서 전세계 음악팬들과 플레이 리스트를 공유해보세요!</p>
-      <br/>　
-          <br/>　
-          <br/>　
-          <br/>　
-          <br/>　
-      		<br/>　
-        </div>
-      </div>
-<!-- 2번 -->
-      <div class="item">
-        <img src="/images/main/main2.jpg" alt="Chicago" style="width:100%;">
-        <div class="carousel-caption">
-          <h3>자신의 음악을 뽐내보자!</h3>
-          <hr/>
-          <br/>　
-          <p>직접 부스를 만들어서 음악을 공유하고 자신의 음악을 들려주세요!</p>
-          <br/>　
-          <br/>　
-          <br/>　
-          <br/>　
-          
-          
-          <a class="btn btn-primary btn-lg" href="/myplay/add" role="button"> 나만의 부스 만들러가기</a>
-          <br/>　
-        </div>
-      </div>
-<!-- 3번 -->
-      <div class="item">
-        <img src="/images/main/main3.jpg" alt="New York" style="width:100%;">
-        <div class="carousel-caption">
-          <h3>서비스 소개</h3>
-    <hr/>
-    <br/>　
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="/images/main/main1.jpg" style="width:100%">
+  <div class="text">
+  	<h2 class="text-center">Welcome to Plug.DJ</h2>
+  	<br>　
+  	<br>
+	<p class="text-center">Plug.DJ에서 전세계 음악팬들과 플레이 리스트를 공유해보세요!</p>
+	<br>　
+  	<br>　
+  	<br>　
+  	　
+  	
+		<br>
+
+  
+  </div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="/images/main/main2.jpg" style="width:100%">
+  <div class="text">
+ 	<h2 class="text-center">자신의 음악을 뽐내보자!</h2>
+		<p class="text-center">직접 부스를 만들어서 음악을 공유하고 자신의 음악을 들려주세요!</p>
+		<br>
+		<p class="text-center">
+		<br>　
+		<br>　
+		<br>　
+		<br>　
+		
+			<a class="btn btn-primary btn-lg" href="/myplay/add" role="button"> 나만의 부스 만들러가기</a>
+		</p>
+  
+  </div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="/images/main/main3.jpg" style="width:100%">
+  <div class="text">
+   <h4>서비스 소개</h4>
 			<p>Plug.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.<br>
 			상세설명이 궁금하시면 아래 자세히 알아보기를 눌러주세요!
 			<br>　
@@ -70,26 +155,25 @@
 			</p>
 			<p>
 				<a class="btn btn-default" data-target="#modal-1"
-					data-toggle="modal">자세히 알아보기</a></p>
-        </div>
-      </div>
+					data-toggle="modal">자세히 알아보기</a>
+					
+			</p>
   
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
+  
   </div>
-	
-	<!--  --==========-->
+</div>
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
 
 
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
 	<!-- 점보트론 종료 -->
 
 
@@ -299,7 +383,7 @@
 						style="width: 256px; height: 256px;">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Close</button>
 					<a class="btn btn-primary btn-lg" href="/booth/boothmain" role="button">부스목록 보러가기</a>
 				</div>
 			</div>
@@ -308,4 +392,31 @@
 	</div>
 	<!-- 모달 종료 -->
 	
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
 
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>

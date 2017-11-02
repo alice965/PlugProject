@@ -35,6 +35,7 @@
 <div class="row">
 
 
+
 	<!-- 왼쪽 영역 (영상 플레이) -->
 	<div class="col-md-8" style="min-height: 65%; background-color: black;">
 		<p>영상이 들어갈 위치</p>
@@ -58,9 +59,10 @@
 		</form>
 	</div>
 
+
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
 	<div class="col-md-4"
-		style="min-height: 40%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
+		style="margin-top:10px; min-height: 40%; min-width: 20%; background-color: white; border-radius: 1em;">
 		<!-- 탭 영역 -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#chat"
@@ -207,6 +209,7 @@
 						<input type="text" id="num2" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
 						<button id="send2">가져오기</button>
+						
 					</div>
 					<div class="well">
 						<h4>LIST</h4>
@@ -232,7 +235,6 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h3 class="modal-title">채널에서 갖고오기</h3>
 				</div>
-
 				<div class="modal-body">
 					<div class="well">
 						<h4>
@@ -264,11 +266,6 @@
 </div>
 <!-- row종료 태그 -->
 
-
-
-
-
-
 <!-- 하단 좋아요 싫어요 부분 -->
 <div style="background-color: yellow">
 	<div id="like" class="col-md-3"
@@ -283,10 +280,6 @@
 		style="border-radius: 2em; background-color: #ff0066;">
 		<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br>
 	</div>
-	<div id="watingroom" class="col-md-3"
-		style="background-color: #cc66ff; border-radius: 2em;">
-		대기열넣을곳 <br />
-	</div>
 </div>
 
 
@@ -300,12 +293,13 @@
 			this.value = "";
 		}
 	}
-	var ws = new WebSocket("ws://192.168.10.81/ws/chat");
+	var ws = new WebSocket("ws://192.168.219.100/ws/chat");
 
 	ws.onopen = function(e) {
 		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
 		//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
 		var obj = JSON.parse(e.data);
+		
 		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
 				+ " ] 명</small>";
 	}
@@ -526,6 +520,6 @@
 		}
 	}
 </script>
-=======
+
 </html>
 

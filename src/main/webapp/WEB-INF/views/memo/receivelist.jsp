@@ -37,8 +37,10 @@ button {
 		<tbody>
 			<c:forEach var="obj" items="${data }">
 				<tr>
-					<td><a href="/memo/show/${obj.NUM}">${obj.title}</a></td>
-
+					<td><a href="/memo/show/${obj.num}">${obj.title}</a></td>
+					<td>${obj.sender}</td>
+					<td>${obj.content}</td>
+					<td>${obj.sendtime}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

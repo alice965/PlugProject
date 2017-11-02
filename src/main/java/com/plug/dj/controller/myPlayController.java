@@ -104,18 +104,11 @@ public class myPlayController {
 			e.printStackTrace();
 		}
 		//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
-		if(param.get("url")==null) {
+		if(b) {
 			param.put("id", id);
-			param.put("url", "/images/booth/default.jpg");
-		}else {
-			if (b) {
-				param.put("id", id);
-				param.put("url", "/images/booth/" + fileName);
-			}
+			param.put("url", "/images/booth/" + fileName);
 		}
-		
-		
-		
+		System.out.println("sdfparam?? : " + param);
 
 		//////기존 플레이리스트 소스 있던거
 		int rst = playlistDao.add(param);
