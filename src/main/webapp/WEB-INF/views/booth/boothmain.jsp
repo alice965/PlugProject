@@ -341,7 +341,7 @@
         		genre.push($(this).val());
         	}
         })           
-		location.href='/booth/boothmain?title='+title+'&dj='
+		location.href='/booth/boothmain?mode=search&title='+title+'&dj='
 						+"&genre="+genre;
 	});
 	
