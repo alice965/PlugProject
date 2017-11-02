@@ -116,7 +116,7 @@ public class BoothController {
 	}
 	
 	@RequestMapping(path="boothpage/{num}")
-	public ModelAndView BoothPageHandle(@PathVariable String num) throws SQLException{
+	public ModelAndView BoothPageHandle(HttpSession session, @PathVariable String num) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
 		Map one=BoothDao.readOne(num);
 		BoothDao.increaseCnt(num);
@@ -132,11 +132,15 @@ public class BoothController {
 			System.out.println("비디오 리스트 : " + videolist);
 			mav.addObject("video", video);
 			System.out.println("정보 : " + video);
+			
+			if(one.get("ID").equals(session.getAttribute("auth_id"))){
+				System.out.println("방장은 삭제할 권한이 있습니다.");
+				mav.addObject("DJ", "equal"); //방장과 로그인한 사람이 같을 경우
+			}
 		}
 		
 		mav.addObject("section", "booth/boothpage");
 		mav.addObject("one", one);
-		
 		
 		return mav;
 		}

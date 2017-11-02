@@ -16,6 +16,11 @@
 	<select id="selectVideo_IdList" resultType="java.util.HashMap">
 		select video_id from videolist where (num=#{num}) order by adddate
 	</select>
+	
+	<!-- 재생목록 삭제 -->
+	<delete id="deleteVideo" >
+		delete * from videolist where (video_num = ${video_num})
+	</delete>
 </mapper>
 
 

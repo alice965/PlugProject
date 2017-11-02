@@ -1,6 +1,7 @@
 package com.plug.dj.controller;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,6 +79,25 @@ public class VideoController {
 			System.out.println("비디오 추가 : " + map);
 			VideoDao.addVideo(map);
 			return "redirect:/booth/boothpage/" + map.get("num");
+		} catch (Exception e) {
+			//이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
+			e.printStackTrace();
+			return "t_expr";
+		}
+	}
+	
+	@GetMapping("/delete") //링크로 바로 들어가면 get
+	@RequestMapping(path = "/delete", method = RequestMethod.GET)
+	public String deleteGetHandle(@RequestParam(name="num") String[] num, @RequestParam Map map, HttpSession session, Model model) {
+		//MAP으로 전달되는 것들 : VIDEO_TITLE, VIDEO_ID, CHANNER_URL, IMAGE, NUM :방의 NUM
+		//추가로 지정해야 되는 것들 : ADD_ID (추가한 사람의 닉네임)
+		try {
+			
+			for(int idx=0; idx<num.length; idx++){
+			VideoDao.deleteVideo(num[idx]);
+			System.out.println("비디오 삭제 : " + num[idx]);
+			}
+			return "redirect:/booth/list";
 		} catch (Exception e) {
 			//이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
 			e.printStackTrace();

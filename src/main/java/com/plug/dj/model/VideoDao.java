@@ -26,4 +26,9 @@ public class VideoDao {
 	public List<Map> selectVideo_IdList(String num){
 		return sql.selectList("video.selectVideo_IdList", num);
 	}
+
+	public boolean deleteVideo(String video_num){
+		sql.delete("video.deleteVideo", video_num);
+		return true;
+	}
 }

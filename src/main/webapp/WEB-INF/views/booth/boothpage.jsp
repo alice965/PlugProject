@@ -108,6 +108,35 @@
 					</c:if>
 					<!-- 재생목록 갖고오기 : 재생목록 있을 경우 -->
 					<c:if test="${!empty video }">
+					
+					<!-- 방장은 다른 화면 보이도록 --> 
+					<c:if test="${!empty DJ }">
+					<form action="/video/delete" method="get">
+						<c:forEach var="obj" items="${video }">
+							<div class="row">
+								<div align="left" class="col-xs-1">
+								<input type="checkbox" name="video_num" value="${obj.VIDEO_NUM }"/>							
+								</div>
+								<div align="left" class="col-xs-3">
+									<!-- xs가 제일 작은 사이즈. -->
+									<img src="${obj.IMAGE}" style="width: 100px; height: 70px">
+								</div>
+								<div class="col-xs-8" align="left">
+									${obj.VIDEO_TITLE} <br />
+									<small> 추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME })
+										<br /> 추가한 날짜 : <fmt:formatDate value="${obj.ADDDATE}"
+											pattern="yyyy.MM.dd" />
+									</small> <br />
+								</div>
+							</div>
+							<hr />
+						</c:forEach>
+						<button type="submit">삭제하기</button>
+					</form>
+					</c:if>
+					
+					<c:if test="${empty DJ }">
+					<!-- 일반인들이 보일 화면.. -->
 						<c:forEach var="obj" items="${video }">
 							<div class="row">
 								<div align="left" class="col-xs-4">
@@ -124,6 +153,8 @@
 							</div>
 							<hr />
 						</c:forEach>
+					</c:if>
+					
 					</c:if>
 				</div>
 			</div>
