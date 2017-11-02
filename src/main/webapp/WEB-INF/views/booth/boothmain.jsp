@@ -105,7 +105,7 @@
 						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="발라드">발라드 </label>
 						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="댄스">댄스 </label>
 						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="랩/힙합">랩/힙합 </label>
-						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="R&B/Soul">R&B/Soul </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="RnB/Soul">RnB/Soul </label>
 						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="인디음악">인디음악 </label>
 						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="일렉트로니카">일렉트로니카 </label>
 						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="락/메탈">락/메탈 </label>
@@ -128,6 +128,10 @@
  	<c:choose>
  		<c:when test="${mode eq 'search'}">
  		<b>[${keyword }]</b>로 검색한 결과, 총 <b>${cnt }</b> 개의 부스가 검색되었습니다.
+ 		<button onclick="location.href='/booth/boothmain' ";>전체목록보기</button>
+ 		</c:when>
+ 		<c:when test="${mode eq 'searchOpt'}">
+ 		<b>${title } /${dj } /${genre }</b>로 검색한 결과, 총 <b>${cnt }</b> 개의 부스가 검색되었습니다.
  		<button onclick="location.href='/booth/boothmain' ";>전체목록보기</button>
  		</c:when>
  		<c:otherwise>
@@ -332,17 +336,26 @@
 <script>
 	//검색 옵션 패널 버튼 클릭
 	$("#searchpnbtn").click(function(){
+		
 		var title=$("#titleval").val();
 		var dj=$("#djval").val();
+		
+		//장르 체크박스를 위한 처리
 		var genre=[];
 		
         $('input:checkbox[name="genre"]').each(function(){
         	if(this.checked){
         		genre.push($(this).val());
         	}
-        })           
-		location.href='/booth/boothmain?mode=search&title='+title+'&dj='
-						+"&genre="+genre;
+        })   
+        
+        //인풋 창이 비어있을 경우 처리        
+        if(title=="" && dj=="" && genre==""){
+        	window.alert("검색 조건을 하나 이상 입력해주세요");
+        }
+        
+        var url="/booth/boothmain?mode=searchOpt";
+		location.href=url+"&title="+title+'&dj='+dj+"&genre="+genre;
 	});
 	
 

@@ -12,8 +12,12 @@ public class SearchDao {
 	@Autowired
 	SqlSessionTemplate sql;
 	
-	public List<Map> listAll(String keyword) {
-		return sql.selectList("search.listAll", keyword);
+	public List<Map> listTitle(String keyword) {
+		return sql.selectList("search.listTitle", keyword);
+	}
+	
+	public List<Map> listOption(Map map) {
+		return sql.selectList("search.listOption", map);
 	}
 
 }

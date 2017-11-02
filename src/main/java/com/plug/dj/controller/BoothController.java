@@ -46,25 +46,48 @@ public class BoothController {
 	public ModelAndView BoothMainHandle(HttpSession session, @RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
 		String id=(String) session.getAttribute("auth_id");
-		
-		System.out.println("부스 메인 파람?! : " +param );
-		mav.addObject("section", "/booth/boothmain");
+		mav.addObject("section", "booth/boothmain");
 		//검색으로 접근인지 부스 메인으로 접근인지 감지
-		if(param.get("mode") != null) {//
-				mav.addObject("mode", "search");	//파라미터가 있다면 검색모드
-				System.out.println("파람 있음");
-				String keyword="test";
-				List<Map> searchList = sDao.listAll(keyword);
-				System.out.println("searchList??" +searchList);
-				mav.addObject("list", searchList);
-				mav.addObject("cnt", searchList.size());
-				mav.addObject("keyword",keyword);
+		
+		// 1. 부스 메인의 옵션 패널에서 검색 조건으로 검색한 경우
+		if(param.get("mode").equals("searchOpt")) {
+			mav.addObject("mode", "searchOpt");	
+
+			String title=(String) param.get("title");
+			String dj=(String) param.get("dj");
+			String genre=(String) param.get("genre");
+			 
+				//화면에 출력할 값 설정
+			mav.addObject("title", title);	
+			mav.addObject("dj", dj);
+			mav.addObject("genre", genre);
+				//dao에 넣을 map 설정
+			Map smap = new HashMap<>();
+			smap.put("title", title);
+			smap.put("dj", dj);
+			smap.put("genre", genre);
 			
-		}else {
+			List<Map> searchOptList = sDao.listOption(smap);
+			
+			mav.addObject("list", searchOptList);
+			mav.addObject("cnt", searchOptList.size());
+			
+		//2. 네비게이션의 검색 으로 들어온 경우	
+		}else if(param.get("mode").equals("search")) {
+			mav.addObject("mode", "search");
+			
+			String title=(String) param.get("title");
+			List<Map> searchList = sDao.listTitle(title);
+			
+			mav.addObject("list", searchList);
+			mav.addObject("cnt", searchList.size());
+			mav.addObject("keyword",title);
+		
+		//3. 메뉴바에서 DJ booth 메뉴 클릭해서 들어온 경우
+		}else if(param.get("mode").equals("normal")) {
 			//전체 부스
 			List<Map> list = BoothDao.listAll();				
-			mav.addObject("section", "booth/boothmain");
-			mav.addObject("mode", "normal");	//네비게이션 클릭의 경우
+			mav.addObject("mode", "normal");	
 			mav.addObject("list", list);
 			mav.addObject("cnt", list.size());
 			
@@ -72,7 +95,8 @@ public class BoothController {
 			List<Map> listInterest = iDao.listInterest(id);		
 			mav.addObject("interest", listInterest);
 			mav.addObject("cntint", listInterest.size());
-		}
+		};
+		
 		return mav;
 		}
 	
