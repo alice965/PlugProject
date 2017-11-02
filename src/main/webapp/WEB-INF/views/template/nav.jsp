@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
 <!------------------------ 검색바를 위한 스타일 시트 정의------------------  -->
 <!-- https://bootsnipp.com/snippets/featured/advanced-dropdown-search -->
-<style>
 
 .dropdown.dropdown-lg .dropdown-menu {
     margin-top: -1px;
@@ -48,6 +48,10 @@
     height: 34px;}
 }
 
+	.toptxt{
+		font-size: 15px;
+		color :gray;
+	}
 </style>
 
 <!-- ----------------------검색바를 위한 스타일 시트 정의 끝------------------ -->
@@ -55,22 +59,24 @@
 	<div class="container-fluid">
 		<!-- 로그인/아웃 메뉴 구분 -->
 		<div class="row">
-			<div class="col-sm-7">
+			<div class="col-sm-6">
 					<!-- 자리 확보를 위한 빈 공간 -->
 			</div>
-			<div class="col-sm-5">
+			<div class="col-sm-6" >
 				<c:choose>
 					<c:when test="${empty auth }">
-							<a href="/login">Log-In  </a>  /
-							<a href="/join">Join</a>
+							<span class="toptxt">방문객님 환영합니다 &nbsp;&nbsp;</span>
+							<a href="/login"  class="toptxt">Log-In  </a>  ｜
+							<a href="/join" class="toptxt">Join</a>
 					</c:when>
 						<c:otherwise>
-							<a href="/logout">Log Out  </a>  /
-							<a href="#" class="dropdown-toggle"
+							<span  class="toptxt">${auth.NICKNAME }(${auth.ID })님 안녕하세요 &nbsp;&nbsp;</span>
+							<a href="/logout"  class="toptxt">Log-Out  </a> ｜
+							<a href="#" class="dropdown-toggle toptxt"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"> 마이페이지<span class="caret"></span>
+							aria-expanded="false" > My Page<span class="caret"></span>
 						</a>
-								<ul class="dropdown-menu">
+								<ul class="dropdown-menu" style="left:40%">
 									<li><a href="/my/profile">나의 정보</a></li>
 									<li><a href="/my/mybooth">나의 부스</a></li>
 									<li><a href="/my/alarm">알리미</a></li>
@@ -107,42 +113,44 @@
 							</ul>
 				</li>
 				<!-- ----------------------검색 바----------------------------------------- -->
-            <div class="input-group" id="adv-search" style="padding-top:10px;">
-                <input type="text"  id="searchval" class="form-control" placeholder="부스를 검색해보세요" /> <!-- 네비 영역 검색 인풋창 searchval -->
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle searcharrow" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="filter">Filter by</label>
-                                    <select class="form-control">
-                                        <option value="0" selected>부스 검색</option>
-                                        <option value="1">신규 부스</option>
-                                        <option value="2">조회수 높은 부스</option>
-                                    </select>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">DJ 이름</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">부스 이름</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <button type="submit" class="btn btn-primary" > 
-                                  		<span class="glyphicon glyphicon-search " aria-hidden="true">  		</span>
-                                  </button>
-                                </form>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary" id="searchbtn"><!-- 돋보기 모양 검색 버튼  searchbtn-->
-                        	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+				<li>
+					<div class="input-group" id="adv-search" style="padding-top:10px;">
+		                <input type="text"  id="searchval" class="form-control" placeholder="부스를 검색해보세요"  value="${keyword}"/> <!-- 네비 영역 검색 인풋창 searchval -->
+		                <div class="input-group-btn">
+		                    <div class="btn-group" role="group">
+		                        <div class="dropdown dropdown-lg">
+		                            <button type="button" class="btn btn-default dropdown-toggle searcharrow" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+		                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+		                                <form class="form-horizontal" role="form">
+		                                  <div class="form-group">
+		                                    <label for="filter">Filter by</label>
+		                                    <select class="form-control">
+		                                        <option value="0" selected>부스 검색</option>
+		                                        <option value="1">신규 부스</option>
+		                                        <option value="2">조회수 높은 부스</option>
+		                                    </select>
+		                                  </div>
+		                                  <div class="form-group">
+		                                    <label for="contain">DJ 이름</label>
+		                                    <input class="form-control" type="text" />
+		                                  </div>
+		                                  <div class="form-group">
+		                                    <label for="contain">부스 이름</label>
+		                                    <input class="form-control" type="text" />
+		                                  </div>
+		                                  <button type="submit" class="btn btn-primary" > 
+		                                  		<span class="glyphicon glyphicon-search " aria-hidden="true">  		</span>
+		                                  </button>
+		                                </form>
+		                            </div>
+		                        </div>
+		                        <button type="button" class="btn btn-primary" id="searchbtn"><!-- 돋보기 모양 검색 버튼  searchbtn-->
+		                        	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		                        </button>
+		                    </div>
+		                </div>
+		            </div>
+				</li>            
 				<!-- ----------------------검색 바----------------------------------------- -->
 			</ul>
 			</div>
@@ -158,7 +166,8 @@
 // 돋보기 모양 검색 버튼 클릭시 스크립트
 $("#searchbtn").click(function() {
     var keyword=$("#searchval").val();
-    location.href="/booth/boothmain?keyword="+keyword;
+    location.href="/booth/boothmain/"+keyword;
+    $("#searchval").val=keyword;
 });
 
 

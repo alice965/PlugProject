@@ -47,18 +47,26 @@ public class BoothController {
 		ModelAndView mav = new ModelAndView("t_expr");
 		String id=(String) session.getAttribute("auth_id");
 		
-		//전체 부스
-		List<Map> list = BoothDao.listAll();				
-		mav.addObject("section", "booth/boothmain");
-		mav.addObject("list", list);
-		mav.addObject("cnt", list.size());
-		
-		
-		//관심 부스
-		List<Map> listInterest = iDao.listInterest(id);		
-		mav.addObject("interest", listInterest);
-		mav.addObject("cntint", listInterest.size());
-		
+		System.out.println("부스 메인 파람?! : " +param );
+		mav.addObject("section", "/booth/boothmain");
+		//검색으로 접근인지 부스 메인으로 접근인지 감지
+		if(param != null) {
+			mav.addObject("mode", "search");	//파라미터가 있다면 검색모드
+			System.out.println("파람 있음");
+			String keyword="test";
+			List<Map> searchList = sDao.listAll(keyword);
+			System.out.println("searchList??" +searchList);
+			mav.addObject("list", searchList);
+			mav.addObject("cnt", searchList.size());
+			mav.addObject("keyword",keyword);
+		}else {
+			String keyword="test";
+			List<Map> searchList = sDao.listAll(keyword);
+			System.out.println("searchList??" +searchList);
+			mav.addObject("list", searchList);
+			mav.addObject("cnt", searchList.size());
+			mav.addObject("keyword",keyword);
+		}
 		return mav;
 		}
 	
@@ -141,22 +149,5 @@ public class BoothController {
 		int r=iDao.delete(param);
 		return "redirect:/booth/boothmain";
 		}
-	
-	@GetMapping("/search")
-	public ModelAndView searchGetHandle(@RequestParam Map param) {
-		ModelAndView mav = new ModelAndView("t_expr");
-		
-			mav.addObject("section", "search");
-			String keyword = (String) param.get("keyword");
-			System.out.println("keyword :" + keyword);
-			
-			List<Map> searchList = sDao.listAll(keyword);
-			
-			System.out.println(searchList);
-			mav.addObject("searchList", searchList);
-			
-		return mav;
-	}
-	
 	
 }
