@@ -3,7 +3,6 @@
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="search">
 
-	<!-- 네비게이션 상단에서 제목만 검색할 경우.......... %를 앞에도 붙이고 싶은데 터짐 -->
 	<select id="listTitle" resultType="java.util.HashMap">
 	 
 		select b.*, m.id, m.nickname  from booth b  join member m 

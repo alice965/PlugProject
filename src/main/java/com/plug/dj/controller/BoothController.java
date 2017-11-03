@@ -7,6 +7,9 @@ import java.util.List;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,11 +156,34 @@ public class BoothController {
 	}
 	
 	@RequestMapping(path="boothpage/{num}")
-	public ModelAndView BoothPageHandle(HttpSession session, @PathVariable String num) throws SQLException{
+	public ModelAndView BoothPageHandle(HttpServletResponse res, HttpServletRequest req, HttpSession session, @PathVariable String num) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
+		
+		//중복 카운트를 막기 위한 쿠키 처리
+		Cookie cookies[] = req.getCookies();
+		Cookie viewCookie = null;
+		Map cmap = new HashMap();
+		
+		if(req.getCookies() != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if(cookies[i].getName().equals("viewcnt")) {
+					viewCookie=cookies[i];
+				}
+		    }
+		}
+		if(viewCookie==null) {
+			System.out.println("읽지 않은 게시물");
+			Cookie viewcnt = new Cookie("viewcnt", "ididid");
+			res.addCookie(viewcnt);
+			//조회수 증가
+			BoothDao.increaseCnt(num);
+			
+		}
+		
+		//부스 번호로 정보 읽어옴
 		Map one=BoothDao.readOne(num);
-		BoothDao.increaseCnt(num);
 		System.out.println("방정보 출력 : "+one); 
+		System.out.println("one???"+one);
 		
 		List<Map> video = VideoDao.selectVideoList(num);
 		List<Map> videolist = VideoDao.selectVideo_IdList(num);
@@ -191,9 +217,10 @@ public class BoothController {
 	
 	@RequestMapping(path="/deleteInterest")
 	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
-		//System.out.println("delparam??" + param);
+		System.out.println("delparam??" + param);
 		int r=iDao.delete(param);
 		return "redirect:/booth/boothmain?mode=normal";
+		//파라미터 추가하고 트리거로 클릭
 		}
 	
 }

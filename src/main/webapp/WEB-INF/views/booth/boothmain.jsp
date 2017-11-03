@@ -93,7 +93,7 @@
         	<table class="optxt">
         		<tr>
         			<td> 부스 제목</td>
-        			<td><input type="text"  id="titleval"></td>
+        			<td><input type="text"  id="titleval" ></td>
         			<td> DJ 이름</td>
         			<td><input type="text" id="djval"></td>
         		</tr>
