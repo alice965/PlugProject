@@ -15,7 +15,7 @@
 			 and pass=#{pass, jdbcType=VARCHAR } 
 	</select>
 	<select id="readOneById" resultType="java.util.HashMap"> <!-- id와 nickname을 auth에 저장 -->
-		select * from member where (id=#{id})
+		select m.id, m.nickname from member m where (m.id=#{id})
 	</select>
 	
 	<!-- 회원가입시 체크 -->

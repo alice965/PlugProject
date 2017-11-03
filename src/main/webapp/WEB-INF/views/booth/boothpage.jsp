@@ -305,6 +305,49 @@
 </div>
 
 <script>
+/////// 채팅 영역 스크립트///////
+
+//채팅 영역 웹소켓 부분
+document.getElementById("chat_input_field").onchange = function() {
+	if (this.value.length != 0) {
+		ws.send(this.value);
+		this.value = "";
+	}
+}
+var ws = new WebSocket("ws://192.168.10.82/ws/chat");
+
+ws.onopen = function(e) {
+	document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
+	//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
+	var obj = JSON.parse(e.data);
+	document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
+			+ " ] 명</small>";
+}
+ws.onmessage = function(a) {
+	console.log("a : " + a.data);
+	var obj = JSON.parse(a.data);
+	document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
+			+ " ] 명</small>";
+	if (obj.mode == "join") {
+		var html = obj.user + "님께서 채팅방에 입장하셨습니다. <br>";
+	} else if (obj.mode == "exit") {
+		var html = "<b>[ " + obj.user + "]</b>님이 퇴장하셨습니다.<br>";
+	} else if (obj.mode == "info") {
+
+	} else {
+		var html = "<b>[ " + obj.sender + "]</b>" + obj.msg + "<br>";
+	}
+
+	document.getElementById("log").innerHTML += html;
+	document.getElementById("log").scrollTop = document
+			.getElementById("log").scrollHeight;
+
+}
+//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
+$("#chattab").trigger("click");
+
+
+
 	//아무것도 선택 안하고 삭제버튼 눌렀을 때
 	$("#delete").click(function() {
 	var chk=$(".vi:checked").length;
@@ -363,47 +406,6 @@
         player.seekTo(0, true);     // 영상의 시간을 0초로 이동시킨다.
         player.stopVideo();
     }
-
-	/////// 채팅 영역 스크립트///////
-
-	//채팅 영역 웹소켓 부분
-	document.getElementById("chat_input_field").onchange = function() {
-		if (this.value.length != 0) {
-			ws.send(this.value);
-			this.value = "";
-		}
-	}
-	var ws = new WebSocket("ws://192.168.10.82/ws/chat");
-
-	ws.onopen = function(e) {
-		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
-		//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
-		var obj = JSON.parse(e.data);
-		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
-				+ " ] 명</small>";
-	}
-	ws.onmessage = function(a) {
-		console.log("a : " + a.data);
-		var obj = JSON.parse(a.data);
-		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
-				+ " ] 명</small>";
-		if (obj.mode == "join") {
-			var html = obj.user + "님께서 채팅방에 입장하셨습니다. <br>";
-		} else if (obj.mode == "exit") {
-			var html = "<b>[ " + obj.user + "]</b>님이 퇴장하셨습니다.<br>";
-		} else if (obj.mode == "info") {
-
-		} else {
-			var html = "<b>[ " + obj.sender + "]</b>" + obj.msg + "<br>";
-		}
-
-		document.getElementById("log").innerHTML += html;
-		document.getElementById("log").scrollTop = document
-				.getElementById("log").scrollHeight;
-
-	}
-	//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
-	$("#chattab").trigger("click");
 
 	//키워드로(target) 갖고오기==================================================================================
 	function fnGetList() {

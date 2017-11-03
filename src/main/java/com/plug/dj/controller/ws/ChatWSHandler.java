@@ -39,6 +39,7 @@ public class ChatWSHandler extends TextWebSocketHandler {
 		String userId=(String)sessionWhat.get("auth_id");
 		
 		Map mmap=mDao.readOneById(userId);
+		System.out.println("채팅방에서 가져올 정보"+mmap);
 		String nickname = (String) mmap.get("NICKNAME");
 		////////////닉네임 얻어오기 끝////////////////
 		
