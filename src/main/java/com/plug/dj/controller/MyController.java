@@ -141,8 +141,7 @@ public class MyController {
 		boolean rst = false;
 		String fmt = sdf.format(System.currentTimeMillis());
 
-		String fileName = nickname + "_" + fmt + 
-				f.getOriginalFilename().substring(f.getOriginalFilename().lastIndexOf("."));
+		String fileName = nickname + "_" + fmt;
 		try {
 			if (f.isEmpty())
 				throw new Exception();
@@ -152,6 +151,7 @@ public class MyController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		if (rst) {
 			Map data = new HashMap<>();
 			data.put("id", id);
@@ -166,4 +166,3 @@ public class MyController {
 		return mav;
 	}
 }
-

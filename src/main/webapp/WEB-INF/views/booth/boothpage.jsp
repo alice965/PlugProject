@@ -8,13 +8,20 @@
 
 <!--부스 타이틀 영역  -->
 <div>
-	<div id="booth_name" align="center" style="color: #292F33;">
-		<h1>${one.TITLE }</h1>
+	<div id="booth_name" align="center" style="color: #292F33;"
+		align="left">
+		<i class="fa fa-heart" aria-hidden="true"
+			style="font-size: 15px; color: #c94c4c;"></i> ${one.GENRE } <br /> <i
+			class="fa fa-tags" aria-hidden="true"
+			style="font-size: 15px; color: #92a8d1;"></i> ${one.CONTENT }
+		<h1>
+			<b><i>${one.TITLE }</i></b>
+		</h1>
+		<br />
 	</div>
 	<div id="booth_info" style="background-color: #292F33; color: #CCD6DD;">
 		<div class="row">
-			<div class="col-md-1">
-			</div>
+			<div class="col-md-1"></div>
 			<!-- 방장 닉네임 -->
 			<div class="col-md-2">
 				<h4>
@@ -29,17 +36,19 @@
 						style="font-size: 20px; color: #55ACEE;"></i> ${one.COUNT }
 				</h4>
 			</div>
-			
+
 			<div class="col-md-7">
-			<h4>
-			<button type="button" style="font-size: 15px; color: #292F33; 
-			background-color: #FFFFFF; width:75px" class="btn btn-md" onclick="playYoutube();">
-			Play</button>
-			
-			<button type="button" style="font-size: 15px; color: #292F33; 
-			background-color: #FFFFFF; width:75px" class="btn btn-md" onclick="stopYoutube();">
-			Stop</button> <!-- 유투브 중지하고 처음으로 -->
-			</h4>
+				<h4>
+					<button type="button"
+						style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
+						class="btn btn-md" onclick="playYoutube();">Play</button>
+
+					<button type="button"
+						style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
+						class="btn btn-md" onclick="stopYoutube();">Stop</button>
+					<!-- 유투브 중지하고 처음으로 -->
+
+				</h4>
 			</div>
 		</div>
 
@@ -61,8 +70,7 @@
 	</div>
 
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
-	<div class="col-md-4"
-		style="min-height: 50%; min-width: 10%; ">
+	<div class="col-md-4" style="min-height: 50%; min-width: 10%;">
 		<!-- 탭 영역 -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#chat"
@@ -75,8 +83,7 @@
 			<!-- 채팅 영역 -->
 			<div id="chat" class="tab-pane fade in active">
 				<div id="log"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; 
-					background-color: #CCD6DD; font-size: 10pt;"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; background-color: #CCD6DD; font-size: 10pt;"
 					align="left"></div>
 				<div id="cnt"></div>
 				<input type="text" id="chat_input_field"
@@ -89,8 +96,7 @@
 			<!-- 재생목록 -->
 			<div id="vlist" class="tab-pane fade">
 				<div id="videolist"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; 
-					background-color: #CCD6DD; font-size: 10pt;"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; background-color: #CCD6DD; font-size: 10pt;"
 					align="center">
 
 					<div class="tab-content">
@@ -117,43 +123,44 @@
 
 					<!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
 					<c:if test="${!empty nolist }">
-						<b style="color: red">재생목록이 없습니다.</b>
+						<b style="color: #c94c4c">재생목록이 없습니다.</b>
 						<br />
 					</c:if>
 					<!-- 재생목록 갖고오기 : 재생목록 있을 경우 -->
-					<c:if test="${!empty video }">					
-					<form action="/video/delete" method="get" id="form">
-					<input type="hidden" name="room_num" value="${one.NUM }">
-							<c:forEach var="obj" items="${video }" begin="0" step="1" varStatus="status">
+					<c:if test="${!empty video }">
+						<form action="/video/delete" method="get" id="form">
+							<input type="hidden" name="room_num" value="${one.NUM }">
+							<c:forEach var="obj" items="${video }" begin="0" step="1"
+								varStatus="status">
 								<div class="row">
-										<div align="center" class="col-xs-1" style="left:3%">
-											<input type="checkbox" name="video_num" class="vi"
-												value="${obj.VIDEO_NUM }" /> 
-												<!-- 파라미터로 방 번호와 방을 만든 사람을 보냄. -->
-										</div>
-										<div align="left" class="col-xs-3">
-											<!-- xs가 제일 작은 사이즈. -->
-											<img src="${obj.IMAGE}" style="width: 110px; height: 70px">
-										</div>
-										<div class="col-xs-8" align="left">
-										<b>${status.count}.
-										${obj.VIDEO_TITLE}</b> <br /> <small> 추가한 사람 :
-											${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜 : <fmt:formatDate
-												value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+									<div align="center" class="col-xs-1" style="left: 3%">
+										<input type="checkbox" name="video_num" class="vi"
+											value="${obj.VIDEO_NUM }" />
+										<!-- 파라미터로 방 번호와 방을 만든 사람을 보냄. -->
+									</div>
+									<div align="left" class="col-xs-3">
+										<!-- xs가 제일 작은 사이즈. -->
+										<img src="${obj.IMAGE}" style="width: 110px; height: 70px">
+									</div>
+									<div class="col-xs-8" align="left">
+										<b>${status.count}. ${obj.VIDEO_TITLE}</b> <br /> <small>
+											추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜
+											: <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
 										</small> <br />
-										</div>
+									</div>
 								</div>
 								<hr />
 							</c:forEach>
-							<button type="button" id="delete">삭제하기</button> <!-- 삭제할 시 submit으로 변경해주도록 script에서 설정 -->
+							<button type="button" id="delete">삭제하기</button>
+							<!-- 삭제할 시 submit으로 변경해주도록 script에서 설정 -->
 							<c:if test="${!empty param.delete }">
-							<script>
+								<script>
 									window.alert("방장 또는 추가한 유저만 삭제할 수 있습니다.\n권한이 없습니다.");
 							</script>
 							</c:if>
-					</form>
+						</form>
 					</c:if>
-					
+
 				</div>
 			</div>
 		</div>
@@ -304,7 +311,49 @@
 	</div>
 </div>
 
+
 <script>
+	/////// 채팅 영역 스크립트///////
+
+	//채팅 영역 웹소켓 부분
+	document.getElementById("chat_input_field").onchange = function() {
+	if (this.value.length != 0) {
+		ws.send(this.value);
+		this.value = "";
+	}
+	}
+	var ws = new WebSocket("ws://192.168.10.81/ws/chat");
+
+	ws.onopen = function(e) {
+	document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
+	//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
+	var obj = JSON.parse(e.data);
+	document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
+			+ " ] 명</small>";
+	}
+	ws.onmessage = function(a) {
+	console.log("a : " + a.data);
+	var obj = JSON.parse(a.data);
+	document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
+			+ " ] 명</small>";
+	if (obj.mode == "join") {
+		var html = obj.user + "님께서 채팅방에 입장하셨습니다. <br>";
+	} else if (obj.mode == "exit") {
+		var html = "<b>[ " + obj.user + "]</b>님이 퇴장하셨습니다.<br>";
+	} else if (obj.mode == "info") {
+
+	} else {
+		var html = "<b>[ " + obj.sender + "]</b>" + obj.msg + "<br>";
+	}
+
+	document.getElementById("log").innerHTML += html;
+	document.getElementById("log").scrollTop = document
+			.getElementById("log").scrollHeight;
+
+	}
+	//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
+	$("#chattab").trigger("click");
+
 	//아무것도 선택 안하고 삭제버튼 눌렀을 때
 	$("#delete").click(function() {
 	var chk=$(".vi:checked").length;
@@ -363,47 +412,6 @@
         player.seekTo(0, true);     // 영상의 시간을 0초로 이동시킨다.
         player.stopVideo();
     }
-
-	/////// 채팅 영역 스크립트///////
-
-	//채팅 영역 웹소켓 부분
-	document.getElementById("chat_input_field").onchange = function() {
-		if (this.value.length != 0) {
-			ws.send(this.value);
-			this.value = "";
-		}
-	}
-	var ws = new WebSocket("ws://192.168.10.82/ws/chat");
-
-	ws.onopen = function(e) {
-		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
-		//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
-		var obj = JSON.parse(e.data);
-		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
-				+ " ] 명</small>";
-	}
-	ws.onmessage = function(a) {
-		console.log("a : " + a.data);
-		var obj = JSON.parse(a.data);
-		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
-				+ " ] 명</small>";
-		if (obj.mode == "join") {
-			var html = obj.user + "님께서 채팅방에 입장하셨습니다. <br>";
-		} else if (obj.mode == "exit") {
-			var html = "<b>[ " + obj.user + "]</b>님이 퇴장하셨습니다.<br>";
-		} else if (obj.mode == "info") {
-
-		} else {
-			var html = "<b>[ " + obj.sender + "]</b>" + obj.msg + "<br>";
-		}
-
-		document.getElementById("log").innerHTML += html;
-		document.getElementById("log").scrollTop = document
-				.getElementById("log").scrollHeight;
-
-	}
-	//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
-	$("#chattab").trigger("click");
 
 	//키워드로(target) 갖고오기==================================================================================
 	function fnGetList() {

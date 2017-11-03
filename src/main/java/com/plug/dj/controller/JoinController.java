@@ -31,6 +31,7 @@ public class JoinController {
 			session.setAttribute("auth_id", map.get("id"));
 			session.setAttribute("auth_nickname", map.get("nickname"));
 			map.put("flag", "true");
+			map.put("url", "/profiles/default.png");
 			System.out.println(map);
 			boolean b = memberDao.addOne(map);
 			return "redirect:/";

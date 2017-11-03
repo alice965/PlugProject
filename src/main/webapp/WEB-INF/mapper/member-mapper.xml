@@ -6,7 +6,7 @@
 		insert into member(id, nickname, pass, flag) values (#{id},#{nickname}, #{pass}, #{flag})		
 	</insert>
 	<insert id="addDetail">
-		insert into detail(id, regdate) values (#{id}, sysdate)		
+		insert into detail(id, url, regdate) values (#{id}, #{url}, sysdate)		
 	</insert>
 	
 	<!-- 로그인시 체크 -->
