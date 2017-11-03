@@ -132,10 +132,6 @@ public class BoothController {
 		}
 		mav.addObject("section", "booth/boothpage");
 		mav.addObject("one", one);
-<<<<<<< HEAD
-		
-=======
->>>>>>> refs/heads/master
 		return mav;
 		}
 	
