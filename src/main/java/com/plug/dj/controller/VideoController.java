@@ -68,7 +68,7 @@ public class VideoController {
 	
 	@GetMapping("/add") //링크로 바로 들어가면 get
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
-	public String test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
+	public String addGetHandle(@RequestParam Map map, HttpSession session, Model model) {
 		//MAP으로 전달되는 것들 : VIDEO_TITLE, VIDEO_ID, CHANNER_URL, IMAGE, NUM :방의 NUM
 		//추가로 지정해야 되는 것들 : ADD_ID (추가한 사람의 닉네임)
 		try {
@@ -104,4 +104,5 @@ public class VideoController {
 			return "t_expr";
 		}
 	}
+
 }

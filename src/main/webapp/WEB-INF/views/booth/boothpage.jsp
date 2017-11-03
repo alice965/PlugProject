@@ -420,14 +420,14 @@
 					success : function(jdata) {
 						//console.log(jdata);
 						var num = document.getElementById("num1").value;
-						var html = "";
+						var html = "<form method=\"get\" action=\"/video/add2?num=" + num + "\">";
 						$(jdata.items)
 								.each(
 										function(i) { //items반복문으로 돔.
-											html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">"
-													+ i
-													+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"" + this.snippet.thumbnails.medium.url + 
-		"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">"
+											html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\"><input type=\"checkbox\" name=\"no\" value=\"" + i + "\"/></td>"
+													
+													+ "</div><div align=\"left\" class=\"col-xs-3\"><img name=\"url\" src=\"" + this.snippet.thumbnails.medium.url + 
+		"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\" name=\"">"
 													+ '<br/>'
 													+ this.snippet.title
 													+ "<br/>";
@@ -445,9 +445,11 @@
 													+ "\">"
 													+ "추가하기</a>"
 													+ "<hr/></div></div>";
-											document
-													.getElementById("video-container1").innerHTML = html;
+											
 										});
+						html += "<button type=\"submit\">추가하기</button></form>";
+						document
+						.getElementById("video-container1").innerHTML = html;
 					},
 					error : function(xhr, textStatus) {
 						console.log(xhr.responseText);
