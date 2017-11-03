@@ -53,9 +53,9 @@ public class VideoController {
 	
 	@GetMapping("/delete") //링크로 바로 들어가면 get
 	@RequestMapping(path = "/delete", method = RequestMethod.GET)
-	public String deleteGetHandle(@RequestParam(name="video_num") String[] num, @RequestParam Map map, HttpSession session, Model model) {
+	public ModelAndView deleteGetHandle(@RequestParam(name="video_num") String[] num, @RequestParam Map map, HttpSession session, Model model) {
+		ModelAndView mav = new ModelAndView();
 		try {
-			
 			System.out.println(map);
 			Map room = BoothDao.readOne((String)map.get("room_num"));
 			System.out.println("삭제할 방의 정보 : " + room);
@@ -63,29 +63,27 @@ public class VideoController {
 			String video_num = ""; //해당 비디오의 번호
 			//System.out.println("삭제할 비디오의 번호 : " + Arrays.toString(num));
 			//현재 들어온 사람이 노래를 추가한 사람이거나, 현재들어온 사람이 방장일 경우에만 삭제가 가능하도록.
-			
-				
-				
 				for(int idx=0; idx<num.length; idx++){
 					video_num = num[idx];
 				//System.out.println(video_num);
 				String add_id = VideoDao.selectAdd_id(video_num); //노래를 추가한 아이디..
 				
 				if(add_id.equals(session.getAttribute("auth_id")) || room.get("ID").equals(session.getAttribute("auth_id"))){
-					//mav.addObject("Candelete", "1"); //삭제할 수 있는 권한부여..
 					VideoDao.deleteVideo(video_num);
 					System.out.println("비디오 삭제완료 : " + video_num);
 				}else{
+					mav.addObject("delete", "no"); //삭제못함.
 					System.out.println("삭제할 권한이 없습니다.");
 				}
 				}				
-			
-				return "redirect:/booth/boothpage/" +  (String)map.get("room_num");
+				mav.setViewName( "redirect:/booth/boothpage/" +  (String)map.get("room_num"));
+				return mav;
 			//mav.addObject("room", room);	
 		} catch (Exception e) {
 		//이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
 		e.printStackTrace();
-		return "t_expr";
+		mav.setViewName("t_expr");
+		return mav;
 		}	
 	}
 

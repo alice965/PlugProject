@@ -112,7 +112,7 @@ public class BoothController {
 		ModelAndView mav = new ModelAndView("t_expr");
 		Map one=BoothDao.readOne(num);
 		BoothDao.increaseCnt(num);
-		System.out.println("one???"+one);
+		System.out.println("방정보 출력 : "+one); 
 		
 		List<Map> video = VideoDao.selectVideoList(num);
 		List<Map> videolist = VideoDao.selectVideo_IdList(num);

@@ -7,26 +7,39 @@
 <!-- http://1004lucifer.blogspot.kr/2015/04/youtube-player-api.html -->
 
 <!--부스 타이틀 영역  -->
-<div style="background-color: #6699ff;">
-	<div id="booth_name">
-		<h2>${one.TITLE }</h2>
+<div>
+	<div id="booth_name" align="center" style="color: #292F33;">
+		<h1>${one.TITLE }</h1>
 	</div>
-	<div id="booth_info">
+	<div id="booth_info" style="background-color: #292F33; color: #CCD6DD;">
 		<div class="row">
-
+			<div class="col-md-1">
+			</div>
 			<!-- 방장 닉네임 -->
 			<div class="col-md-2">
 				<h4>
 					&nbsp; <i class="fa fa-headphones fa-lg" aria-hidden="true"
-						style="font-size: 30px; color: gray;"></i> ${one.NICKNAME }
+						style="font-size: 20px; color: #55ACEE;"></i> ${one.NICKNAME }
 				</h4>
 			</div>
 			<!-- 참여자 수 -->
 			<div class="col-md-2">
 				<h4>
 					&nbsp; <i class="fa fa-users fa-lg" aria-hidden="true"
-						style="font-size: 30px; color: gray;"></i> ${one.COUNT }
+						style="font-size: 20px; color: #55ACEE;"></i> ${one.COUNT }
 				</h4>
+			</div>
+			
+			<div class="col-md-7">
+			<h4>
+			<button type="button" style="font-size: 15px; color: #292F33; 
+			background-color: #FFFFFF; width:75px" class="btn btn-md" onclick="playYoutube();">
+			Play</button>
+			
+			<button type="button" style="font-size: 15px; color: #292F33; 
+			background-color: #FFFFFF; width:75px" class="btn btn-md" onclick="stopYoutube();">
+			Stop</button> <!-- 유투브 중지하고 처음으로 -->
+			</h4>
 			</div>
 		</div>
 
@@ -37,9 +50,8 @@
 <div class="row">
 
 	<!-- 왼쪽 영역 (영상 플레이) -->
-	<div class="col-md-8" style="min-height: 65%; background-color: black;">
+	<div class="col-md-8" style="min-height: 60%; background-color: black;">
 		<div id="Iframe"></div>
-		<button type="button" onclick="playYoutube();">Play</button>
 		<!-- 유투브 플레이 -->
 		<c:if test="${!empty video }">
 			<c:forEach var="list" items="${video }">
@@ -50,7 +62,7 @@
 
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
 	<div class="col-md-4"
-		style="min-height: 60%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
+		style="min-height: 50%; min-width: 10%; ">
 		<!-- 탭 영역 -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#chat"
@@ -63,7 +75,8 @@
 			<!-- 채팅 영역 -->
 			<div id="chat" class="tab-pane fade in active">
 				<div id="log"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 55%; background-color: #D5D5D5; font-size: 10pt;"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; 
+					background-color: #CCD6DD; font-size: 10pt;"
 					align="left"></div>
 				<div id="cnt"></div>
 				<input type="text" id="chat_input_field"
@@ -76,7 +89,8 @@
 			<!-- 재생목록 -->
 			<div id="vlist" class="tab-pane fade">
 				<div id="videolist"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 60%; background-color: #D5D5D5; font-size: 10pt;"
+					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; 
+					background-color: #CCD6DD; font-size: 10pt;"
 					align="center">
 
 					<div class="tab-content">
@@ -107,27 +121,23 @@
 						<br />
 					</c:if>
 					<!-- 재생목록 갖고오기 : 재생목록 있을 경우 -->
-					<c:if test="${!empty video }">
-					
-					<c:if test="${!empty Candelete }">
-					삭제할 수 없습니다.
-					</c:if>
-					
+					<c:if test="${!empty video }">					
 					<form action="/video/delete" method="get" id="form">
 					<input type="hidden" name="room_num" value="${one.NUM }">
-							<c:forEach var="obj" items="${video }">
+							<c:forEach var="obj" items="${video }" begin="0" step="1" varStatus="status">
 								<div class="row">
-										<div align="left" class="col-xs-1">
+										<div align="center" class="col-xs-1" style="left:3%">
 											<input type="checkbox" name="video_num" class="vi"
-												value="${obj.VIDEO_NUM }" />
+												value="${obj.VIDEO_NUM }" /> 
 												<!-- 파라미터로 방 번호와 방을 만든 사람을 보냄. -->
 										</div>
 										<div align="left" class="col-xs-3">
 											<!-- xs가 제일 작은 사이즈. -->
-											<img src="${obj.IMAGE}" style="width: 100px; height: 70px">
+											<img src="${obj.IMAGE}" style="width: 110px; height: 70px">
 										</div>
 										<div class="col-xs-8" align="left">
-										${obj.VIDEO_TITLE} <br /> <small> 추가한 사람 :
+										<b>${status.count}.
+										${obj.VIDEO_TITLE}</b> <br /> <small> 추가한 사람 :
 											${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜 : <fmt:formatDate
 												value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
 										</small> <br />
@@ -136,6 +146,11 @@
 								<hr />
 							</c:forEach>
 							<button type="button" id="delete">삭제하기</button> <!-- 삭제할 시 submit으로 변경해주도록 script에서 설정 -->
+							<c:if test="${!empty param.delete }">
+							<script>
+									window.alert("방장 또는 추가한 유저만 삭제할 수 있습니다.\n권한이 없습니다.");
+							</script>
+							</c:if>
 					</form>
 					</c:if>
 					
@@ -343,6 +358,11 @@
 		});
 
 	}
+	
+    function stopYoutube() {
+        player.seekTo(0, true);     // 영상의 시간을 0초로 이동시킨다.
+        player.stopVideo();
+    }
 
 	/////// 채팅 영역 스크립트///////
 
