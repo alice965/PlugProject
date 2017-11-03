@@ -19,7 +19,7 @@
 	
 	<!-- 재생목록 삭제 -->
 	<delete id="deleteVideo" >
-		delete * from videolist where (video_num = ${video_num})
+		delete from videolist where (video_num = ${video_num})
 	</delete>
 </mapper>
 

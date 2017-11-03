@@ -28,7 +28,7 @@ public class VideoDao {
 	}
 
 	public boolean deleteVideo(String video_num){
-		sql.delete("video.deleteVideo", video_num);
+		sql.update("video.deleteVideo", video_num);
 		return true;
 	}
 }
