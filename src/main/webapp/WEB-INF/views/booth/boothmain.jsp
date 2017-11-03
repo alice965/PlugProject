@@ -132,7 +132,7 @@
  		</c:when>
  		<c:when test="${mode eq 'searchOpt'}">
  		<b>${title } /${dj } /${genre }</b>로 검색한 결과, 총 <b>${cnt }</b> 개의 부스가 검색되었습니다.
- 		<button onclick="location.href='/booth/boothmain' ";>전체목록보기</button>
+ 		<button onclick="location.href='/booth/boothmain?mode=normal' ";>전체목록보기</button>
  		</c:when>
  		<c:otherwise>
 		총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.

@@ -5,25 +5,34 @@
 
 	<!-- 네비게이션 상단에서 제목만 검색할 경우.......... %를 앞에도 붙이고 싶은데 터짐 -->
 	<select id="listTitle" resultType="java.util.HashMap">
-		select * from booth where title like CONCAT(#{search_value},'%')
+	 
+		select b.*, m.id, m.nickname  from booth b  join member m 
+		on b.id =  m.id 
+		 where title like CONCAT(CONCAT('%', #{search_value}), '%')
+		
 	</select>
 	
 	<!-- 옵션 패널에서 검색한 경우 -->
 	<select id="listOption" resultType="java.util.HashMap">
-		select * from booth 
+		select b.*, m.id, m.nickname  from booth b  join member m 
+		on b.id =  m.id 
 		<where>
 			<if test="title!=null">
-				title like #{title}
+				title like CONCAT(CONCAT('%', #{title}), '%')  
 			</if>
 			<if test="dj!=null">
-				AND dj like#{dj}
+				AND 
+					<foreach item="djid" index="index" collection="djid"
+     					 open="(" separator=" or " close=")">
+       					 id like CONCAT(CONCAT('%', #{djid}), '%')
+ 				 </foreach>
 			</if>
 			<if test ="genre!=null">
-				<foreach item="item" index="index" collection="list"
-     					 open="(" separator="," close=")">
-       					 #{item}
+				AND 
+				<foreach item="genre" index="index" collection="genre"
+     					 open="(" separator=" or " close=")">
+       					 genre like CONCAT(CONCAT('%', #{genre}), '%')
  				 </foreach>
-				AND genre like #{genre}
 			</if>
 		
 		</where>

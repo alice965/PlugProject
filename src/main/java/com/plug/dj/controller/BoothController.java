@@ -55,7 +55,14 @@ public class BoothController {
 
 			String title=(String) param.get("title");
 			String dj=(String) param.get("dj");
+			
+			//닉네임으로 넘겨받은 파라미터를 회원 테이블에서 아이디로 추출
+			List<Map> djid=MemberDao.readAllByNickname(dj);
+			System.out.println("디제이 아이디 : " + djid);
+			
 			String genre=(String) param.get("genre");
+			String [] arrGenre =genre.split(",");
+			System.out.println("장르 배열 확인 : "+Arrays.toString(arrGenre));
 			 
 				//화면에 출력할 값 설정
 			mav.addObject("title", title);	
@@ -64,10 +71,11 @@ public class BoothController {
 				//dao에 넣을 map 설정
 			Map smap = new HashMap<>();
 			smap.put("title", title);
-			smap.put("dj", dj);
-			smap.put("genre", genre);
+			smap.put("djid", djid); //검색시에는 닉네임이 아닌 아이디여야 함.
+			smap.put("genre", arrGenre);
 			
 			List<Map> searchOptList = sDao.listOption(smap);
+			System.out.println("옵션검색 리스트"+searchOptList);
 			
 			mav.addObject("list", searchOptList);
 			mav.addObject("cnt", searchOptList.size());
@@ -78,7 +86,7 @@ public class BoothController {
 			
 			String title=(String) param.get("title");
 			List<Map> searchList = sDao.listTitle(title);
-			
+			System.out.println("검색 닉네임 왜 안나와?"+searchList);
 			mav.addObject("list", searchList);
 			mav.addObject("cnt", searchList.size());
 			mav.addObject("keyword",title);
@@ -106,7 +114,7 @@ public class BoothController {
 		String id=(String) session.getAttribute("auth_id");
 		param.put("userid", id);
 		int r=iDao.addInterest(param);
-		return "redirect:/booth/boothmain";
+		return "redirect:/booth/boothmain?mode=normal";
 		}
 	
 	@RequestMapping("/list")
@@ -177,7 +185,7 @@ public class BoothController {
 	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
 		//System.out.println("delparam??" + param);
 		int r=iDao.delete(param);
-		return "redirect:/booth/boothmain";
+		return "redirect:/booth/boothmain?mode=normal";
 		}
 	
 }
