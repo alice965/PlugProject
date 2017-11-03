@@ -49,8 +49,7 @@
 	</div>
 
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
-	<div class="col-md-4"
-		style="min-height: 60%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
+	<div class="col-md-4" style="min-height: 60%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
 		<!-- 탭 영역 -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#chat"
@@ -286,11 +285,6 @@
 </div>
 <!-- row종료 태그 -->
 
-
-
-
-
-
 <!-- 하단 좋아요 싫어요 부분 -->
 <div style="background-color: yellow">
 	<div id="like" class="col-md-3"
@@ -305,12 +299,9 @@
 		style="border-radius: 2em; background-color: #ff0066;">
 		<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br>
 	</div>
-	<div id="watingroom" class="col-md-3"
-		style="background-color: #cc66ff; border-radius: 2em;">
-		대기열넣을곳 <br />
-	</div>
 </div>
 
+<<<<<<< HEAD
 <script>
 
 	//유투브 업로드
@@ -365,12 +356,13 @@
 			this.value = "";
 		}
 	}
-	var ws = new WebSocket("ws://192.168.10.81/ws/chat");
+	var ws = new WebSocket("ws://192.168.219.100/ws/chat");
 
 	ws.onopen = function(e) {
 		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
 		//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
 		var obj = JSON.parse(e.data);
+		
 		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
 				+ " ] 명</small>";
 	}
@@ -593,3 +585,6 @@
 		}
 	}
 </script>
+=======
+</html>
+>>>>>>> refs/heads/hanbi
