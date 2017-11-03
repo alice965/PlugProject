@@ -53,6 +53,19 @@
 	width: 100%; /*margin:auto를 사용할 수도 있다. 중간정렬*/
 	display: inline-block;
 } /*text-align해도 보더가 가운데 정렬이 안되서 인라인으로 바꿈.*/
+
+
+
+
+.optxt{
+	font-size:  14px;
+}
+.optxt  td{
+	font-weight: bold;
+}
+.lbtxt{
+	font-weight: 100;
+}
 </style>
 
 <div class="main ">
@@ -66,7 +79,65 @@
 		<div class="tab-content">
 		<!-- 전체 부스 보기 탭 시작 -->
 			<div id="blist" class="tab-pane fade in active">
-				총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
+			<!-- 검색 영역 시작 -->
+  <div class="panel-group" >
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title"> 
+          <a data-toggle="collapse" href="#collapse1">검색 옵션&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down" aria-hidden="true"></i> </a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+      <!-- 검색 조건 영역 시작 -->
+        <div class="panel-body">
+        	<table class="optxt">
+        		<tr>
+        			<td> 부스 제목</td>
+        			<td><input type="text"  id="titleval"></td>
+        			<td> DJ 이름</td>
+        			<td><input type="text" id="djval"></td>
+        		</tr>
+        		<tr>
+        			<td>장르</td>
+        			<td colspan="3"> 
+        				<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="하우스/클럽">하우스/클럽 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="팝/재즈">팝/재즈 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="발라드">발라드 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="댄스">댄스 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="랩/힙합">랩/힙합 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="RnB/Soul">RnB/Soul </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="인디음악">인디음악 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="일렉트로니카">일렉트로니카 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="락/메탈">락/메탈 </label>
+						<label class="lbtxt"><input class="w3-check gr" type="checkbox" name="genre" value="클래식/기타">클래식/기타</label>
+        			</td>
+        		</tr>
+        		
+        	</table>
+      </div>
+      <div class="panel-footer" style="text-align: center;">
+      		<button id="searchpnbtn">검색</button>
+      </div>
+      <!-- 검색 조건 영역 끝 -->
+    </div>
+  </div>
+ </div>
+ <!-- --------검색 영역 끝 -->
+ 
+ <!-- ---------네비게이션 검색으로 들어온 경우와 메뉴로 들어온 경우를 구분 하여 출력 ----------->
+ 	<c:choose>
+ 		<c:when test="${mode eq 'search'}">
+ 		<b>[${keyword }]</b>로 검색한 결과, 총 <b>${cnt }</b> 개의 부스가 검색되었습니다.
+ 		<button onclick="location.href='/booth/boothmain' ";>전체목록보기</button>
+ 		</c:when>
+ 		<c:when test="${mode eq 'searchOpt'}">
+ 		<b>${title } /${dj } /${genre }</b>로 검색한 결과, 총 <b>${cnt }</b> 개의 부스가 검색되었습니다.
+ 		<button onclick="location.href='/booth/boothmain?mode=normal' ";>전체목록보기</button>
+ 		</c:when>
+ 		<c:otherwise>
+		총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
+ 		</c:otherwise>
+ 	</c:choose>
 				<hr>
 				<!--부스 -->
 				<c:forEach var="obj" items="${list }">
@@ -263,6 +334,30 @@
 </div>
 
 <script>
+	//검색 옵션 패널 버튼 클릭
+	$("#searchpnbtn").click(function(){
+		
+		var title=$("#titleval").val();
+		var dj=$("#djval").val();
+		
+		//장르 체크박스를 위한 처리
+		var genre=[];
+		
+        $('input:checkbox[name="genre"]').each(function(){
+        	if(this.checked){
+        		genre.push($(this).val());
+        	}
+        })   
+        
+        //인풋 창이 비어있을 경우 처리        
+        if(title=="" && dj=="" && genre==""){
+        	window.alert("검색 조건을 하나 이상 입력해주세요");
+        }
+        
+        var url="/booth/boothmain?mode=searchOpt";
+		location.href=url+"&title="+title+'&dj='+dj+"&genre="+genre;
+	});
+	
 
 	//관심부스 마우스 클릭 추가
 	$(".bookmark").click(function() {

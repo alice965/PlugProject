@@ -39,25 +39,71 @@ public class BoothController {
 	com.plug.dj.model.InterestDao iDao;
 	@Autowired
 	BoothWSHandler boothws;
+	@Autowired
+	com.plug.dj.model.SearchDao sDao; 
 	
 	@RequestMapping("/boothmain")
 	public ModelAndView BoothMainHandle(HttpSession session, @RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
 		String id=(String) session.getAttribute("auth_id");
-		
-		//전체 부스
-		List<Map> list = BoothDao.listAll();				
 		mav.addObject("section", "booth/boothmain");
-		mav.addObject("list", list);
-		System.out.println("list!!" + list);
-		mav.addObject("cnt", list.size());
+		//검색으로 접근인지 부스 메인으로 접근인지 감지
 		
+		// 1. 부스 메인의 옵션 패널에서 검색 조건으로 검색한 경우
+		if(param.get("mode").equals("searchOpt")) {
+			mav.addObject("mode", "searchOpt");	
+
+			String title=(String) param.get("title");
+			String dj=(String) param.get("dj");
+			
+			//닉네임으로 넘겨받은 파라미터를 회원 테이블에서 아이디로 추출
+			List<Map> djid=MemberDao.readAllByNickname(dj);
+			System.out.println("디제이 아이디 : " + djid);
+			
+			String genre=(String) param.get("genre");
+			String [] arrGenre =genre.split(",");
+			System.out.println("장르 배열 확인 : "+Arrays.toString(arrGenre));
+			 
+				//화면에 출력할 값 설정
+			mav.addObject("title", title);	
+			mav.addObject("dj", dj);
+			mav.addObject("genre", genre);
+				//dao에 넣을 map 설정
+			Map smap = new HashMap<>();
+			smap.put("title", title);
+			smap.put("djid", djid); //검색시에는 닉네임이 아닌 아이디여야 함.
+			smap.put("genre", arrGenre);
+			
+			List<Map> searchOptList = sDao.listOption(smap);
+			System.out.println("옵션검색 리스트"+searchOptList);
+			
+			mav.addObject("list", searchOptList);
+			mav.addObject("cnt", searchOptList.size());
+			
+		//2. 네비게이션의 검색 으로 들어온 경우	
+		}else if(param.get("mode").equals("search")) {
+			mav.addObject("mode", "search");
+			
+			String title=(String) param.get("title");
+			List<Map> searchList = sDao.listTitle(title);
+			System.out.println("검색 닉네임 왜 안나와?"+searchList);
+			mav.addObject("list", searchList);
+			mav.addObject("cnt", searchList.size());
+			mav.addObject("keyword",title);
 		
-		//관심 부스
-		List<Map> listInterest = iDao.listInterest(id);		
-			System.out.println("listInterest!!" + listInterest);
-		mav.addObject("interest", listInterest);
-		mav.addObject("cntint", listInterest.size());
+		//3. 메뉴바에서 DJ booth 메뉴 클릭해서 들어온 경우
+		}else if(param.get("mode").equals("normal")) {
+			//전체 부스
+			List<Map> list = BoothDao.listAll();				
+			mav.addObject("mode", "normal");	
+			mav.addObject("list", list);
+			mav.addObject("cnt", list.size());
+			
+			//관심 부스
+			List<Map> listInterest = iDao.listInterest(id);		
+			mav.addObject("interest", listInterest);
+			mav.addObject("cntint", listInterest.size());
+		};
 		
 		return mav;
 		}
@@ -67,9 +113,8 @@ public class BoothController {
 		//System.out.println("delparam??" + param);
 		String id=(String) session.getAttribute("auth_id");
 		param.put("userid", id);
-		System.out.println("param?????" + param);
 		int r=iDao.addInterest(param);
-		return "redirect:/booth/boothmain";
+		return "redirect:/booth/boothmain?mode=normal";
 		}
 	
 	@RequestMapping("/list")
@@ -148,8 +193,7 @@ public class BoothController {
 	public String FriendDeleteHandle(@RequestParam Map param) throws SQLException{
 		//System.out.println("delparam??" + param);
 		int r=iDao.delete(param);
-		return "redirect:/booth/boothmain";
+		return "redirect:/booth/boothmain?mode=normal";
 		}
-	
 	
 }

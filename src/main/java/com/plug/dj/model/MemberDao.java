@@ -62,6 +62,10 @@ public class MemberDao {
 		return sql.selectOne("member.selectFlag", id);
 	}
 	
+	public List<Map> readAllByNickname(String nickname){
+		return sql.selectList("member.readAllByNickname", nickname);
+	}
+	
 }
 
 
