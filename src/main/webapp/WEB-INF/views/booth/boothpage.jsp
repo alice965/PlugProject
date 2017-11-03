@@ -3,6 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!-- 채팅 프사 사이즈를 위한 스타일 정의 -->
+<style>
+.thumnail {
+	width:30px;
+	height:30px;
+	border-radius:50%;
+	margin-top:-4px;
+}
+.chatbox{
+	height:40px;
+	display:inline-block;
+	padding:10px;
+	margin:3px;
+	background-color: yellow;
+	border-radius: 7%;
+	
+}
+</style>
 
 <!-- http://1004lucifer.blogspot.kr/2015/04/youtube-player-api.html -->
 
@@ -314,7 +332,7 @@ document.getElementById("chat_input_field").onchange = function() {
 		this.value = "";
 	}
 }
-var ws = new WebSocket("ws://192.168.10.82/ws/chat");
+var ws = new WebSocket("ws://192.168.219.100/ws/chat");
 
 ws.onopen = function(e) {
 	document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
@@ -335,7 +353,7 @@ ws.onmessage = function(a) {
 	} else if (obj.mode == "info") {
 
 	} else {
-		var html = "<b>[ " + obj.sender + "]</b>" + obj.msg + "<br>";
+		var html = "<div class=\"chatbox\"><img src='"+obj.url+"' class=\"thumnail\"><b>[ " + obj.sender + "]</b>" + obj.msg + "<br></div><br>";
 	}
 
 	document.getElementById("log").innerHTML += html;

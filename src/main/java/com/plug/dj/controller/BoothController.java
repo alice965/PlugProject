@@ -182,8 +182,8 @@ public class BoothController {
 		
 		//부스 번호로 정보 읽어옴
 		Map one=BoothDao.readOne(num);
-		System.out.println("방정보 출력 : "+one); 
-		System.out.println("one???"+one);
+		//System.out.println("방정보 출력 : "+one); 
+		//System.out.println("one???"+one);
 		
 		List<Map> video = VideoDao.selectVideoList(num);
 		List<Map> videolist = VideoDao.selectVideo_IdList(num);
