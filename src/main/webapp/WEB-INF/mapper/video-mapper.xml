@@ -17,9 +17,14 @@
 		select video_id from videolist where (num=#{num}) order by adddate
 	</select>
 	
+	<!-- video_num을 통해 add_id를 얻어오기 -->
+	<select id="selectAdd_id" resultType="String">
+		select add_id from videolist where (video_num = #{video_num})
+	</select>
+	
 	<!-- 재생목록 삭제 -->
 	<delete id="deleteVideo" >
-		delete from videolist where (video_num = ${video_num})
+		delete from videolist where (video_num = #{video_num})
 	</delete>
 </mapper>
 

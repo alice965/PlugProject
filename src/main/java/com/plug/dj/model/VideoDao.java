@@ -31,4 +31,8 @@ public class VideoDao {
 		sql.update("video.deleteVideo", video_num);
 		return true;
 	}
+	
+	public String selectAdd_id(String video_num){
+		return sql.selectOne("video.selectAdd_id", video_num);
+	}
 }

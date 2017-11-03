@@ -49,7 +49,8 @@
 	</div>
 
 	<!-- 오른쪽 영역 (채팅과 재생목록 -->
-	<div class="col-md-4" style="min-height: 60%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
+	<div class="col-md-4"
+		style="min-height: 60%; min-width: 20%; background-color: #6699ff; border-radius: 2em;">
 		<!-- 탭 영역 -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#chat"
@@ -108,53 +109,36 @@
 					<!-- 재생목록 갖고오기 : 재생목록 있을 경우 -->
 					<c:if test="${!empty video }">
 					
-					<!-- 방장은 다른 화면 보이도록 --> 
-					<c:if test="${!empty DJ }">
-					<form action="/video/delete" method="get">
-						<c:forEach var="obj" items="${video }">
-							<div class="row">
-								<div align="left" class="col-xs-1">
-								<input type="checkbox" name="video_num" value="${obj.VIDEO_NUM }"/>							
+					<c:if test="${!empty Candelete }">
+					삭제할 수 없습니다.
+					</c:if>
+					
+					<form action="/video/delete" method="get" id="form">
+					<input type="hidden" name="room_num" value="${one.NUM }">
+							<c:forEach var="obj" items="${video }">
+								<div class="row">
+										<div align="left" class="col-xs-1">
+											<input type="checkbox" name="video_num" class="vi"
+												value="${obj.VIDEO_NUM }" />
+												<!-- 파라미터로 방 번호와 방을 만든 사람을 보냄. -->
+										</div>
+										<div align="left" class="col-xs-3">
+											<!-- xs가 제일 작은 사이즈. -->
+											<img src="${obj.IMAGE}" style="width: 100px; height: 70px">
+										</div>
+										<div class="col-xs-8" align="left">
+										${obj.VIDEO_TITLE} <br /> <small> 추가한 사람 :
+											${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜 : <fmt:formatDate
+												value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+										</small> <br />
+										</div>
 								</div>
-								<div align="left" class="col-xs-3">
-									<!-- xs가 제일 작은 사이즈. -->
-									<img src="${obj.IMAGE}" style="width: 100px; height: 70px">
-								</div>
-								<div class="col-xs-8" align="left">
-									${obj.VIDEO_TITLE} <br />
-									<small> 추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME })
-										<br /> 추가한 날짜 : <fmt:formatDate value="${obj.ADDDATE}"
-											pattern="yyyy.MM.dd" />
-									</small> <br />
-								</div>
-							</div>
-							<hr />
-						</c:forEach>
-						<button type="submit">삭제하기</button>
+								<hr />
+							</c:forEach>
+							<button type="button" id="delete">삭제하기</button> <!-- 삭제할 시 submit으로 변경해주도록 script에서 설정 -->
 					</form>
 					</c:if>
 					
-					<c:if test="${empty DJ }">
-					<!-- 일반인들이 보일 화면.. -->
-						<c:forEach var="obj" items="${video }">
-							<div class="row">
-								<div align="left" class="col-xs-4">
-									<!-- xs가 제일 작은 사이즈. -->
-									<img src="${obj.IMAGE}" style="width: 120px; height: 70px">
-								</div>
-								<div class="col-xs-8" align="left">
-									${obj.VIDEO_TITLE} <br />
-									<small> 추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME })
-										<br /> 추가한 날짜 : <fmt:formatDate value="${obj.ADDDATE}"
-											pattern="yyyy.MM.dd" />
-									</small> <br />
-								</div>
-							</div>
-							<hr />
-						</c:forEach>
-					</c:if>
-					
-					</c:if>
 				</div>
 			</div>
 		</div>
@@ -178,7 +162,7 @@
 							<b>HOW TO USE?</b><br />
 						</h4>
 						<h6>
-							● 찾고자하는 키워드를 입력창에 검색합니다.<br /> ※최대 50개의 재생목록 동영상을 불러올 수 있습니다.
+							● 찾고자하는 키워드를 입력창에 검색합니다.<br /> ※최대 50 개의 재생목록 동영상을 불러올 수 있습니다.
 						</h6>
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<form name="form1" method="post" onSubmit="return false;">
@@ -221,7 +205,7 @@
 						</h4>
 						<h6>
 							1. 원하는 채널의 재생목록에 들어갑니다.<br /> 2. 재생목록의 src값을 복사합니다.<br /> 3. 아래
-							입력 창에 붙여넣기 합니다.<br /> ※최대 50개의 재생목록 동영상을 불러올 수 있습니다.
+							입력 창에 붙여넣기 합니다.<br /> ※최대 50개의 재생목록 동영 상을 불러올 수 있습니다.
 						</h6>
 						<input type="text" id="playlist" placeholder="재생목록 아이디 입력..">
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
@@ -261,7 +245,7 @@
 						</h4>
 						<h6>
 							1. 원하는 채널에 들어갑니다.<br /> 주소창에서 https://www.youtube.com/channel/
-							뒤에 있는 아이디값을 복사합니다.<br /> 3. 아래 입력 창에 붙여넣기 합니다.<br /> ※최대 50개의
+							뒤에 있는 아이디값을 복사합니다.<br /> 3. 아래 입력 창에 붙여 넣기 합니다.<br /> ※최대 50개의
 							재생목록 동영상을 불러올 수 있습니다.
 						</h6>
 						<input type="text" id="channelId" placeholder="채널 아이디 입력..">
@@ -299,11 +283,24 @@
 		style="border-radius: 2em; background-color: #ff0066;">
 		<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br>
 	</div>
+	<div id="watingroom" class="col-md-3"
+		style="background-color: #cc66ff; border-radius: 2em;">
+		대기열넣을곳 <br />
+	</div>
 </div>
 
-<<<<<<< HEAD
 <script>
-
+	//아무것도 선택 안하고 삭제버튼 눌렀을 때
+	$("#delete").click(function() {
+	var chk=$(".vi:checked").length;
+	if(chk==0){
+		alert("삭제할 비디오를 선택해주세요.");}
+	else{
+		$("#form").submit();
+	}
+	
+	});
+	
 	//유투브 업로드
 	//YOUTUBE API 업로드
 	var tag = document.createElement('script');
@@ -356,13 +353,12 @@
 			this.value = "";
 		}
 	}
-	var ws = new WebSocket("ws://192.168.219.100/ws/chat");
+	var ws = new WebSocket("ws://192.168.10.81/ws/chat");
 
 	ws.onopen = function(e) {
 		document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
 		//ws.send("userinfo,"+"${one.ID }"+","+ "${one.NICKNAME }" );
 		var obj = JSON.parse(e.data);
-		
 		document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
 				+ " ] 명</small>";
 	}
@@ -389,7 +385,7 @@
 	//페이지 오픈시 채팅탭이 클릭된 상태로 만들기
 	$("#chattab").trigger("click");
 
-	//키워드로(target) 갖고오기===================================================================================================
+	//키워드로(target) 갖고오기==================================================================================
 	function fnGetList() {
 		var $getval = $("#search_box").val();
 		if ($getval == "") {
@@ -404,22 +400,21 @@
 				+ encodeURIComponent($getval)
 				+ "&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I&maxResults=50";
 
-		$
-				.ajax({
+		$.ajax({
 					type : "POST",
 					url : TargetUrl,
 					dataType : "jsonp",
 					success : function(jdata) {
 						//console.log(jdata);
 						var num = document.getElementById("num1").value;
-						var html = "<form method=\"get\" action=\"/video/add2?num=" + num + "\">";
+						var html = "";
 						$(jdata.items)
 								.each(
 										function(i) { //items반복문으로 돔.
-											html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\"><input type=\"checkbox\" name=\"no\" value=\"" + i + "\"/></td>"
-													
-													+ "</div><div align=\"left\" class=\"col-xs-3\"><img name=\"url\" src=\"" + this.snippet.thumbnails.medium.url + 
-		"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\" name=\"">"
+											html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">"
+													+ i
+													+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"" + this.snippet.thumbnails.medium.url + 
+		"\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">"
 													+ '<br/>'
 													+ this.snippet.title
 													+ "<br/>";
@@ -437,11 +432,8 @@
 													+ "\">"
 													+ "추가하기</a>"
 													+ "<hr/></div></div>";
-											
+											document.getElementById("video-container1").innerHTML = html;
 										});
-						html += "<button type=\"submit\">추가하기</button></form>";
-						document
-						.getElementById("video-container1").innerHTML = html;
 					},
 					error : function(xhr, textStatus) {
 						console.log(xhr.responseText);
@@ -451,7 +443,8 @@
 				});
 	}
 
-	//재생목록에서 갖고오기===================================================================================================
+	//재생목록에서 갖고오기==================================================================================
+
 	document.getElementById("send2").onclick = function() {
 		var num = document.getElementById("num2").value;
 		var playlist = document.getElementById("playlist").value;
@@ -511,7 +504,7 @@
 		}
 	}
 
-	//채널에서 갖고오기===================================================================================================
+	//채널에서 갖고오기==================================================================================
 	document.getElementById("send3").onclick = function() {
 		var num = document.getElementById("num3").value;
 		var channelId = document.getElementById("channelId").value;
@@ -532,8 +525,7 @@
 				var playlistId = obj.items[0].contentDetails.relatedPlaylists.uploads;
 				var xhr2 = new XMLHttpRequest();
 				//console.log(playlistId);
-				xhr2
-						.open(
+				xhr2.open(
 								"get",
 								"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
 										+ playlistId
@@ -585,6 +577,3 @@
 		}
 	}
 </script>
-=======
-</html>
->>>>>>> refs/heads/hanbi

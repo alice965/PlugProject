@@ -30,42 +30,7 @@ public class VideoController {
 	BoothDao BoothDao;
 	@Autowired
 	com.plug.dj.model.MemberDao MemberDao;
-	
-	//@RequestMapping(path="/playlist/{num}")
-	//public ModelAndView PlaylistHandle(@PathVariable String num) throws SQLException{
-	//	ModelAndView mav = new ModelAndView("t_expr");
-	//	System.out.println(num);
-	//	mav.addObject("section", "video/playlist");
-	//	mav.addObject("num", num);
-	
-	//	return mav;
-	//	}
-	
-	//@GetMapping("/playlist/{num}")
-	//public String PlayEditGetHanle(Model model, @PathVariable String num ) {
-	//		model.addAttribute("section", "video/playlist");
-	//		model.addAttribute("num", num);
-	//	return "t_expr";
-	//}
-	
-	//@RequestMapping(path="/playlist/{num}")
-	//public ModelAndView BoothPageHandle(@PathVariable String num) throws SQLException{
-	//	ModelAndView mav = new ModelAndView("t_expr");
-	//	mav.addObject("section", "/video/playlist/");
-	//	mav.addObject("num", num);
-	//	System.out.println(num);
-		
-	//	return mav;
-	//	}
-	
-	//방에서 바로 온 것이 아닐 경우..?
-	//@GetMapping("/playlist")
-	//public ModelAndView playlistHandle() {
-	//	ModelAndView mav = new ModelAndView("t_expr");
-	//		mav.addObject("section", "video/playlist");
-	//	return mav;
-	//}
-	
+
 	@GetMapping("/add") //링크로 바로 들어가면 get
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public String addGetHandle(@RequestParam Map map, HttpSession session, Model model) {
@@ -88,21 +53,40 @@ public class VideoController {
 	
 	@GetMapping("/delete") //링크로 바로 들어가면 get
 	@RequestMapping(path = "/delete", method = RequestMethod.GET)
-	public String deleteGetHandle(@RequestParam(name="num") String[] num, @RequestParam Map map, HttpSession session, Model model) {
-		//MAP으로 전달되는 것들 : VIDEO_TITLE, VIDEO_ID, CHANNER_URL, IMAGE, NUM :방의 NUM
-		//추가로 지정해야 되는 것들 : ADD_ID (추가한 사람의 닉네임)
+	public String deleteGetHandle(@RequestParam(name="video_num") String[] num, @RequestParam Map map, HttpSession session, Model model) {
 		try {
 			
-			for(int idx=0; idx<num.length; idx++){
-			VideoDao.deleteVideo(num[idx]);
-			System.out.println("비디오 삭제 : " + num[idx]);
-			}
-			return "redirect:/booth/list";
+			System.out.println(map);
+			Map room = BoothDao.readOne((String)map.get("room_num"));
+			System.out.println("삭제할 방의 정보 : " + room);
+					
+			String video_num = ""; //해당 비디오의 번호
+			//System.out.println("삭제할 비디오의 번호 : " + Arrays.toString(num));
+			//현재 들어온 사람이 노래를 추가한 사람이거나, 현재들어온 사람이 방장일 경우에만 삭제가 가능하도록.
+			
+				
+				
+				for(int idx=0; idx<num.length; idx++){
+					video_num = num[idx];
+				//System.out.println(video_num);
+				String add_id = VideoDao.selectAdd_id(video_num); //노래를 추가한 아이디..
+				
+				if(add_id.equals(session.getAttribute("auth_id")) || room.get("ID").equals(session.getAttribute("auth_id"))){
+					//mav.addObject("Candelete", "1"); //삭제할 수 있는 권한부여..
+					VideoDao.deleteVideo(video_num);
+					System.out.println("비디오 삭제완료 : " + video_num);
+				}else{
+					System.out.println("삭제할 권한이 없습니다.");
+				}
+				}				
+			
+				return "redirect:/booth/boothpage/" +  (String)map.get("room_num");
+			//mav.addObject("room", room);	
 		} catch (Exception e) {
-			//이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
-			e.printStackTrace();
-			return "t_expr";
-		}
+		//이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
+		e.printStackTrace();
+		return "t_expr";
+		}	
 	}
 
 }
