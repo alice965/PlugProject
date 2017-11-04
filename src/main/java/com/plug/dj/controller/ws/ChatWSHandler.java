@@ -39,6 +39,7 @@ public class ChatWSHandler extends TextWebSocketHandler {
 		String userId=(String)sessionWhat.get("auth_id");
 		
 		Map mmap=mDao.readOneById(userId);
+		System.out.println("채팅방에서 가져올 정보"+mmap);
 		String nickname = (String) mmap.get("NICKNAME");
 		////////////닉네임 얻어오기 끝////////////////
 		
@@ -46,6 +47,7 @@ public class ChatWSHandler extends TextWebSocketHandler {
 		
 			
 		///////////////프사를 출력해봅시다///////////////////////////
+		
 		
 		//화면으로 보낼 json 정의
 		String json = String.format("{\"mode\":\"join\", \"cnt\":%d ,\"user\" : \"%s\"}", list.size(),
@@ -85,11 +87,15 @@ public class ChatWSHandler extends TextWebSocketHandler {
 		String nickname = (String) mmap.get("NICKNAME");
 		////////////닉네임 얻어오기 끝////////////////
 		
+		/////프사를 얻어오기 위한 코드//////////
+		String url=(String) mmap.get("URL");
+		
 		Map map = new HashMap<>();
 		map.put("mode", "chat");
 		map.put("sender", nickname);
 		map.put("msg", message.getPayload());
 		map.put("cnt", list.size());
+		map.put("url", url);
 	
 		String json = mapper.writeValueAsString(map);
 		
