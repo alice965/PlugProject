@@ -17,25 +17,11 @@ public class TestDao {
 		public int save(String string) {
 			return sql.insert("test.save", string);
 		}
-		public List<Map> list() {
-			return sql.selectList("myplay.list");
-		}
 		public Map readOne(String num) {
-			return sql.selectOne("myplay.readOne", num);
-		}
-		public int delete(String num) {
-			return sql.update("myplay.delete", num);
+			return sql.selectOne("test.readOne", num);
 		}
 		public int edit(Map map) {
-			return sql.update("myplay.edit", map);
+			return sql.update("test.edit", map);
 		}
-		public int countListPage() {
-			return sql.selectOne("myplay.countListPage");
-		}
-		
-		public List<Map> listPage(Map map){
-			return sql.selectList("myplay.listPage", map);
-		}
-
 
 }

@@ -23,7 +23,8 @@ import com.plug.dj.model.TestDao;
 
 @Controller
 public class IndexController {
-
+	@Autowired
+	TestDao tDao;
 	@RequestMapping({ "/", "/index" })
 	public ModelAndView rootHandle() {
 		ModelAndView mav = new ModelAndView("t_expr");
@@ -50,51 +51,44 @@ public class IndexController {
 			mav.addObject("section", "modal");
 		return mav;
 	}
-
-
-	
-	/*
-	@PostMapping("/test3")
-	@RequestMapping(path = "/test3", method = RequestMethod.POST)
-	public String test3PostHandle(@RequestParam Map map, HttpSession session, Model model) {
-		try {
-			//src=https://www.youtube.com/playlist?list=PLVfChAjsg5xPuZRxLIxCJAyb5J_DauDJu
-			String src = (String)map.get("src");
-			String[] list = src.split("=");
-			String playlist = list[1];
-			
-			String id = (String) session.getAttribute("auth_id");
-			map.put("id", id);
-			System.out.println(map);
-			return "redirect:/test3";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "t_expr";
-		}
-	}*/
-	
 	
 @GetMapping("/testcheckbox")
 	@RequestMapping(path = "/testcheckbox", method = RequestMethod.GET)
 	public ModelAndView testChkGetHandle(Map map) {
 		ModelAndView mav = new ModelAndView("t_expr");
 			mav.addObject("section", "testcheckbox");
+			
 		return mav;
 	}
-	@Autowired
-	TestDao tDao;
+
 	@PostMapping("/testcheckbox")
 	@RequestMapping(path = "/testcheckbox", method = RequestMethod.POST)
-	public String testChkGPostHandle(@RequestParam MultiValueMap param, ModelMap map, HttpSession session) throws SQLException {
-		System.out.println("파람:"+param.get("genre"));
-		String strparam=param.get("genre").toString();
-		System.out.println("strparam 파람:"+strparam);
-		int rst = tDao.save(strparam);
-		if (rst == 1) {
-			map.put("section", "/testcheckbox");
-			return "redirect:/testcheckbox";
-		}
-		map.put("rst1", rst);
-		return "/testcheckbox";
+	public ModelAndView testChkGPostHandle(
+			@RequestParam(value="genre",required=false) String[] genre, 
+			@RequestParam(value="num",required=false) String num,
+			ModelMap map, HttpSession session) throws SQLException {
+		
+		ModelAndView mav = new ModelAndView("t_expr");
+		mav.addObject("section", "testcheckbox");
+		
+		//사용자에게서 받은 체크박스 값을 디비에 저장
+		String str = Arrays.toString(genre);		
+		String genreval=(str.substring(1,str.length()-1)).trim();
+//		System.out.println("트림됬나"+genreval);
+//		int rst = tDao.save(genreval);
+//		System.out.println("rst : "+rst);
+		
+		//디비에 있는 값을 체크박스에 표시
+		Map tmap = tDao.readOne(num);
+		System.out.println(tmap);
+		String genre1=(String) tmap.get("GENRE");
+		String[] arrGenre=(genre1).split(",");
+		System.out.println("arrGenre??"+ Arrays.toString(arrGenre));
+		
+		map.addAttribute("arrGenre", arrGenre);	
+		
+		
+		return mav;
 	}
+	
 } 
