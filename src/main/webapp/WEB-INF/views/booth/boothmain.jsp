@@ -140,7 +140,7 @@
  	</c:choose>
 				<hr>
 				<!--부스 -->
-				<c:forEach var="obj" items="${list }">
+				<c:forEach var="obj" items="${list}">
 					<div
 						style="background-color: black; float: left; width: 256px; padding: 3px; margin: 5px; border-radius: 10px;">
 						<div class="row" style="padding: 5px;">
@@ -332,7 +332,27 @@
 		</div>
 	</div>
 </div>
-
+ <!-- 페이지 처리 -->
+   <div align="center">
+      <c:if test="${param.page ne 1 }">
+         <a href="/booth/boothmain?page=${param.page -1 }&mode=normal" style="text-decoration: none">
+         <b style="color: #9c9892;">◀</b>
+         </a>   
+      </c:if>
+      <c:forEach var="i" begin="1" end="${size }" varStatus="vs">
+         <c:choose>
+            <c:when test="${i eq param.page }">
+               <b style="color: #ff9800;">${i }</b>
+            </c:when>
+            <c:otherwise>
+               <a href="/booth/boothmain?page=${i }&mode=normal" style="text-decoration: none"
+                  ><b style="color: #9c9892;">${i }</b></a>   
+            </c:otherwise>
+         </c:choose>
+         <c:if test="${!vs.last }"> | </c:if>
+      </c:forEach>
+      <c:if test="${param.page ne last }">▶</c:if>
+   </div>
 <script>
 	//검색 옵션 패널 버튼 클릭
 	$("#searchpnbtn").click(function(){

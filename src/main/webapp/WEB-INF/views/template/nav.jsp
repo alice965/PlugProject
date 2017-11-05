@@ -75,7 +75,7 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-      <li><a href="/booth/boothmain?mode=normal">DJ Booth</a></li>
+      <li><a href="/booth/boothmain?page=1&mode=normal">DJ Booth</a></li>
       <li><a href="/myplay/list?page=1">My Booth</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">쪽지함 <span class="caret"></span></a>
         <ul class="dropdown-menu">

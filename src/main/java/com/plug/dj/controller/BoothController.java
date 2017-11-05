@@ -46,10 +46,12 @@ public class BoothController {
 	com.plug.dj.model.SearchDao sDao; 
 	
 	@RequestMapping("/boothmain")
-	public ModelAndView BoothMainHandle(HttpSession session, @RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param) throws SQLException{
+	public ModelAndView BoothMainHandle(HttpSession session, @RequestParam(name="page", defaultValue="1" ) int page, 
+			@RequestParam Map param) throws SQLException{
 		ModelAndView mav = new ModelAndView("t_expr");
 		String id=(String) session.getAttribute("auth_id");
 		mav.addObject("section", "booth/boothmain");
+				
 		//검색으로 접근인지 부스 메인으로 접근인지 감지
 		
 		// 1. 부스 메인의 옵션 패널에서 검색 조건으로 검색한 경우
@@ -96,11 +98,29 @@ public class BoothController {
 		
 		//3. 메뉴바에서 DJ booth 메뉴 클릭해서 들어온 경우
 		}else if(param.get("mode").equals("normal")) {
+			//cnt
+			List<Map> listCnt = BoothDao.listAll();
+			mav.addObject("cnt", listCnt.size());
+			
+			//list
+			int psize = BoothDao.countForPage();
+			System.out.println("psize : " + psize);
+			int size = psize/6;
+				if(psize%6 >0)
+					size++;
+				
+			Map p = new HashMap();
+				p.put("start", (page-1)*6+1);
+				p.put("end", page*6);
+			System.out.println("p : " + p);
+			mav.addObject("list", BoothDao.listForPage(p));	
+			
 			//전체 부스
-			List<Map> list = BoothDao.listAll();				
+			//List<Map> list = BoothDao.listAll();				
 			mav.addObject("mode", "normal");	
-			mav.addObject("list", list);
-			mav.addObject("cnt", list.size());
+			mav.addObject("size", size);
+			//mav.addObject("list", list);
+			//mav.addObject("cnt", list.size());
 			
 			//관심 부스
 			List<Map> listInterest = iDao.listInterest(id);		
@@ -123,10 +143,24 @@ public class BoothController {
 	@RequestMapping("/list")
 	public ModelAndView BoothListHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param)throws SQLException {
 		ModelAndView mav = new ModelAndView("t_expr");
-		List<Map> list = BoothDao.listAll();
 		mav.addObject("section", "/booth/list");
-		mav.addObject("list", list);
-		mav.addObject("cnt", list.size());
+		
+		//cnt
+		List<Map> listCnt = BoothDao.listAll();
+		mav.addObject("cnt", listCnt.size());
+		
+		//list
+		int psize = BoothDao.countForPage();
+		System.out.println("psize : " + psize);
+		int size = psize/6;
+			if(psize%6 >0)
+				size++;
+			
+		Map p = new HashMap();
+			p.put("start", (page-1)*6+1);
+			p.put("end", page*6);
+		
+		mav.addObject("list", BoothDao.listForPage(p));	
 		
 		return mav;
 	}

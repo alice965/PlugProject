@@ -21,5 +21,11 @@ public class BoothDao {
 	public int increaseCnt(String num) {
 		return sql.update("booth.increaseCnt", num);
 	}
+	public List<Map> listForPage(Map map){
+		return sql.selectList("booth.listForPage", map);
+	}
+	public int countForPage() {
+		return sql.selectOne("booth.countForPage");
+	}
 
 }
