@@ -160,7 +160,7 @@
 						<div class="col-xs-8" align="left">
 							<b>${status.count}. ${obj.VIDEO_TITLE}</b> <br /> <small>
 							추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜
-							: <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+							: <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" /> <!-- 이부분은 그냥 FORMAT으로 사용하자.. -->
 							</small> <br />
 						</div>
 						</div>
@@ -410,10 +410,10 @@ $("#chattab").trigger("click");
 							html += "</div>";
 							
 							html += "<div class=\"col-xs-8\" align=\"left\">";
-							html += "<b>" + i + "." + this.VIDEO_TITLE + "</b> <br/>";
-							html += "<small>추가한 사람 : " + this.ADD_ID +"(" + this.ADD_NICKNAME + ")<br/>";
+							html += "<b>" + (i+1) + ". " + this.VIDEO_TITLE + "</b> <br/>";
+							html += "<small>추가한 사람 : " + this.ADD_ID +" (" + this.ADD_NICKNAME + ")<br/>";
 							
-							html += "추가한 날짜: "+ "'<fmt:formatDate value=" + this.ADDDATE + "pattern=\"yyyy.MM.dd\"/>'";
+							html += "추가한 날짜 : " + this.FMT;
 							html += "</small><br/>";
 							html += "</div></div><hr/>";
 						});

@@ -41,6 +41,7 @@ public class VideoController {
 		// 추가로 지정해야 되는 것들 : ADD_ID (추가한 사람의 닉네임)
 		try {
 			map.put("add_id", session.getAttribute("auth_id"));
+			System.out.println("session : " + session.getAttribute("auth_id"));
 			// 닉네임
 			HashMap u = MemberDao.readOneById((String) map.get("add_id"));
 			map.put("add_nickname", u.get("NICKNAME")); // 대소문자 구분하기!
