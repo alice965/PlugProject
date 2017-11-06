@@ -8,16 +8,13 @@
 
 <!--부스 타이틀 영역  -->
 <div>
-	<div id="booth_name" align="center" style="color: #292F33;"
-		align="left">
-		<i class="fa fa-heart" aria-hidden="true"
-			style="font-size: 15px; color: #c94c4c;"></i> ${one.GENRE } <br /> <i
-			class="fa fa-tags" aria-hidden="true"
-			style="font-size: 15px; color: #92a8d1;"></i> ${one.CONTENT }
-		<h1>
-			<b><i>${one.TITLE }</i></b>
-		</h1>
-		<br />
+	<div id="booth_name" align="center" style="color: #292F33;" align="left">
+		<i class="fa fa-heart" aria-hidden="true" style="font-size:15px; color: #c94c4c;"></i>
+		${one.GENRE } <br/>
+		<i class="fa fa-tags" aria-hidden="true" style="font-size:15px; color: #92a8d1;"></i>
+		${one.CONTENT }
+		<h1><b><i>${one.TITLE }</i></b></h1>
+		<br/>
 	</div>
 	<div id="booth_info" style="background-color: #292F33; color: #CCD6DD;">
 		<div class="row">
