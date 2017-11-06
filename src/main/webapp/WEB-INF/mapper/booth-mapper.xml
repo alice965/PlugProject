@@ -11,10 +11,17 @@
 	<update id="increaseCnt">
 		update booth set count = count +1 where num =#{num }
 	</update>
-
-	
+	<!--  -->
+	<select id="countForPage" resultType="java.lang.Integer">
+		select count(*) as cnt from booth	
+	</select>
+	<select id="listForPage" resultType="java.util.HashMap">
+		select * from (
+			select rownum as r, b.*  from(
+				select *  from booth order by regdate desc) b	
+				) where r between #{start} and #{end }
+	</select>
 </mapper>
-
 
 
 

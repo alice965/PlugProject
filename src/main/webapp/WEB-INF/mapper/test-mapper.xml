@@ -7,11 +7,12 @@
   	<insert id="save">
 		insert into chktest values(chktest_seq.nextval, #{genre}, sysdate)
 	</insert>
+	<select id="readOne" resultType="java.util.HashMap">
+		select * from chktest where num=#{num}
+	</select>
 	<update id="edit">
 		update board set count = count +1 where num =#{num }
 	</update>
-	<delete id="delete">
-		delete from board where num =#{num}
-	</delete>
+	
 	
   </mapper>

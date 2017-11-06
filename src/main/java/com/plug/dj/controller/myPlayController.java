@@ -86,17 +86,23 @@ public class myPlayController {
 		String id = (String) session.getAttribute("auth_id");
 		//세션에서 아이디를 가져와서 파람에 추가
 		param.put("id", id );
-		
-		//리퀘스트 파람으로 장르를 배열로 가져와서 스트링으로 추가
-		param.put("genre", Arrays.toString(genre));
+		String str = Arrays.toString(genre);		
+		String genreval=(str.substring(1,str.length()-1)).trim();
+		//장르에 앞뒤 [] 를 제거하고 입력
+		param.put("genre", genreval);
 		
 		//리퀘스트 파람으로 boothpic을 가져와서 파일처리
 		boolean b = false;
 		String fmt = sdf.format(System.currentTimeMillis());
 
 		String fileName = "booth"+id +"_"+ fmt;
+		System.out.println(f.isEmpty());
+		System.out.println(f);
 		try {
-			if (f.isEmpty()) throw new Exception();
+			if (f.isEmpty()) {
+				
+				throw new Exception();
+			}
 			File dst = new File(application.getRealPath("/images/booth"), fileName);
 			f.transferTo(dst);
 			b = !b;
@@ -104,9 +110,11 @@ public class myPlayController {
 			e.printStackTrace();
 		}
 		//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
+		param.put("id", id);
 		if(b) {
-			param.put("id", id);
 			param.put("url", "/images/booth/" + fileName);
+		}else {
+			param.put("url", "/images/booth/default.jpg");
 		}
 		System.out.println("sdfparam?? : " + param);
 
@@ -141,12 +149,44 @@ public class myPlayController {
 			Map map = playlistDao.readOne(num);
 			model.addAttribute("section", "myplay/edit");
 			model.addAttribute("map", map);
+			model.addAttribute("arrGenre", map.get("GENRE"));
 		return "t_expr";
 	}
 	
 	@PostMapping("/edit/{num}")
-	public String PlayEditPostHanle(@RequestParam Map param, Model model, @PathVariable String num) {
+	public String PlayEditPostHanle(@RequestParam Map param, Model model, @RequestParam String[] genre, @PathVariable String num,
+				  @RequestParam(name ="boothpic") MultipartFile f, HttpSession session) {
 		param.put("num", num);
+		String id = (String) session.getAttribute("auth_id");
+		//리퀘스트 파람으로 boothpic을 가져와서 파일처리
+				boolean b = false;
+				String fmt = sdf.format(System.currentTimeMillis());
+
+				String fileName = "booth"+id +"_"+ fmt;
+				System.out.println(f.isEmpty());
+				System.out.println(f);
+				try {
+					if (f.isEmpty()) {
+						
+						throw new Exception();
+					}
+					File dst = new File(application.getRealPath("/images/booth"), fileName);
+					f.transferTo(dst);
+					b = !b;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
+				param.put("id", id);
+				if(b) {
+					param.put("url", "/images/booth/" + fileName);
+				}else {
+					param.put("url", "/images/booth/default.jpg");
+				}
+				System.out.println("sdfparam?? : " + param);
+		
+		
+		
 		int r = playlistDao.edit(param);
 		if(r==1) {
 			model.addAttribute("section", "myplay/edit");
