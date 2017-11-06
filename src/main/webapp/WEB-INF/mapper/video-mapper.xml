@@ -26,6 +26,12 @@
 	<delete id="deleteVideo" >
 		delete from videolist where (video_num = #{video_num})
 	</delete>
+	
+	<!-- 같은 방에서 동일한 비디오아이디의 비디오를 가져올 때 -->
+	<select id="existVideoId" resultType="java.lang.Integer"> <!-- 있는지 체크 -->
+		select count(*) from videolist where (num=#{num})
+			 and video_id=#{video_id} 
+	</select>
 </mapper>
 
 

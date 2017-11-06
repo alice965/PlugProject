@@ -35,4 +35,9 @@ public class VideoDao {
 	public String selectAdd_id(String video_num){
 		return sql.selectOne("video.selectAdd_id", video_num);
 	}
+	
+	public int existVideoId(Map map){
+		//방의 번호와 비디오아이디를 비교해야함.
+		return sql.selectOne("video.existVideoId", map);
+	}
 }
