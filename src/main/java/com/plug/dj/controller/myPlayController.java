@@ -42,7 +42,7 @@ public class myPlayController {
 		String id=(String) session.getAttribute("auth_id");
 		List<Map> list = playlistDao.myList(id);
 		param.put("id", session.getAttribute("auth_id") );
-		int psize = playlistDao.countListPage();
+		int psize = playlistDao.countListPage(id);
 		int size = psize/5;
 			if(psize%5 >0)	size++;
 			
@@ -161,13 +161,9 @@ public class myPlayController {
 		//리퀘스트 파람으로 boothpic을 가져와서 파일처리
 				boolean b = false;
 				String fmt = sdf.format(System.currentTimeMillis());
-
 				String fileName = "booth"+id +"_"+ fmt;
-				System.out.println(f.isEmpty());
-				System.out.println(f);
 				try {
 					if (f.isEmpty()) {
-						
 						throw new Exception();
 					}
 					File dst = new File(application.getRealPath("/images/booth"), fileName);
@@ -178,15 +174,13 @@ public class myPlayController {
 				}
 				//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
 				param.put("id", id);
+				System.out.println("param??" +param);
 				if(b) {
 					param.put("url", "/images/booth/" + fileName);
 				}else {
-					param.put("url", "/images/booth/default.jpg");
+					param.put("url", param.get("url"));
 				}
 				System.out.println("sdfparam?? : " + param);
-		
-		
-		
 		int r = playlistDao.edit(param);
 		if(r==1) {
 			model.addAttribute("section", "myplay/edit");

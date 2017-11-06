@@ -18,8 +18,9 @@
 	<select id="listForPage" resultType="java.util.HashMap">
 		select * from (
 			select rownum as r, b.*  from(
-				select *  from booth order by regdate desc) b	
+				select bt.*,  m.nickname from booth bt join  member m on bt.id=m.id order by regdate desc) b	
 				) where r between #{start} and #{end }
+		
 	</select>
 </mapper>
 

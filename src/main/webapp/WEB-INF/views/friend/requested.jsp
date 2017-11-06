@@ -5,6 +5,7 @@
 <div class="w3-container w3-teal">
 	<h4>친구추가</h4>
 </div>
+<div class="container" style="text-align:center">
 <div class="w3-container"> <br>
 <c:choose>
 	<c:when test="${sid eq other}">
@@ -23,7 +24,8 @@
 </div>
 
 <button class="w3-btn w3-blue" type="submit"  onclick="javascript:back()">보낸 친구 요청 목록</button>
-<button class="w3-btn w3-blue" type="button" onclick="javascript:window.close()">취소</button>
+<button class="w3-btn w3-blue" type="button" onclick="javascript:window.close()">닫기</button>
+</div>
 <script>
 	function back() {
 		opener.location.href="/friend/list?src=requested";

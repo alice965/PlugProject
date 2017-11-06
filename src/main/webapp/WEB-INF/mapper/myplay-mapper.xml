@@ -19,7 +19,7 @@
 		update booth set title=#{title}, content=#{content}, genre=#{genre}, url=#{url} where num=#{num}
 	</update>
 	<select id="countListPage" resultType="java.lang.Integer">
-		select count(*) as count from booth	
+		select count(*) as count from booth where id=#{id}	
 	</select>
 	<select id="listPage" resultType="java.util.HashMap">
 		select * from(select rownum as r, b.* from(select * from booth order by num desc)b) where r between #{start} and #{end}

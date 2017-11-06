@@ -5,6 +5,7 @@
 <div class="sub-top">
 	<h2 class="text-center">나의 플레이 리스트</h2>
 </div>
+<div class="container">
 <div style="width: 100%; border-radius: 10px; background-color: #e6dfdf;  padding: 20px;"
 	align="center">
 	<input type="hidden" id="num" value="${one.NUM }" />
@@ -18,10 +19,18 @@
 	</div>
 	<div align="left">
 			장르  <pre style="font-family: 맑은 고딕; font-size: 12pt; ">${one.GENRE }</pre>
+	</div><br>
+	
+	<!-- 부스 대표 이미지-->
+	<div align="left">
+	<b>부스 이미지</b><br>
+	<img id="pre" src="${one.URL}" alt="기본이미지" style="width: 300px; height: 300px; border-radius: 10%; margin-bottom: 10px;" /> 
 	</div>
+	<br>
 	<button type="button" id="edit">수정</button>
 	<button type="button" id="delete">삭제</button>
 	<button type="button" id="list">목록</button>
+</div>
 </div>
 <script>
 	document.getElementById("edit").onclick=function(){

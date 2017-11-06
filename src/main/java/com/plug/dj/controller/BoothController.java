@@ -105,13 +105,13 @@ public class BoothController {
 			//list
 			int psize = BoothDao.countForPage();
 			System.out.println("psize : " + psize);
-			int size = psize/6;
-				if(psize%6 >0)
+			int size = psize/12;
+				if(psize%12 >0)
 					size++;
 				
 			Map p = new HashMap();
-				p.put("start", (page-1)*6+1);
-				p.put("end", page*6);
+				p.put("start", (page-1)*12+1);
+				p.put("end", page*12);
 			System.out.println("p : " + p);
 			mav.addObject("list", BoothDao.listForPage(p));	
 			
@@ -201,13 +201,15 @@ public class BoothController {
 		if(req.getCookies() != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				if(cookies[i].getName().equals("viewcnt")) {
-					viewCookie=cookies[i];
+					if(cookies[i].getValue().equals(num)) {
+						viewCookie=cookies[i];
+					}
 				}
 		    }
 		}
 		if(viewCookie==null) {
 			System.out.println("읽지 않은 게시물");
-			Cookie viewcnt = new Cookie("viewcnt", "ididid");
+			Cookie viewcnt = new Cookie("viewcnt", num);
 			res.addCookie(viewcnt);
 			//조회수 증가
 			BoothDao.increaseCnt(num);

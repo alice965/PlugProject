@@ -44,14 +44,26 @@ public class FriendController {
 		
 		param.put("one", id );
 		
-		
+		System.out.println("친구 파람"+ param);
 		Map pMap = fDao.readOne(param);
+		
 		System.out.println("친구 리드원pMap??" + pMap);
+		System.out.println(param.get("other"));
+		System.out.println(id);
+		System.out.println("내가 아더인 값"+(fDao.readChkReqOne(id) !=null));
+		
+		//파라미터로 읽히는 정보가 없는 경우
 		if(fDao.readOne(param)==null) {
+			if(fDao.readChkReqOne(id) !=null) {
+				System.out.println("상대방이 이미 신청함");
+			}else {
+				//그렇지 않은 경우, 추가 하시겠습니까 팝업으로 이동
 				return "redirect:/friend/add?other="+param.get("other");
+			}
+			//상대방이 이미 친구요청 했습니다.  받은 친구 목록으로 이동
+			
 			} else if(fDao.readOne(param).get("STATUS").equals("req")&&
 					param.get("one").equals(fDao.readOne(param).get("ONE"))) {
-					//System.out.println("daodao"+fDao.readOne(param).get("ONE") );
 				return "redirect:/friend/requested?other="+param.get("other");
 			} else {
 				return "redirect:/friend/exist?other="+param.get("other");
