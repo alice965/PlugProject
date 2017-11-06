@@ -339,7 +339,7 @@ document.getElementById("chat_input_field").onchange = function() {
 		this.value = "";
 	}
 }
-var ws = new WebSocket("ws://192.168.219.100/ws/chat");
+var ws = new WebSocket("ws://192.168.10.82/ws/chat");
 
 ws.onopen = function(e) {
 	document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
