@@ -44,8 +44,8 @@
 		other=#{id} and status='req'
 	</select>
 	<delete id="delete"> <!-- 한쪽에서 지우면 다른 한쪽도 지워져야 함.. -->
-		delete from friend where other=#{other} and
-		one=#{one}
+		delete from friend where (other=#{other} and
+		one=#{one}) or (other=#{one} and one=#{other})
 	</delete>
 	<update id="accept">
 		update friend set adddate=sysdate, status='frd' where one=#{one} and  other=#{other}

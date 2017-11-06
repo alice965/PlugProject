@@ -155,12 +155,12 @@
 	</c:when>
 	<c:when test="${param.src eq 'requested' }">
 		<script>
-				$("#r_list").trigger("click");
+				$("#s_list").trigger("click");
 		</script>
 	</c:when>
-	<c:when test="${param.src eq 'wait' }">
+	<c:when test="${param.src eq 'otherrequested' }">
 		<script>
-				$("#s_list").trigger("click");
+				$("#r_list").trigger("click");
 		</script>
 	</c:when>
 
