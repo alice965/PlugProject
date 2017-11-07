@@ -54,9 +54,6 @@
 	display: inline-block;
 } /*text-align해도 보더가 가운데 정렬이 안되서 인라인으로 바꿈.*/
 
-
-
-
 .optxt{
 	font-size:  14px;
 }

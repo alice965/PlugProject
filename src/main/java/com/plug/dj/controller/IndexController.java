@@ -2,6 +2,7 @@ package com.plug.dj.controller;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.plug.dj.model.BoothDao;
 import com.plug.dj.model.TestDao;
 
 
@@ -25,10 +27,16 @@ import com.plug.dj.model.TestDao;
 public class IndexController {
 	@Autowired
 	TestDao tDao;
+	
+	@Autowired
+	BoothDao bDao;
+	
 	@RequestMapping({ "/", "/index" })
 	public ModelAndView rootHandle() {
 		ModelAndView mav = new ModelAndView("t_expr");
 			mav.addObject("section", "index");
+			List<Map> list = bDao.newFour();
+			mav.addObject("list", list);
 		return mav;
 	}
 	

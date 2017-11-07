@@ -61,10 +61,6 @@ public class BoothController {
 			String title=(String) param.get("title");
 			String dj=(String) param.get("dj");
 			
-			//닉네임으로 넘겨받은 파라미터를 회원 테이블에서 아이디로 추출
-			List<Map> djid=MemberDao.readAllByNickname(dj);
-			System.out.println("디제이 아이디 : " + djid);
-			
 			String genre=(String) param.get("genre");
 			String [] arrGenre =genre.split(",");
 			System.out.println("장르 배열 확인 : "+Arrays.toString(arrGenre));
@@ -76,9 +72,10 @@ public class BoothController {
 				//dao에 넣을 map 설정
 			Map smap = new HashMap<>();
 			smap.put("title", title);
-			smap.put("djid", djid); //검색시에는 닉네임이 아닌 아이디여야 함.
+			smap.put("dj", dj); //검색시에는 닉네임이 아닌 아이디여야 함.
 			smap.put("genre", arrGenre);
 			
+			System.out.println("smap : " +smap);
 			List<Map> searchOptList = sDao.listOption(smap);
 			System.out.println("옵션검색 리스트"+searchOptList);
 			

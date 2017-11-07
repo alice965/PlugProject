@@ -27,5 +27,8 @@ public class BoothDao {
 	public int countForPage() {
 		return sql.selectOne("booth.countForPage");
 	}
+	public List<Map> newFour() {
+		return sql.selectList("booth.newFour");
+	}
 
 }
