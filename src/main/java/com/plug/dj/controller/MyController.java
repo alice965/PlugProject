@@ -39,22 +39,26 @@ public class MyController {
 		ModelAndView mav = new ModelAndView("t_expr");
 		mav.addObject("section", "/my/profile");
 		mav.addObject("profile", profilelist);
+		mav.addObject("arrGenre", profilelist.get("GENRE"));
 		System.out.println("profilelist : " + profilelist);
 
 		return mav;
 	}
 
 	@PostMapping("/profile")
-	public String ProfilePostHandle(@RequestParam Map map, HttpSession session, Model model) {
+	public String ProfilePostHandle(@RequestParam String[] genre, 
+			@RequestParam Map map, HttpSession session, Model model) {
 		try {
 			String id = (String) session.getAttribute("auth_id");
 			//null설정해주기 위해서 map에서 get해서 따로 저장해주기.
 			String gender = (String)map.get("gender");
-			String[] genre = (String[]) map.get("genre");
-			System.out.println(Arrays.toString(genre));
+			
+			String str = Arrays.toString(genre);		
+			String genreval=(str.substring(1,str.length()-1)).trim();
+			//장르에 앞뒤 [] 를 제거하고 입력
 			map.put("id", id);
 			map.put("gender", gender);
-			map.put("genre", Arrays.toString(genre));
+			map.put("genre", genreval);
 			System.out.println(map);
 			memberDao.updateOneDetail(map);
 			return "redirect:/my/profile";
