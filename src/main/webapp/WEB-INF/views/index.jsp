@@ -128,27 +128,7 @@
 						style="background-color: black; float: left; width: 256px; padding: 3px; margin: 5px; border-radius: 10px;">
 						<div class="row" style="padding: 5px;">
 							<div class="col-sm-6" style="color:white">
-								<!-- 다른 사람 아이디라면 드롭다운  -->
-								<c:choose>
-									<c:when test="${auth_id ne obj.ID}">
-										<div class="dropdown">
-											<div class="dropdown-toggle" data-toggle="dropdown"
-												style="color: white">
-												${obj.NICKNAME} <span class="caret"></span>
-											</div>
-											<ul class="dropdown-menu">
-												<li><a href="#" class="popFriend">친구추가</a><input
-													type="hidden" value="${obj.ID}"></li>
-												<li><a href="#" class="popMemo">쪽지보내기</a><input
-													type="hidden" value="${obj.ID}"></li>
-											</ul>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<!-- 내 닉네임에는 드롭다운 없이 출력 -->
 										<div style="color: white">${obj.NICKNAME}</div>
-									</c:otherwise>
-								</c:choose>
 							</div>
 							<div class="col-sm-4">
 								<div class="row">
@@ -161,29 +141,7 @@
 									</div>
 									<div class="col-sm-2"></div>
 									<div class="col-sm-2">
-										<!-- 북마크 할 별 모양 -->
-										<!-- 관심부스인지 확인해서 관심인 경우 클래스 다르게 함 -->
-										<c:set var="instbth" value="false" />
-										<c:forEach var="inst" items="${interest }">
-											<!-- 부스번호와 내 관심부스번호가 같다면 (관심부스라면) -->
-											<c:if test="${obj.NUM eq inst.NUM}">
-												<c:set var="instbth" value="true" />
-												<c:set var="bthno" value="${inst.NO }" />
-											</c:if>
-										</c:forEach>
-										<!-- 관심부스 트루라면 하얀별, 아니라면 테두리 별을 찍는다.-->
-										<c:choose>
-											<c:when test="${instbth}">
-												<i class="fa fa-star fa-lg bookmarked" aria-hidden="true"
-													style="font-size: 17px; color: orange;"></i>
-												<input type="hidden" value="${bthno}">
-											</c:when>
-											<c:otherwise>
-												<i class="fa fa-star-o fa-lg bookmark" aria-hidden="true"
-													style="font-size: 17px; color: orange;"></i>
-												<input type="hidden" value="${obj.NUM }">
-											</c:otherwise>
-										</c:choose>
+										
 									</div>
 								</div>
 							</div>
@@ -245,5 +203,32 @@
 	<!-- 모달 종료 -->
 </div>
 <!-- 컨테이너 종료 -->
-
+<script>
+//관심부스 마우스 클릭 추가
+$(".bookmark").click(function() {
+	var r = confirm("관심부스에 추가하시겠습니까?");
+	if (r == true) {
+		location.href = '/booth/addInterest?bthnum=' + $(this).next().val();
+	} else {
+	}
+});
+//관심부스 마우스 클릭 삭제
+$(".bookmarked").click(function() {
+	console.log( $(this).next().val());
+	var r = confirm("관심부스에서 삭제하시겠습니까?");
+	if (r == true) {
+		location.href = '/booth/deleteInterest?no=' + $(this).next().val();
+		
+	} else {
+	}
+});
+$(".popFriend").click(function() {
+    var url="/friend/check?other="+$(this).next().val();
+    window.open(url,"","width=400,height=400,left=200");
+});
+$(".popMemo").click(function() {
+   var url="/memo/send?other="+$(this).next().val();
+   window.open(url,"","width=600,height=600,left=200");
+});
+</script>
 

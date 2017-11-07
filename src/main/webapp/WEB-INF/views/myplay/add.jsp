@@ -16,10 +16,10 @@
 	  <form style="text-align:left" class="w3-container" id="form"  action="/myplay/add" method="post" enctype="multipart/form-data">
 	    <p>      
 	    <label class="w3-text-blue"><b>방 제목</b></label>
-	    <input class="w3-input w3-border w3-sand" name="title" type="text"></p>
+	    <input class="w3-input w3-border w3-sand" name="title" type="text" maxlength="15"></p>
 	    <p>      
 	    <label class="w3-text-blue"><b>설명</b></label>
-	    <input class="w3-input w3-border w3-sand" name="content" type="text"></p>
+	    <input class="w3-input w3-border w3-sand" name="content" type="text" maxlength="30"></p>
 	 	<p>
 	 	
 	 	<!-- 장르 선택 -->

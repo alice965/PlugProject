@@ -211,11 +211,11 @@
 									</div>
 									<div class="caption">
 										<div class="work_title">
-											<h6 style="color: white">${obj.TITLE}</h6>
+											<h6 style="color: white" class="limit-title">${obj.TITLE}</h6>
 											<hr style="padding: 10px;">
 											<!-- hr은 스타일 적용이 안되는지??? -->
-											<p style="color: white">${obj.CONTENT}</p>
-											<p style="color: white">${obj.GENRE}</p> <br>
+											<p style="color: white" class="limit-content">${obj.CONTENT}</p>
+											<p style="color: white" class="limit-genre">${obj.GENRE}</p> <br>
 											<small style="color: white"><fmt:formatDate
 													value="${obj.REGDATE}" pattern="yyyy.MM.dd" /></small>
 										</div>
