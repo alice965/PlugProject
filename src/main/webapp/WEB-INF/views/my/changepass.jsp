@@ -8,14 +8,14 @@
 			<h2>비밀번호 변경</h2>
 			<div class="panel-body">
 			<c:if test="${!empty same }"> <!-- 앞서 joincontroller에서 오류가 나면 temp에 값을 넣음. temp가 비어있지 않다면 => join 실패. -->
-			<b style="color:red">회원가입 실패 요인.. </b><br/>
+			<b style="color:red">비밀번호 변경 실패 요인.. </b><br/>
 			<b style="color:red">현재 비밀번호와 같습니다.</b><br/>
 			</c:if>
-			<c:if test="${!empty tempchangepass }">
-			<b style="color:red">회원가입 실패.. </b><br/>
+			<c:if test="${!empty tempchangepass }"> <!-- 현재 비밀번호와 다를 경우.. -->
+			<b style="color:red">비밀번호 변경 실패.. </b><br/>
 			</c:if>
 			<br/>
-				<form action="/service/changepass" method="post" autocomplete="off" id="form">
+				<form action="/my/changepass" method="post" autocomplete="off" id="form">
 				<div class="form-group">
 				<input type="password" name="now" tabindex="1" class="form-control" 
 				placeholder="현재 비밀번호" value="" required id="now"/>

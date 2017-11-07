@@ -21,7 +21,7 @@ public class LoginAuthFilter implements Filter { //만약, 로그인이 안 된 상태에서
 		if (request.getSession().getAttribute("auth") == null) {
 			String uri = request.getRequestURI();
 			System.out.println(uri); //이동하는 경로 -> myplay로 시작할 시 로그인 페이지로 이동함. 
-			if (uri.startsWith("/myplay")) {
+			if (uri.startsWith("/myplay") || uri.startsWith("/my")) {
 				String red = request.getRequestURI();
 				if (request.getQueryString() != null) {
 					red = "?" + request.getQueryString();

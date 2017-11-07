@@ -4,7 +4,7 @@
     <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 	<h2>회원탈퇴</h2><br/>
-		<form action="/service/out" method="post">
+		<form action="/my/out" method="post">
 		<div class="form-group" align="center">
 			<h5>고객님의 소중한 피드백 감사드립니다.</h5>
 		<p>
