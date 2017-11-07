@@ -54,7 +54,7 @@
 				</h4>
 			</div>
 
-			<div class="col-md-7">
+			<div class="col-md-4">
 				<h4>
 					<button type="button"
 						style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
@@ -64,11 +64,15 @@
 						style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
 						class="btn btn-md" onclick="stopYoutube();">Stop</button>
 					<!-- 유투브 중지하고 처음으로 -->
-
 				</h4>
 			</div>
+			
+			<div class="col-md-3" align="left">
+				<i class="fa fa-retweet" aria-hidden="true"><small> Play버튼으로 최근 재생목록을 갱신하세요!</small></i>
+				<br/>
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"><small> 저작권문제로 재생이 안되는 해당 동영상들은 삭제해야합니다.</small></i>
+			</div>
 		</div>
-
 	</div>
 </div>
 
@@ -134,44 +138,47 @@
 										data-toggle="modal">채널에서 갖고오기</a><input type="hidden"></li>
 								</ul>
 							</div>
-							<button type="button" id="newList">새로고침</button>
+							<i class="fa fa-retweet" aria-hidden="true" style="color: black;"><small> 새로고침 버튼으로 업데이트를 확인하세요!</small></i><br/><br/>
+							<button type="button" id="newList">새로고침</button>	
 						</div>
 					</div>
 					<hr />
 
-					
+
 					<!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
 					<c:if test="${!empty nolist }">
 						<b style="color: #c94c4c">재생목록이 없습니다.</b>
-						<br/>
+						<br />
 					</c:if>
 					<c:if test="${!empty video }">
-					<div id="mylist">
-					<c:forEach var="obj" items="${video }" begin="0" step="1" varStatus="status">
-						<div class="row">
-						<div align="center" class="col-xs-1" style="left: 3%">
-							<input type="checkbox" name="video_num" class="vi"
-							value="${obj.VIDEO_NUM }" />
+						<div id="mylist">
+							<c:forEach var="obj" items="${video }" begin="0" step="1"
+								varStatus="status">
+								<div class="row">
+									<div align="center" class="col-xs-1" style="left: 3%">
+										<input type="checkbox" name="video_num" class="vi"
+											value="${obj.VIDEO_NUM }" />
+									</div>
+									<div align="left" class="col-xs-3">
+										<!-- xs가 제일 작은 사이즈. -->
+										<img src="${obj.IMAGE}" style="width: 110px; height: 70px">
+									</div>
+									<div class="col-xs-8" align="left">
+										<b>${status.count}. ${obj.VIDEO_TITLE}</b> <br /> <small>
+											추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜
+											: <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+											<!-- 이부분은 그냥 FORMAT으로 사용하자.. -->
+										</small> <br />
+									</div>
+								</div>
+								<hr />
+							</c:forEach>
 						</div>
-						<div align="left" class="col-xs-3">
-							<!-- xs가 제일 작은 사이즈. -->
-							<img src="${obj.IMAGE}" style="width: 110px; height: 70px">
-						</div>
-						<div class="col-xs-8" align="left">
-							<b>${status.count}. ${obj.VIDEO_TITLE}</b> <br /> <small>
-							추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜
-							: <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" /> <!-- 이부분은 그냥 FORMAT으로 사용하자.. -->
-							</small> <br />
-						</div>
-						</div>
-						<hr/>
-					</c:forEach>
-					</div>
-						<button type="button" id="delete" >삭제하기</button>
+						<button type="button" id="delete">삭제하기</button>
 						<!-- 삭제할 시 submit으로 변경해주도록 script에서 설정 -->
 					</c:if>
-					
-					
+
+
 				</div>
 			</div>
 		</div>
@@ -219,6 +226,84 @@
 		</div>
 	</div>
 	<!-- modal1종료 -->
+	<!-- modal2 -->
+	<div class="modal fade" id="modal-2" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content"
+				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">재생목록에서 갖고오기</h3>
+				</div>
+
+				<div class="modal-body">
+					<div class="well">
+						<h4>
+							<b>HOW TO USE?</b><br />
+						</h4>
+						<h6>
+							1. 원하는 채널의 재생목록에 들어갑니다.<br /> 2. 재생목록의 src값을 복사합니다.<br /> 3. 아래
+							입력 창에 붙여넣기 합니다.<br /> ※최대 50개의 재생목록 동영 상을 불러올 수 있습니다.
+						</h6>
+						<input type="text" id="playlist" placeholder="재생목록 아이디 입력..">
+						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
+						<input type="text" id="num2" placeholder="${num }" value="${num }"
+							style="width: 100px" disabled>
+						<button onClick="fnGetList2();">가져오기</button>
+					</div>
+					<div class="well">
+						<h4>LIST</h4>
+						<div id="video-container2"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!-- modal2종료 -->
+	<!-- modal3 -->
+	<div class="modal fade" id="modal-3" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content"
+				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">채널에서 갖고오기</h3>
+				</div>
+
+				<div class="modal-body">
+					<div class="well">
+						<h4>
+							<b>HOW TO USE?</b><br />
+						</h4>
+						<h6>
+							1. 원하는 채널에 들어갑니다.<br /> 주소창에서 https://www.youtube.com/channel/
+							뒤에 있는 아이디값을 복사합니다.<br /> 3. 아래 입력 창에 붙여 넣기 합니다.<br /> ※최대 50개의
+							재생목록 동영상을 불러올 수 있습니다.
+						</h6>
+						<input type="text" id="channelId" placeholder="채널 아이디 입력..">
+						<input type="text" id="num3" placeholder="${num }" value="${num }"
+							style="width: 100px" disabled>
+						<button onClick="fnGetList3();">가져오기</button>
+					</div>
+					<div class="well">
+						<h4>LIST</h4>
+						<div id="video-container3"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!-- modal3종료 -->
 
 </div>
 <!-- row종료 태그 -->
@@ -310,26 +395,35 @@ $("#chattab").trigger("click");
 		});
 	}
 
-	function playYoutube() {
-		// 플레이어 자동실행 (주의: 모바일에서는 자동실행되지 않음)
-		player.playVideo();
-		//console.log(player.getPlaylist());
-		player.loadPlaylist({ 
-		    'playlist': [ //오류가 뜰 수 있음.
-		    	  <c:forEach var="t" items="${video }" varStatus="vs">
-		  			'${t.VIDEO_ID }' <c:if test="${!vs.last }">,</c:if>
-		  		 </c:forEach>
-		      ],
-		    'listType': 'playlist',
-		    'index': 0,
-		    
-		    'startSeconds': 0,
-		    'suggestedQuality': 'large'
-		});
+	function playYoutube(){
+		var ar =[];
 
+		$.ajax({
+			"url" : "/video/F5",			
+			"data": {
+				"room_num" : ${one.NUM }
+			 }
+		}).done(function(rst){
+			//console.log(rst);
+			$(rst).each(
+				function(i){
+					//window.alert(this.VIDEO_ID);
+  					ar.push(this.VIDEO_ID);
+				});
+			player.playVideo();		
+			player.loadPlaylist({ 
+			   	'playlist': ar,
+			    'listType': 'playlist',
+			    //'index': 0,
+			    
+			    //'startSeconds': 0,
+			    'suggestedQuality': 'large'				
+			});
+		});
+		
 	}
 	
-    function stopYoutube() {
+    function stopYoutube() {  		
         player.seekTo(0, true);     // 영상의 시간을 0초로 이동시킨다.
         player.stopVideo();
     }
@@ -357,6 +451,7 @@ $("#chattab").trigger("click");
 						//console.log(jdata);
 						var num = document.getElementById("num1").value;
 						var html = "";
+					if(jdata.items){ //아무것도 없을 경우..(재생목록이 나오지 않는 경우)
 						$(jdata.items)
 								.each(
 										function(i) { //items반복문으로 돔.
@@ -379,15 +474,140 @@ $("#chattab").trigger("click");
 										
 										});
 						document.getElementById("video-container1").innerHTML = html;
+					}else{
+						$('#video-container1').html('Sorry you have no uploaded videos');
+					}
 					},
 					error : function(xhr, textStatus) {
 						console.log(xhr.responseText);
-						alert("지금은 시스템 사정으로 인하여 요청하신 작업이 이루어지지 않았습니다.\n잠시후 다시 이용하세요.[2]");
+						alert("지금은 시스템 사정으로 인하여 요청하신 작업이 이루어지지 않았습니다.\n잠시후 다시 이용하세요.");
 						return;
 					}
 				});
 	}
 	
+//재생목록에서 갖고오기=======================================================================================
+function fnGetList2(){ //재생목록에서 갖고오기
+	var num = $("#num2").val();
+	var playlist = $("#playlist").val();
+	if(playlist == ""){
+			alert("재생목록 아이디를 입력하세요");
+			$("#playlist").focus();
+			return;
+	}
+
+	$("#video-container2").empty();
+
+	var TargetUrl = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
+		+ playlist + "&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I&maxResults=50";
+		$.ajax({
+			type : "POST",
+			url : TargetUrl,
+			dataType : "jsonp",
+			success : function(jdata) {
+				//console.log(jdata);
+				var html = "";
+				//console.log(jdata.items);
+				if(jdata.items){
+					$(jdata.items).each(
+						function(i) { //items반복문으로 돔.
+							if(this.snippet.resourceId.videoId!=undefined){ //채널인 경우는 비디오아이디가 없으므로 뺌.
+							html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">";
+							html += i+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"";
+							html += this.snippet.thumbnails.medium.url;
+							html += "\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">";
+							html += '<br/>'+ this.snippet.title	+ "<br/>";
+	
+							//함수로 호출해주기 (문자는 홀따옴표로 묶기 ) _ 제목에 홀따옴표가 있는 경우 replace로 바꿔주기.
+							var tr = this.snippet.title.replace(/'/g,"&lsquo;"); 
+							html += "동영상 추가하기 : <a href=\"javascript:sendAddReq('"+tr+ "', " ; 
+							html += "'"+ this.snippet.thumbnails.medium.url+ "', " ; 
+							html += "'"+ this.snippet.resourceId.videoId + "', " ; 
+							html += "'"+ this.snippet.channelId+ "', " ; 
+							html += "'"+ num+ "')";
+							html += "\">추가하기</a><hr/></div></div>";
+							}
+											
+						});
+					//console.log(html);
+					document.getElementById("video-container2").innerHTML = html;
+				}else{
+					$('#video-container2').html('Sorry you have no uploaded videos');
+				}
+				},
+				error : function(xhr, textStatus) {
+				console.log(xhr.responseText);
+				alert("지금은 시스템 사정으로 인하여 요청하신 작업이 이루어지지 않았습니다.\n잠시후 다시 이용하세요.");
+				return;
+				}
+			});
+	}
+
+//채널에서 갖고오기=========================================================================================
+function fnGetList3(){ 
+	var num = $("#num3").val();
+	var channelId = $("#channelId").val();
+	if(channelId == ""){
+			alert("재생목록 아이디를 입력하세요");
+			$("#channelId").focus();
+			return;
+	}
+	$("#video-container3").empty();
+
+	var ChannelUrl = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id="+ channelId
+		+ "&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I";
+	$.ajax({
+		type : "POST",
+		url : ChannelUrl,
+		dataType : "jsonp",
+		success:function(jdata){
+		if(jdata.items[0]){
+			var playlistId = jdata.items[0].contentDetails.relatedPlaylists.uploads;
+
+			var TargetUrl = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
+					+ playlistId + "&maxResults=50&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I";
+			window.alert(TargetUrl);
+		$.ajax({
+			type : "POST",
+			url : TargetUrl,
+			dataType : "jsonp",
+			success : function(jdata) {
+				//console.log(jdata);
+				var html = "";
+				$(jdata.items).each(
+					function(i) { //items반복문으로 돔.
+						if(!(this.snippet.resourceId.videoId==undefined)){ //채널인 경우는 비디오아이디가 없으므로 뺌.
+						html += "<div class=\"row\"><div align=\"left\" class=\"col-xs-1\">";
+						html += i+ "</div><div align=\"left\" class=\"col-xs-3\"><img src=\"";
+						html += this.snippet.thumbnails.medium.url;
+						html += "\" style=\"width:120px; height:70px\"></div><div align=\"left\" class=\"col-xs-8\">";
+						html += '<br/>'+ this.snippet.title	+ "<br/>";
+
+						//함수로 호출해주기 (문자는 홀따옴표로 묶기 ) _ 제목에 홀따옴표가 있는 경우 replace로 바꿔주기.
+						var tr = this.snippet.title.replace(/'/g,"&lsquo;"); 
+						html += "동영상 추가하기 : <a href=\"javascript:sendAddReq('"+tr+ "', " ; 
+						html += "'"+ this.snippet.thumbnails.medium.url+ "', " ; 
+						html += "'"+ this.snippet.resourceId.videoId + "', " ; 
+						html += "'"+ this.snippet.channelId+ "', " ; 
+						html += "'"+ num+ "')";
+						html += "\">추가하기</a><hr/></div></div>";
+						}
+										
+					});
+					document.getElementById("video-container3").innerHTML = html;
+				},
+				error : function(xhr, textStatus) {
+				console.log(xhr.responseText);
+				alert("지금은 시스템 사정으로 인하여 요청하신 작업이 이루어지지 않았습니다.\n잠시후 다시 이용하세요.");
+				return;
+				}
+			});
+		}else{
+			$('#video-container3').html('Sorry you have no uploaded videos');
+		}
+		}
+		});
+	}
 	//새로고침 버튼 클릭하면 재생목록 불러오기.
 	$("#newList").click(function(){
 		$.ajax({
@@ -420,6 +640,8 @@ $("#chattab").trigger("click");
 				document.getElementById("mylist").innerHTML = html;
 		});
 	});
+	
+	
 
 	
 	function sendAddReq(video_title, image, video_id, channel_url, num) {
@@ -435,8 +657,10 @@ $("#chattab").trigger("click");
 		}).done(function(rst){
 			if(rst=="YYYY") {
 				window.alert("등록이 완료되었습니다.");
-			}else {
+			}else if(rst=="NNNN"){
 				window.alert("이미 등록되어 있습니다.");
+			}else{
+				window.alert("등록 권한이 없습니다.");
 			}
 		});
 		
@@ -463,7 +687,7 @@ $("#chattab").trigger("click");
 			}).done(function(rst){
 				if(rst=="YYYY") {
 					window.alert("삭제가 완료되었습니다.");
-				}else {
+				}else{
 					window.alert("삭제 권한이 없습니다.");
 				}
 			});

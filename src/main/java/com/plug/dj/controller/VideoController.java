@@ -49,14 +49,13 @@ public class VideoController {
 			System.out.println("존재 여부 : " + VideoDao.existVideoId(map) + (String) map.get("video_id"));
 			if (VideoDao.existVideoId(map) < 1) {
 				VideoDao.addVideo(map);
-				return "YYYY";
+				return "YYYY"; //삭제가능
 			} else {
-				throw new Exception();
+				return "NNNN"; //이미 있는 비디오일 경우
 			}
 		} catch (Exception e) {
-			// 이미 있는 video_id 넣으면 오류나옴.. 어떻게 화면에 나오게 할 것인지..?
 			e.printStackTrace();
-			return "NNNN";
+			return "SSSS"; //권한이 없을경우(로그인이 안 된 경우)
 		}
 	}
 
