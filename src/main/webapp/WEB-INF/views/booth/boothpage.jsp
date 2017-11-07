@@ -11,12 +11,22 @@
 	border-radius: 50%;
 	margin-top: -4px;
 }
-
 .chatbox {
-	height: 40px;
-	display: inline-block;
-	padding: 10px;
-	margin: 3px;
+	height:auto;
+	display:inline-block;
+	padding:10px;
+	margin:3px;
+	background-color: gray;
+	border-radius: 7%;
+}
+.chatbox_right{
+	margin-left:40%
+}
+.chatbox_me{
+	height:auto;
+	display:inline-block;
+	padding:10px;
+	margin:3px;
 	background-color: yellow;
 	border-radius: 7%;
 }
@@ -360,7 +370,13 @@ ws.onmessage = function(a) {
 	} else if (obj.mode == "info") {
 
 	} else {
-		var html = "<div class=\"chatbox\"><img src='"+obj.url+"' class=\"thumnail\"><b>[ " + obj.sender + "]</b>" + obj.msg + "<br></div><br>";
+		if(obj.sender == "${auth.NICKNAME }"){
+			var html = "<div class=\"chatbox_right\"><div class=\"chatbox_me\"><img src='"+obj.url+"' class=\"thumnail\"><b>[ " + obj.sender + "]</b>" + obj.msg + "<br></div></div><br>";
+		}else{
+			console.log(obj.user);
+			console.log(obj.sender);
+			var html = "<div class=\"chatbox\"><img src='"+obj.url+"' class=\"thumnail\"><b>["+obj.sender+"]</b>" + obj.msg + "<br></div><br>";
+		}
 	}
 
 	document.getElementById("log").innerHTML += html;

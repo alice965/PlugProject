@@ -61,10 +61,6 @@ public class BoothController {
 			String title=(String) param.get("title");
 			String dj=(String) param.get("dj");
 			
-			//닉네임으로 넘겨받은 파라미터를 회원 테이블에서 아이디로 추출
-			List<Map> djid=MemberDao.readAllByNickname(dj);
-			System.out.println("디제이 아이디 : " + djid);
-			
 			String genre=(String) param.get("genre");
 			String [] arrGenre =genre.split(",");
 			System.out.println("장르 배열 확인 : "+Arrays.toString(arrGenre));
@@ -76,9 +72,10 @@ public class BoothController {
 				//dao에 넣을 map 설정
 			Map smap = new HashMap<>();
 			smap.put("title", title);
-			smap.put("djid", djid); //검색시에는 닉네임이 아닌 아이디여야 함.
+			smap.put("dj", dj); //검색시에는 닉네임이 아닌 아이디여야 함.
 			smap.put("genre", arrGenre);
 			
+			System.out.println("smap : " +smap);
 			List<Map> searchOptList = sDao.listOption(smap);
 			System.out.println("옵션검색 리스트"+searchOptList);
 			
@@ -105,13 +102,13 @@ public class BoothController {
 			//list
 			int psize = BoothDao.countForPage();
 			System.out.println("psize : " + psize);
-			int size = psize/6;
-				if(psize%6 >0)
+			int size = psize/12;
+				if(psize%12 >0)
 					size++;
 				
 			Map p = new HashMap();
-				p.put("start", (page-1)*6+1);
-				p.put("end", page*6);
+				p.put("start", (page-1)*12+1);
+				p.put("end", page*12);
 			System.out.println("p : " + p);
 			mav.addObject("list", BoothDao.listForPage(p));	
 			
@@ -201,13 +198,15 @@ public class BoothController {
 		if(req.getCookies() != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				if(cookies[i].getName().equals("viewcnt")) {
-					viewCookie=cookies[i];
+					if(cookies[i].getValue().equals(num)) {
+						viewCookie=cookies[i];
+					}
 				}
 		    }
 		}
 		if(viewCookie==null) {
 			System.out.println("읽지 않은 게시물");
-			Cookie viewcnt = new Cookie("viewcnt", "ididid");
+			Cookie viewcnt = new Cookie("viewcnt", num);
 			res.addCookie(viewcnt);
 			//조회수 증가
 			BoothDao.increaseCnt(num);

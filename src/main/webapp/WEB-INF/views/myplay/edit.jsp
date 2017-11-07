@@ -14,7 +14,7 @@
     <h3>플레이 리스트 수정하기</h3> 
   </div>
   <br>
-  <form id="form"  style="text-align:left" class="w3-container" action="/myplay/edit/${map.NUM}" method="post">
+  <form id="form"  style="text-align:left" class="w3-container" action="/myplay/edit/${map.NUM}" method="post" enctype="multipart/form-data">
   	<!-- 제목 수정 -->
     <p>      
 	    <label class="w3-text-blue"><b>방 제목</b></label>
@@ -62,6 +62,7 @@
 			<!-- 미리보기 영역 -->
 			<img id="pre" src="${map.URL}" alt="기본이미지" style="width: 300px; height: 300px; border-radius: 10%; margin-bottom: 10px;" /> 
 			<input id="boothpic" type="file" name="boothpic" ><br/> <!-- 파라미터boothpic -->
+			<input type="hidden" name="url"  value="${map.URL}"><br/> <!-- 파라미터boothpic -->
 		
 		
 		<!--폼 버튼 -->

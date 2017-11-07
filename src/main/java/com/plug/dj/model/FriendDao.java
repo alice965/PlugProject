@@ -20,6 +20,9 @@ public class FriendDao {
 		public Map readOne(Map map) {
 			return sql.selectOne("friend.readOne", map);
 		}
+		public Map readChkReqOne(String id) {
+			return sql.selectOne("friend.readChkReqOne", id);
+		}
 		public int delete(Map map) {
 			return sql.update("friend.delete", map);
 		}

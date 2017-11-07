@@ -2,25 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="booth">
+
 	<select id="listAll" resultType="java.util.HashMap">
 		   select  b.*, m.* from booth b  join member m on b.id =  m.id order by num desc
 	</select>
-	<select id="readOne" resultType="java.util.HashMap" >
+	<select id="readOne"  resultType="java.util.HashMap" >
 		select b.*, m.nickname from booth b join member m on b.ID=m.ID where b.num = #{num}
 	</select>
 	<update id="increaseCnt">
 		update booth set count = count +1 where num =#{num }
 	</update>
-	<!--  -->
 	<select id="countForPage" resultType="java.lang.Integer">
 		select count(*) as cnt from booth	
 	</select>
-	<select id="listForPage" resultType="java.util.HashMap">
+	<select id="listForPage"  resultType="java.util.HashMap">
 		select * from (
 			select rownum as r, b.*  from(
-				select *  from booth order by regdate desc) b	
+				select bt.*,  m.nickname from booth bt join  member m on bt.id=m.id order by regdate desc) b	
 				) where r between #{start} and #{end }
+		
 	</select>
+	
+	<select id="newFour" resultType="java.util.HashMap">
+		select b.*, m.nickname from (select * from booth order by regdate desc)b join member m on m.id=b.id where rownum&lt;5
+	</select>
+	
 </mapper>
 
 

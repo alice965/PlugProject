@@ -39,23 +39,28 @@ public class FriendController {
 		
 		map.put("section", "friend/check");
 		String id = (String) session.getAttribute("auth_id");
-		
 		map.put("sid",id);
-		
 		param.put("one", id );
 		
-		
 		Map pMap = fDao.readOne(param);
-		System.out.println("친구 리드원pMap??" + pMap);
+		
+		//파라미터로 읽히는 정보가 없는 경우
 		if(fDao.readOne(param)==null) {
+			if(fDao.readChkReqOne(id)==null) {
+				//그렇지 않은 경우, 추가 하시겠습니까 팝업으로 이동
 				return "redirect:/friend/add?other="+param.get("other");
-			} else if(fDao.readOne(param).get("STATUS").equals("req")&&
-					param.get("one").equals(fDao.readOne(param).get("ONE"))) {
-					//System.out.println("daodao"+fDao.readOne(param).get("ONE") );
-				return "redirect:/friend/requested?other="+param.get("other");
-			} else {
-				return "redirect:/friend/exist?other="+param.get("other");
+			}else {
+				System.out.println("상대방이 이미 신청함");
+				return "redirect:/friend/otherrequested?other="+param.get("other");
+				//상대방이 이미 친구요청 했습니다.  받은 친구 목록으로 이동
 			}
+			
+		} else if(fDao.readOne(param).get("STATUS").equals("req")&&
+				param.get("one").equals(fDao.readOne(param).get("ONE"))) {
+			return "redirect:/friend/requested?other="+param.get("other");
+		} else {
+			return "redirect:/friend/exist?other="+param.get("other");
+		}
 		}
 	@GetMapping("/exist")
 	@RequestMapping(path = "/exist", method = RequestMethod.GET)
@@ -86,6 +91,16 @@ public class FriendController {
 		map.put("other", param.get("other"));
 		return "t_pop";
 	}
+	@GetMapping("/otherrequested")
+	@RequestMapping(path = "/otherrequested", method = RequestMethod.GET)
+	public String FriendotherrequestedGetHanle(Map map, @RequestParam Map param, HttpSession session) {
+		map.put("section", "friend/otherrequested");
+		String id = (String) session.getAttribute("auth_id");
+		map.put("sid",id);
+		map.put("other", param.get("other"));
+		return "t_pop";
+	}
+	
 	@GetMapping("/add")
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public String FriendAddGetHanle(Map map, @RequestParam Map param, HttpSession session) {

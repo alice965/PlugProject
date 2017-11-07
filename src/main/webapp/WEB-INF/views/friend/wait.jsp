@@ -4,7 +4,7 @@
 <div class="w3-container w3-teal">
 	<h4>친구추가</h4>
 </div>
-<div class="w3-container"> <br>
+<div class="w3-container" style="text-align:center"> <br>
 <b>이미 추가 신청한 친구입니다.</b>  <br>
 상대방의 친구수락을 기다려주세요<br><br>
 </div>

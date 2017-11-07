@@ -17,6 +17,7 @@ public class SearchDao {
 	}
 	
 	public List<Map> listOption(Map map) {
+		System.out.println(map);
 		return sql.selectList("search.listOption", map);
 	}
 

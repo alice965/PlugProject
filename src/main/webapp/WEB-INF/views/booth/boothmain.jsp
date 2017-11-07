@@ -54,9 +54,6 @@
 	display: inline-block;
 } /*text-align해도 보더가 가운데 정렬이 안되서 인라인으로 바꿈.*/
 
-
-
-
 .optxt{
 	font-size:  14px;
 }
@@ -128,11 +125,11 @@
  	<c:choose>
  		<c:when test="${mode eq 'search'}">
  		<b>[${keyword }]</b>로 검색한 결과, 총 <b>${cnt }</b> 개의 부스가 검색되었습니다.
- 		<button onclick="location.href='/booth/boothmain' ";>전체목록보기</button>
+ 		<button onclick="location.href='/booth/boothmain?page=1&mode=normal' ";>전체목록보기</button>
  		</c:when>
  		<c:when test="${mode eq 'searchOpt'}">
  		<b>${title } /${dj } /${genre }</b>로 검색한 결과, 총 <b>${cnt }</b> 개의 부스가 검색되었습니다.
- 		<button onclick="location.href='/booth/boothmain?mode=normal' ";>전체목록보기</button>
+ 		<button onclick="location.href='/booth/boothmain?page=1&mode=normal' ";>전체목록보기</button>
  		</c:when>
  		<c:otherwise>
 		총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
@@ -144,14 +141,14 @@
 					<div
 						style="background-color: black; float: left; width: 256px; padding: 3px; margin: 5px; border-radius: 10px;">
 						<div class="row" style="padding: 5px;">
-							<div class="col-sm-6">
+							<div class="col-sm-6" style="color:white">${obj.NUM}
 								<!-- 다른 사람 아이디라면 드롭다운  -->
 								<c:choose>
 									<c:when test="${auth_id ne obj.ID}">
 										<div class="dropdown">
 											<div class="dropdown-toggle" data-toggle="dropdown"
 												style="color: white">
-												${obj.NICKNAME}<span class="caret"></span>
+												${obj.NICKNAME} <span class="caret"></span>
 											</div>
 											<ul class="dropdown-menu">
 												<li><a href="#" class="popFriend">친구추가</a><input
@@ -350,9 +347,15 @@
             </c:otherwise>
          </c:choose>
          <c:if test="${!vs.last }"> | </c:if>
+     
       </c:forEach>
-      <c:if test="${param.page ne last }">▶</c:if>
+	      <c:if test="${param.page ne size }">
+		      <a href="/booth/boothmain?page=${param.page+1}&mode=normal" style="text-decoration: none">
+		         <b style="color: #9c9892;">▶ </b>
+	         </a>
+	      </c:if>
    </div>
+   
 <script>
 	//검색 옵션 패널 버튼 클릭
 	$("#searchpnbtn").click(function(){

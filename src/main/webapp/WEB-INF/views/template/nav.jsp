@@ -52,6 +52,9 @@
 		font-size: 15px;
 		color :gray;
 	}
+	.searchbtn{
+		margin-top:8px;
+	}
 </style>
 
 <!-- ----------------------검색바를 위한 스타일 시트 정의 끝------------------ -->
@@ -84,11 +87,13 @@
 		</ul>
       </li>
     </ul>
-    <form class="navbar-form navbar-left">
-      <div class="form-group">
-        <input type="text" id="searchval" value="${keyword}" class="form-control" placeholder="부스 검색">
+    <!-- location.href="/booth/boothmain?mode=search&title="+keyword; -->
+    <form class="navbar-form navbar-left" id="searchid" action="/booth/boothmain">
+      <div class="form-group navbar-form navbar-left">
+    	<input type="hidden" name="mode" value="search"/>
+        <input type="text" id="searchval" name="title" value="${keyword}" class="form-control" placeholder="부스 검색">
       </div>
-      <button type="button" id="searchbtn" class="btn btn-default">Search</button>
+      <button type="submit" id="searchbtn" class="btn btn-default searchbtn">Search</button>
     </form>
     <ul class="nav navbar-nav navbar-right">
     	<c:choose>
@@ -103,8 +108,8 @@
 							aria-expanded="false"><span class="glyphicon glyphicon-user"></span> My Page<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 									<li><a href="/my/profile">나의 정보</a></li>
-									<li><a href="/my/mybooth">나의 부스</a></li>
-									<li><a href="/my/alarm">알리미</a></li>
+									<li><a href="/myplay/list">나의 부스</a></li>
+									<li><a href="/friend/list">친구 관리</a></li>
 							</ul>
 					</li>
 			</c:otherwise>
@@ -116,15 +121,17 @@
 
 <script>
 //  검색 버튼 클릭시 스크립트
-$("#searchbtn").click(function() {
+$("#searchid").submit(function() {
+	// window.alert("??");
     var keyword=$("#searchval").val();
    
     if(keyword.length==0) {
     	 alert("검색어를 입력해주세요");
+    	 return false;
     }else{
-	    location.href="/booth/boothmain?mode=search&title="+keyword;
-	    $("#searchval").val=keyword;
-    	
+//	    location.href="/booth/boothmain?mode=search&title="+keyword;
+//	    $("#searchval").val=keyword;
+    	return true;
     }
 });
 
