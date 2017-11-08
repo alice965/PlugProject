@@ -18,18 +18,18 @@
 			autocomplete="off" id="id"/>
 		</div>
 		<br/>
-		<button type="submit" id="submit">인증번호 보내기</button>
+		<button type="submit" id="submit">임시비밀번호 전송</button>
 		</div>	
 		</form>
 		
-		<c:if test="${!empty haveId}"> <!-- 해당 아이디를 가지고 있으면.. -->
+		<c:if test="${!empty haveId}"> <!-- 해당 아이디를 가지고 있으면.. 근데 alert뜨지는 않음..-->
 			<script>
 			alert("임시비밀번호를 보냈습니다.");
 			</script>
 		</c:if>
 	
 		<div align="right">
-		<a href="/" tabindex="5">메뉴화면으로 돌아가기</a>
+		<a href="/" tabindex="5">메인화면으로 돌아가기</a>
 		</div>
 
 	</div>

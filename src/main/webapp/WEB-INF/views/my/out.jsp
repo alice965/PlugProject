@@ -14,7 +14,7 @@
 		<br/>
 		<input type="submit" id="sbt" value="탈퇴하기">
 		<div align="right">
-		<a href="/" tabindex="5">메뉴화면으로 돌아가기</a>
+		<a href="/" tabindex="5">메인화면으로 돌아가기</a>
 		</div>
 		</div>	
 		</form>
