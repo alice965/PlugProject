@@ -17,7 +17,7 @@
   <form id="form"  style="text-align:left" class="w3-container" action="/myplay/edit/${map.NUM}" method="post" enctype="multipart/form-data">
   	<!-- 제목 수정 -->
     <p>      
-	    <label class="w3-text-blue"><b>방 제목</b></label>
+	    <label class="w3-text-blue"><b>방 제목</b></label><small>&nbsp; &nbsp; * 17자 까지만 입력할 수 있습니다.</small>
 	    <c:choose>
 	    	<c:when test="${map.TITLE eq null }">
 				<input class="w3-input w3-border w3-sand"  type="text" name="title"/>
@@ -29,7 +29,7 @@
     </p>
     <!-- 방 설명 수정 -->
     <p> 
-	    <label class="w3-text-blue"><b>설명</b></label>
+	    <label class="w3-text-blue"><b>설명</b></label><small>&nbsp; &nbsp; * 30자 까지만 입력할 수 있습니다.</small>
     	<c:choose>
 	    	<c:when test="${map.CONTENT eq null }">
 				<input class="w3-input w3-border w3-sand"  type="content" name="title"/>

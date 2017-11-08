@@ -141,7 +141,7 @@
 					<div
 						style="background-color: black; float: left; width: 256px; padding: 3px; margin: 5px; border-radius: 10px;">
 						<div class="row" style="padding: 5px;">
-							<div class="col-sm-6" style="color:white">${obj.NUM}
+							<div class="col-sm-6" style="color:white">
 								<!-- 다른 사람 아이디라면 드롭다운  -->
 								<c:choose>
 									<c:when test="${auth_id ne obj.ID}">
@@ -211,11 +211,11 @@
 									</div>
 									<div class="caption">
 										<div class="work_title">
-											<h6 style="color: white">${obj.TITLE}</h6>
+											<h6 style="color: white" class="limit-title">${obj.TITLE}</h6>
 											<hr style="padding: 10px;">
 											<!-- hr은 스타일 적용이 안되는지??? -->
-											<p style="color: white">${obj.CONTENT}</p>
-											<p style="color: white">${obj.GENRE}</p> <br>
+											<p style="color: white" class="limit-content">${obj.CONTENT}</p>
+											<p style="color: white" class="limit-genre">${obj.GENRE}</p> <br>
 											<small style="color: white"><fmt:formatDate
 													value="${obj.REGDATE}" pattern="yyyy.MM.dd" /></small>
 										</div>
@@ -330,33 +330,64 @@
 	</div>
 </div>
  <!-- 페이지 처리 -->
-   <div align="center">
-      <c:if test="${param.page ne 1 }">
-         <a href="/booth/boothmain?page=${param.page -1 }&mode=normal" style="text-decoration: none">
-         <b style="color: #9c9892;">◀</b>
-         </a>   
-      </c:if>
-      <c:forEach var="i" begin="1" end="${size }" varStatus="vs">
-         <c:choose>
-            <c:when test="${i eq param.page }">
-               <b style="color: #ff9800;">${i }</b>
-            </c:when>
-            <c:otherwise>
-               <a href="/booth/boothmain?page=${i }&mode=normal" style="text-decoration: none"
-                  ><b style="color: #9c9892;">${i }</b></a>   
-            </c:otherwise>
-         </c:choose>
-         <c:if test="${!vs.last }"> | </c:if>
-     
-      </c:forEach>
-	      <c:if test="${param.page ne size }">
-		      <a href="/booth/boothmain?page=${param.page+1}&mode=normal" style="text-decoration: none">
-		         <b style="color: #9c9892;">▶ </b>
-	         </a>
+   <div align="center"  class="w3-center">
+  		<div class="w3-bar w3-border w3-round">
+  			<c:if test="${param.page ne 1 }">
+			         <a href="/booth/boothmain?page=${param.page -1 }&mode=normal" style="text-decoration: none" class="w3-bar-item w3-button">
+			          <b style="color: #9c9892; ">◀</b>
+		         </a>   
 	      </c:if>
-   </div>
+	      <c:forEach var="i" begin="1" end="${size }" varStatus="vs">
+	         <c:choose>
+	            <c:when test="${i eq param.page }">              <!-- 현재 페이지라면 -->
+	               <b style="color: #ff9800;" class="w3-bar-item w3-button w3-green" >${i }</b>
+	            </c:when>
+	            <c:otherwise>												 <!-- 현재 페이지가 아니라면 -->
+	               <a href="/booth/boothmain?page=${i }&mode=normal" style="text-decoration: none"
+	                  ><b style="color: #9c9892;" class="w3-bar-item w3-button">${i }</b></a>   
+	            </c:otherwise>
+	         </c:choose>
+	      </c:forEach>
+	  		 <c:if test="${param.page ne size }">
+				      <a href="/booth/boothmain?page=${param.page+1}&mode=normal" style="text-decoration: none" class="w3-bar-item w3-button">
+			          <b style="color: #9c9892;">▶ </b>
+		     		  </a>
+	      	</c:if>
+  		</div>
+   </div> <br>
    
 <script>
+
+	// 말줄임표 표시
+	$(document).ready(function() {
+		//제목 말줄임표
+		$(".limit-title").each(function(){
+			var length = 17;
+			
+			if($(this).text().length >= length  ){
+				$(this).text($(this).text().substr(0, length)+'...' );
+			}
+		})
+		//내용 말줄임표
+		$(".limit-content").each(function(){
+			var length = 17;
+			
+			if($(this).text().length >= length  ){
+				$(this).text($(this).text().substr(0, length)+'...' );
+			}
+		})
+		//장르 말줄임표
+		$(".limit-genre").each(function(){
+			var length = 17;
+			
+			if($(this).text().length >= length  ){
+				$(this).text($(this).text().substr(0, length)+'...' );
+			}
+		})
+		
+	});
+	
+	
 	//검색 옵션 패널 버튼 클릭
 	$("#searchpnbtn").click(function(){
 		

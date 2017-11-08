@@ -15,13 +15,17 @@
 	  <br>
 	  <form style="text-align:left" class="w3-container" id="form"  action="/myplay/add" method="post" enctype="multipart/form-data">
 	    <p>      
-	    <label class="w3-text-blue"><b>방 제목</b></label>
-	    <input class="w3-input w3-border w3-sand" name="title" type="text"></p>
+	    <label class="w3-text-blue"><b>방 제목</b></label><small>&nbsp; &nbsp; * 20자 까지만 입력할 수 있습니다.</small>
+	    <input class="w3-input w3-border w3-sand" name="title" type="text" maxlength="17">
+	    
+	    </p>
 	    <p>      
-	    <label class="w3-text-blue"><b>설명</b></label>
-	    <input class="w3-input w3-border w3-sand" name="content" type="text"></p>
+	    <label class="w3-text-blue"><b>설명</b></label> <small>&nbsp; &nbsp;* 35자 까지만 입력할 수 있습니다.</small>
+	    <input class="w3-input w3-border w3-sand" name="content" type="text" maxlength="30">
+	    
+	    </p>
+	    
 	 	<p>
-	 	
 	 	<!-- 장르 선택 -->
 	 	<label class="w3-text-blue"><b>장르</b></label> 
 		<div style="background-color:white; text-align:left;">
@@ -95,7 +99,7 @@ $("#submitbtn").click(function() {
 	document.getElementById("boothpic").onchange = function() {
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			console.log(e.target.result);
+			//console.log(e.target.result);
 			document.getElementById("pre").src = e.target.result;
 		}
 		reader.readAsDataURL(this.files[0]);
