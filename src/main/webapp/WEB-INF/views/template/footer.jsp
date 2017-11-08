@@ -6,8 +6,8 @@
 			<h5>Copyright &copy; 2017</h5>
 		</div>
 		<div class="col-sm-4" style="text-align:center;">
-			<h4>Plug.DJ 소개</h4>
-			<p>Plug.DJ는 전세계 음악팬들과 함께 음악을 공유할 수 있는 서비스입니다. 유투브 API를 활용한 디제잉을 즐겨보세요.</p>
+			<h4>Play.DJ 소개</h4>
+			<p>Play.DJ는 전세계 음악팬들과 함께 음악을 공유할 수 있는 서비스입니다. 유투브 API를 활용한 디제잉을 즐겨보세요.</p>
 		</div>
 		<div class="col-sm-2" style="text-align:center;">
 			<h4 style="text-align:center;">Navigation</h4>
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div class="col-sm-2" style="text-align:center;">
-			<h4 style="text-align:center;"><span class="glyphicon glyphicon-ok ">&nbsp;by Plug.DJ</span></h4>
+			<h4 style="text-align:center;"><span class="glyphicon glyphicon-ok ">&nbsp;by Play.DJ</span></h4>
 		</div>
 		
 	</div> <!-- row end -->
