@@ -1,42 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- //ÀÚ¹Ù½ºÅ©¸³Æ®³ª css¿¡¼­ ¾²±â À§ÇØ idÇÊ¿äÇÏ°í, nameÀº ÆÄ¶ó¹ÌÅÍ À§ÇØ ÇÊ¿ä  -->
+<!-- //ìë°”ìŠ¤í¬ë¦½íŠ¸ë‚˜ cssì—ì„œ ì“°ê¸° ìœ„í•´ idí•„ìš”í•˜ê³ , nameì€ íŒŒë¼ë¯¸í„° ìœ„í•´ í•„ìš”  -->
 <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-			<h2>ºñ¹Ğ¹øÈ£ º¯°æ</h2>
+			<h2>ë¹„ë°€ë²ˆí˜¸ ë³€ê²½</h2>
 			<div class="panel-body">
 			<c:if test="${!empty nowpasserror }">
-			<b style="color: red">·Î±×ÀÎ ½ÇÆĞ ¿äÀÎ..</b><br/>
-			<b style="color:red">ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.</b><br/>
+			<b style="color: red">ë¡œê·¸ì¸ ì‹¤íŒ¨ ìš”ì¸..</b><br/>
+			<b style="color:red">í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</b><br/>
 			</c:if>
-			<c:if test="${!empty same }"> <!-- ¾Õ¼­ joincontroller¿¡¼­ ¿À·ù°¡ ³ª¸é temp¿¡ °ªÀ» ³ÖÀ½. temp°¡ ºñ¾îÀÖÁö ¾Ê´Ù¸é => join ½ÇÆĞ. -->
-			<b style="color:red">ºñ¹Ğ¹øÈ£ º¯°æ ½ÇÆĞ ¿äÀÎ.. </b><br/>
-			<b style="color:red">ÇöÀç ºñ¹Ğ¹øÈ£¿Í °°½À´Ï´Ù.</b><br/>
+			<c:if test="${!empty same }"> <!-- ì•ì„œ joincontrollerì—ì„œ ì˜¤ë¥˜ê°€ ë‚˜ë©´ tempì— ê°’ì„ ë„£ìŒ. tempê°€ ë¹„ì–´ìˆì§€ ì•Šë‹¤ë©´ => join ì‹¤íŒ¨. -->
+			<b style="color:red">ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ì‹¤íŒ¨ ìš”ì¸.. </b><br/>
+			<b style="color:red">í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ì™€ ê°™ìŠµë‹ˆë‹¤.</b><br/>
 			</c:if>
-			<c:if test="${!empty tempchangepass }"> <!-- ÇöÀç ºñ¹Ğ¹øÈ£¿Í ´Ù¸¦ °æ¿ì.. -->
-			<b style="color:red">ºñ¹Ğ¹øÈ£ º¯°æ ½ÇÆĞ.. </b><br/>
+			<c:if test="${!empty tempchangepass }"> <!-- í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ì™€ ë‹¤ë¥¼ ê²½ìš°.. -->
+			<b style="color:red">ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ì‹¤íŒ¨.. </b><br/>
 			</c:if>
 			<br/>
 				<form action="/my/changepass" method="post" autocomplete="off" id="form">
 				<div class="form-group">
 				<input type="password" name="now" tabindex="1" class="form-control" 
-				placeholder="ÇöÀç ºñ¹Ğ¹øÈ£" value="" required id="now"/>
+				placeholder="í˜„ì¬ ë¹„ë°€ë²ˆí˜¸" value="" required id="now"/>
 				</div>
 				<div class="form-group">
 				<input type="password" name="change" tabindex="2" class="form-control" 
-				placeholder="º¯°æÇÒ ºñ¹Ğ¹øÈ£" value="" required id="change"/>
+				placeholder="ë³€ê²½í•  ë¹„ë°€ë²ˆí˜¸" value="" required id="change"/>
 				</div>
-				<div class="form-group"><!-- name¾²¸é ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÊ. -->
+				<div class="form-group"><!-- nameì“°ë©´ íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ë¨. -->
 				<input type="password" id="change_con" tabindex="2" class="form-control" 
-				placeholder="º¯°æÇÒ ºñ¹Ğ¹øÈ£ " required/><br/>
-				<small> º¯°æÇÒ ºñ¹Ğ¹øÈ£ ÀÏÄ¡¿©ºÎ: <span id="change_rst"></span></small>
+				placeholder="ë³€ê²½í•  ë¹„ë°€ë²ˆí˜¸ " required/><br/>
+				<small> ë³€ê²½í•  ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜ì—¬ë¶€: <span id="change_rst"></span></small>
 				</div>
 				<div class="form-group">
 				<div class="row">
 				<div align="center">
-				<button type="submit" id="sbt" tabindex="4">º¯°æ</button>
+				<button type="submit" id="sbt" tabindex="4">ë³€ê²½</button>
 				</div>
 				</div>
 				</div>
@@ -48,12 +48,41 @@
 <script>
 	document.getElementById("change_con").onblur = function() {
 	if (document.getElementById("change").value == document.getElementById("change_con").value) {
-		document.getElementById("change_rst").innerHTML = "<b style=\"color:blue\">ÀÏÄ¡ÇÕ´Ï´Ù</b>";
+		document.getElementById("change_rst").innerHTML = "<b style=\"color:blue\">ì¼ì¹˜í•©ë‹ˆë‹¤</b>";
 		document.getElementById("sbt").disabled = false;
 	} else {
-		document.getElementById("change_rst").innerHTML = "<b style=\"color:red\">ºÒÀÏÄ¡ÇÕ´Ï´Ù. ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä.</b>";
+		document.getElementById("change_rst").innerHTML = "<b style=\"color:red\">ë¶ˆì¼ì¹˜í•©ë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”.</b>";
 		document.getElementById("sbt").disabled = true;
 	}
 }
+	//ë¹„ë°€ë²ˆí˜¸ ìœ íš¨ì„± ì²´í¬ : ì˜ë¬¸,ìˆ«ì,íŠ¹ìˆ˜ë¬¸ì í˜¼í•©í•˜ì—¬ 8ìë¦¬~20ìë¦¬ ì´ë‚´.(ë¹„ë°€ë²ˆí˜¸ í‘œì¤€)
+	$("#sbt").click(function(){
+		 var pw = document.getElementById("change").value;
+		 var num = pw.search(/[0-9]/g);
+		 var eng = pw.search(/[a-z]/ig);
+		 var spe = pw.search(/[`~!@@#$%^&*|â‚©â‚©â‚©'â‚©";:â‚©/?]/gi);
+		 
+			 if( (pw.length < 8 || pw.length > 20) 
+				 || (num < 0 || eng < 0 || spe < 0 )
+				 || (pw.search(/\s/) != -1)
+				){
+				if((pw.length < 8 || pw.length > 20)&&(num < 0 || eng < 0 || spe < 0 )){
+					alert("ì˜ë¬¸, ìˆ«ì, íŠ¹ìˆ˜ë¬¸ìë¥¼ ì¡°í•©í•˜ì—¬\n8ìë¦¬ ~ 20ìë¦¬ ì´ë‚´ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				}else if(pw.length < 8 || pw.length > 20){
+					alert("8ìë¦¬ ~ 20ìë¦¬ ì´ë‚´ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				}else if(num < 0 || eng < 0 || spe < 0 ){
+					alert("ì˜ë¬¸, ìˆ«ì, íŠ¹ìˆ˜ë¬¸ìë¥¼ í˜¼í•©í•˜ì—¬ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+			 	}
+			 
+			 	if(pw.search(/\s/) != -1){
+				 	alert("ë¹„ë°€ë²ˆí˜¸ëŠ” ê³µë°±ì—†ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+			 	}
+			 document.getElementById("sbt").disabled = true;
+			 $("#change").val('');
+			 $("#change_con").val('');
+			 $("#change").focus();
+		 	}
+		document.getElementById("sbt").disabled = false;
+		});
 </script>
     
