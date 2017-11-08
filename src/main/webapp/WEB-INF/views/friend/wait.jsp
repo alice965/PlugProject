@@ -4,13 +4,16 @@
 <div class="w3-container w3-teal">
 	<h4>친구추가</h4>
 </div>
+<div class="container" style="text-align:center">
 <div class="w3-container" style="text-align:center"> <br>
 <b>이미 추가 신청한 친구입니다.</b>  <br>
 상대방의 친구수락을 기다려주세요<br><br>
 </div>
 
-<button class="w3-btn w3-blue" type="submit"  onclick="javascript:back()">목록으로</button>
-<button class="w3-btn w3-blue" type="button" onclick="javascript:window.close()">취소</button>
+<button class="w3-btn w3-blue" type="submit"  onclick="javascript:back()">보낸 친구 요청</button>
+<button class="w3-btn w3-blue" type="button" onclick="javascript:window.close()">닫기</button>
+</div>
+
 <script>
 	function back() {
 		opener.location.href="/friend/list?src=wait";

@@ -33,7 +33,14 @@
 		select a.* , m.nickname as
 		othernick from (select f.*, m.nickname as onenick from friend f join
 		member m on f.one= m.id) a join member m on a.other =m.id
-		where one=#{one} and other=#{other}
+		where (one=#{one} and other=#{other}) or (one=#{other} and other=#{one})
+	</select>
+	<select id ="chkFriend"  resultType="java.util.HashMap">
+		select a.* , m.nickname as
+		othernick from (select f.*, m.nickname as onenick from friend f join
+		member m on f.one= m.id) a join member m on a.other =m.id
+		where (one=#{id} and other=#{other} and status='frd')
+        or  (other=#{id} and one=#{other} and status='frd')	
 	</select>
 	<select id="getNick" resultType="java.util.HashMap">
 		select * from member where
@@ -41,7 +48,11 @@
 	</select>
 	<select id="readChkReqOne" resultType="java.util.HashMap">
 		select * from friend where
-		other=#{id} and status='req'
+		other=#{id} and one=#{other} and status='req'
+	</select>
+	<select id="chkSend" resultType="java.util.HashMap">
+		select * from friend where
+		one=#{id} and other=#{other} and status='req'
 	</select>
 	<delete id="delete"> <!-- 한쪽에서 지우면 다른 한쪽도 지워져야 함.. -->
 		delete from friend where (other=#{other} and
