@@ -75,7 +75,7 @@
 								<!-- name쓰면 파라미터로 전달됨. -->
 								<input type="password" id="pass_con" tabindex="2"
 									class="form-control" placeholder="Confirm Password" required />
-								<br /> <span id="pass_rst"></span>
+								<br/><span id="pass_rst"></span>
 							</div>
 							<div class="form-group">
 								<div class="row">
@@ -118,7 +118,7 @@
 		 
 		 if((nickname.search(/\s/) != -1) || (nickspe>0) ){ //공백 또는 특수문자가 있으면 안됨.
 			 alert("닉네임에 공백 또는 특수문자가 있는지 확인해주세요.");
-			 document.getElementById("sbt").disabled = false;
+			 document.getElementById("sbt").disabled = true;
 			 $("#nickname").val('');
 			 $("#pass").val('');
 			 $("#pass_con").val('');
@@ -139,12 +139,12 @@
 			 	if(pw.search(/\s/) != -1){
 				 	alert("비밀번호는 공백없이 입력해주세요.");
 			 	}
-			 document.getElementById("sbt").disabled = false;
+			 document.getElementById("sbt").disabled = true;
 			 $("#pass").val('');
 			 $("#pass_con").val('');
 			 $("#pass").focus();
 		 	}
 		 }
-		document.getElementById("sbt").disabled = true;
+		document.getElementById("sbt").disabled = false;
 		});
 </script>

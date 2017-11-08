@@ -78,7 +78,7 @@
 			</div>
 			
 			<div class="col-md-3" align="left">
-				<i class="fa fa-retweet" aria-hidden="true"><small> Play버튼으로 최근 재생목록을 갱신하세요!</small></i>
+				<i class="fa fa-retweet" aria-hidden="true"><small> 첫 추가 후에는 F5버튼을 눌러 업로드를 완료합니다!</small></i>
 				<br/>
 				<i class="fa fa-exclamation-triangle" aria-hidden="true"><small> 저작권문제로 재생이 안되는 해당 동영상들은 삭제해야합니다.</small></i>
 			</div>
@@ -148,7 +148,11 @@
 										data-toggle="modal">채널에서 갖고오기</a><input type="hidden"></li>
 								</ul>
 							</div>
-							<i class="fa fa-retweet" aria-hidden="true" style="color: black;"><small> 새로고침 버튼으로 업데이트를 확인하세요!</small></i><br/><br/>
+							<i class="fa fa-retweet" aria-hidden="true" style="color: black;"><b><small> 
+							새로고침 버튼으로 업데이트를 확인하세요!</small></i><br/>
+							<small> 
+							(PLAY버튼을 누르면 업데이트된 재생목록이 새롭게 반영됩니다!)</small></b></i>
+							
 							<button type="button" id="newList">새로고침</button>	
 						</div>
 					</div>
@@ -217,7 +221,7 @@
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<form name="form1" method="post" onSubmit="return false;">
 							<input type="text" id="search_box" placeholder="검색어 입력..">
-							<input type="text" id="num1" placeholder="${num }"
+							<input type="hidden" id="num1" placeholder="${num }"
 								value="${num }" style="width: 100px" disabled>
 							<button onClick="fnGetList();">가져오기</button>
 						</form>
@@ -258,7 +262,7 @@
 						</h6>
 						<input type="text" id="playlist" placeholder="재생목록 아이디 입력..">
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
-						<input type="text" id="num2" placeholder="${num }" value="${num }"
+						<input type="hidden" id="num2" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
 						<button onClick="fnGetList2();">가져오기</button>
 					</div>
@@ -297,7 +301,7 @@
 							재생목록 동영상을 불러올 수 있습니다.
 						</h6>
 						<input type="text" id="channelId" placeholder="채널 아이디 입력..">
-						<input type="text" id="num3" placeholder="${num }" value="${num }"
+						<input type="hidden" id="num3" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
 						<button onClick="fnGetList3();">가져오기</button>
 					</div>
@@ -582,7 +586,7 @@ function fnGetList3(){
 
 			var TargetUrl = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="
 					+ playlistId + "&maxResults=50&key=AIzaSyBf7YiIAKxOXVlpZoeo2HRx5YlhjYrsW-I";
-			window.alert(TargetUrl);
+			//window.alert(TargetUrl);
 		$.ajax({
 			type : "POST",
 			url : TargetUrl,
