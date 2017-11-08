@@ -7,6 +7,10 @@
 			<div class="col-md-6 col-md-offset-3">
 			<h2>비밀번호 변경</h2>
 			<div class="panel-body">
+			<c:if test="${!empty nowpasserror }">
+			<b style="color: red">로그인 실패 요인..</b><br/>
+			<b style="color:red">현재 비밀번호가 일치하지 않습니다.</b><br/>
+			</c:if>
 			<c:if test="${!empty same }"> <!-- 앞서 joincontroller에서 오류가 나면 temp에 값을 넣음. temp가 비어있지 않다면 => join 실패. -->
 			<b style="color:red">비밀번호 변경 실패 요인.. </b><br/>
 			<b style="color:red">현재 비밀번호와 같습니다.</b><br/>

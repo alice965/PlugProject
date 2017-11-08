@@ -60,8 +60,7 @@ public class ServiceController {
 			map.put("auth_str", auth_str);
 			memberDao.findPass(map); //auth_str로 비밀번호 변경..
 			
-			mav.addObject("haveId", "true"); //아이디가 있을 경우
-			mav.addObject("section", "/my/changepass");
+			mav.setViewName("redirect:/my/changepass");
 		}else{ 
 			System.out.println("피드백 내용 없음");
 			mav.addObject("checkId", "false"); //아이디가 없을 경우
@@ -70,15 +69,4 @@ public class ServiceController {
 		
 		return mav;
 	}
-	
-	@GetMapping("/keynum")
-	public String keyGetHandle(Model model){
-		model.addAttribute("section", "/service/keynum");
-		return "t_expr";		
-	}
-	
-
-	
-
-	
 }

@@ -187,18 +187,29 @@ public class MyController {
 	public String changePostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
 			System.out.println(map);
-			String now = (String)map.get("now");
-			String change = (String)map.get("change");
-			if(now.equals(change)){
-			model.addAttribute("same","1");
-			model.addAttribute("section", "/my/changepass");
-			return "t_expr";
-			}else{
-			String id = (String) session.getAttribute("auth_id");
-			map.put("id", id);
-			boolean b = memberDao.updatePass(map);
-			System.out.println("비밀번호 변경 : " + b);
-			return "redirect:/my/profile";
+			String now = (String)map.get("now"); //현재비밀번호
+			String change = (String)map.get("change"); //바꾼 비밀번호
+			
+			Map param = new HashMap();
+			param.put("id", (String) session.getAttribute("auth_id"));
+			param.put("pass", (String)map.get("now"));
+			int count = memberDao.existOne(param);
+			
+			if(count >= 1){
+				if(now.equals(change)){ //현재와 바꾼 비밀번호가 같을 경우
+					model.addAttribute("same","1");
+					model.addAttribute("section", "/my/changepass");
+					return "t_expr";
+				}else{
+					String id = (String) session.getAttribute("auth_id");
+					map.put("id", id);
+					boolean b = memberDao.updatePass(map);
+					return "redirect:/my/profile";
+				}
+			}else{ //해당아이디의 비밀번호가 일치하지 않는 경우
+				model.addAttribute("nowpasserror","1");
+				model.addAttribute("section", "/my/changepass");
+				return "t_expr";
 			}
 			
 		} catch (Exception e) {
