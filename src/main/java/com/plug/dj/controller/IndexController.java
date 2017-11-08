@@ -32,8 +32,10 @@ public class IndexController {
 	BoothDao bDao;
 	
 	@RequestMapping({ "/", "/index" })
-	public ModelAndView rootHandle() {
+	public ModelAndView rootHandle(HttpSession session) {
+		session.setAttribute("nav", "home");
 		ModelAndView mav = new ModelAndView("t_expr");
+		
 			mav.addObject("section", "index");
 			List<Map> list = bDao.newFour();
 			mav.addObject("list", list);

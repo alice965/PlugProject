@@ -74,12 +74,12 @@
 		
 		<!--  -->
     <div class="navbar-header">
-     <a class="navbar-brand" href="/index" style="font-size: 25px; margin-top:-10px;">Plug.DJ</a>
+     <a class="navbar-brand" href="/index" style="font-size: 25px; margin-top:-10px;">Play.DJ</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="/booth/boothmain?page=1&mode=normal">DJ Booth</a></li>
-      <li><a href="/myplay/list?page=1">My Booth</a></li>
+      <li class="nav-menu ${nav eq 'home' ? 'active':'' }"><a href="/index">Home</a></li>
+      <li class="nav-menu ${nav eq 'booth' ? 'active':'' }"><a href="/booth/boothmain?page=1&mode=normal">DJ Booth</a></li>
+      <li class="nav-menu ${nav eq 'my' ? 'active':'' }"><a href="/myplay/list?page=1">My Booth</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">쪽지함 <span class="caret"></span></a>
         <ul class="dropdown-menu">
 			<li><a href="/memo/receivelist/">받은 쪽지함</a></li>
@@ -120,9 +120,9 @@
 </nav>
 
 <script>
+
 //  검색 버튼 클릭시 스크립트
 $("#searchid").submit(function() {
-	// window.alert("??");
     var keyword=$("#searchval").val();
    
     if(keyword.length==0) {
@@ -134,6 +134,5 @@ $("#searchid").submit(function() {
     	return true;
     }
 });
-
 
 </script>

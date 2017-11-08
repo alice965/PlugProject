@@ -39,6 +39,7 @@ public class myPlayController {
 	
 	@RequestMapping("/list")
 	public ModelAndView PlayListHandle(@RequestParam(name="page", defaultValue="1" ) int page, @RequestParam Map param, HttpSession session)throws SQLException {
+		session.setAttribute("nav", "my");
 		String id=(String) session.getAttribute("auth_id");
 		List<Map> list = playlistDao.myList(id);
 		param.put("id", session.getAttribute("auth_id") );

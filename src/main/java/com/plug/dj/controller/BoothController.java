@@ -48,6 +48,8 @@ public class BoothController {
 	@RequestMapping("/boothmain")
 	public ModelAndView BoothMainHandle(HttpSession session, @RequestParam(name="page", defaultValue="1" ) int page, 
 			@RequestParam Map param) throws SQLException{
+		
+		session.setAttribute("nav", "booth");
 		ModelAndView mav = new ModelAndView("t_expr");
 		String id=(String) session.getAttribute("auth_id");
 		mav.addObject("section", "booth/boothmain");

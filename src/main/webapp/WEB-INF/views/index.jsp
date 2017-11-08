@@ -66,8 +66,8 @@
 <div class="container">
 	<!-- 페이지 상단 이미지 영역 -->
 	<div class="jumbotron">
-		<h2 class="text-center">Welcome to Plug.DJ</h2>
-		<p class="text-center">Plug.DJ에서 전세계 음악팬들과 플레이 리스트를 공유해보세요!</p>
+		<h2 class="text-center">Welcome to Play.DJ</h2>
+		<p class="text-center">Play.DJ에서 전세계 음악팬들과 플레이 리스트를 공유해보세요!</p>
 		<br>
 		<p class="text-center">
 			<a class="btn btn-primary btn-lg" href="/myplay/add" role="button">나만의 DJ부스
@@ -82,7 +82,7 @@
 		<!-- 소개1 -->
 		<div class="col-md-4">
 			<h4>서비스 소개</h4>
-			<p>Plug.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
+			<p>Play.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
 			<p>
 				<a class="btn btn-default" data-target="#modal-1"
 					data-toggle="modal">자세히 알아보기</a>
@@ -92,7 +92,7 @@
 		<div class="col-md-4">
 			<h4>서비스 소개</h4>
 			d
-			<p>Plug.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
+			<p>Play.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
 			<p>
 				<a class="btn btn-default" href="#">자세히 알아보기</a>
 			</p>
@@ -100,7 +100,7 @@
 		<!-- 소개3 -->
 		<div class="col-md-4">
 			<h4>서비스 소개</h4>
-			<p>Plug.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
+			<p>Play.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
 			<p>
 				<a class="btn btn-default" href="#">자세히 알아보기</a>
 			</p>
@@ -185,7 +185,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Plug.DJ의 특징</h4>
+					<h4 class="modal-title">Play.DJ의 특징</h4>
 				</div>
 				<div class="modal-body">
 					저희 서비스의 특징은 유투브의 음악을 선택하여 디제잉해 볼 수 있다는 점입니다. <br> DJ가 되어 부스를

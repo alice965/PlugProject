@@ -12,9 +12,9 @@
 		<div class="col-sm-2" style="text-align:center;">
 			<h4 style="text-align:center;">Navigation</h4>
 			<div class="list-group">
-				<a href="#" class="list-group-item">DJ Booth</a>
-				<a href="#" class="list-group-item">DJ Booth</a>
-				<a href="#" class="list-group-item">DJ Booth</a>
+				<a href="/booth/boothmain?page=1&mode=normal" class="list-group-item">DJ Booth</a>
+				<a href="http://192.168.10.82/myplay/list?page=1" class="list-group-item">My Booth</a>
+				<a href="#" class="list-group-item">쪽지함</a>
 			</div>
 		</div>
 		<div class="col-sm-2" style="text-align:center;">
