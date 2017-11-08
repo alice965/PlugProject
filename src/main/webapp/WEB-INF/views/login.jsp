@@ -19,6 +19,9 @@
 							<div class="col-lg-12">
 							<form id="login-form" action="/login" 
 							method="post" role="form" style="display: block;"autocomplete="off">
+							<c:if test="${!empty param.redirect }">
+							<input type="hidden" name="redirect" value="${param.redirect }"/>
+							</c:if>
 									<div class="form-group">
 										<input type="email" name="id" tabindex="1" class="form-control" placeholder="Email" value="" required id="id"/>
 									</div>
@@ -40,7 +43,7 @@
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="text-center">
-													<a href="#" tabindex="5">Forgot Password?</a><br/>
+													<a href="/service/findpass" tabindex="5">Forgot Password?</a><br/>
 													<a href="/join">create new account</a></p>
 												</div>
 											</div>

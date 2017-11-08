@@ -66,6 +66,12 @@ public class MemberDao {
 		return sql.selectList("member.readAllByNickname", nickname);
 	}
 	
+	//비밀번호 찾을 때 uuid에서 추출한 auth_str을 비밀번호에 새롭게 저장한다.
+	public boolean findPass(Map map){
+		sql.update("member.findPass", map);
+		return true;
+	}
+	
 }
 
 

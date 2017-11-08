@@ -59,7 +59,10 @@
 		select id from member where nickname like  CONCAT(CONCAT('%', #{nickname}), '%')
 	</select>
 	
-	
+	<!-- uuid에서 추출한 auth_str을 해당아이디 비밀번호에 새롭게 저장한다.  -->
+	<update id="findPass">
+		update member set pass=#{auth_str, jdbcType=VARCHAR} where id=#{id}
+	</update> 
 </mapper>
 
 
