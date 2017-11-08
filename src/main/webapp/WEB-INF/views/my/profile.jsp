@@ -19,7 +19,7 @@
 						</c:choose>
 			
 						<form action="/my/pic_update" method="post" enctype="multipart/form-data">
-						<input id="profile" type="file" name="profile" ><br/>
+						<input id="profile" type="file" name="profile" style="display: none"><br/>
 						<button type="submit" class="sbt" id="sbt">적용</button>
 						<button type="button" class="bt" onclick="javascript:location.reload()">취소</button>
 						</form>
@@ -85,7 +85,8 @@
 						</div>
 						</div>
 						</form>	
-						<small>업데이트 날짜 : </small> ${profile.REGDATE }
+						<small>업데이트 날짜 : <fmt:formatDate
+													value="${profile.REGDATE}" pattern="yyyy.MM.dd" /></small>
 					</div>
 					</div>
 			</div>
@@ -138,6 +139,18 @@
 		}
 		
 	});
+	//프로필 이미지 클릭시 파일 선택 창 띄우도록
+	document.getElementById("pre").onclick = function() {
+		document.getElementById("profile").click();
+	}
+	document.getElementById("profile").onchange = function() {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			console.log(e.target.result);
+			document.getElementById("pre").src = e.target.result;
+		}
+		reader.readAsDataURL(this.files[0]);
+	}
 
 </script>
 

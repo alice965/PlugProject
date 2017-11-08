@@ -27,14 +27,11 @@ public class JoinController {
 	@PostMapping("/join")
 	public String joinPostHandle(@RequestParam Map map, HttpSession session, Model model) {
 		try {
-			session.setAttribute("auth", map);
-			session.setAttribute("auth_id", map.get("id"));
-			session.setAttribute("auth_nickname", map.get("nickname"));
 			map.put("flag", "true");
 			map.put("url", "/profiles/default.png");
 			System.out.println(map);
 			boolean b = memberDao.addOne(map);
-			return "redirect:/";
+			return "redirect:/login";
 			
 		} catch (Exception e) {
 			int countid = memberDao.checkById((String)map.get("id"));
