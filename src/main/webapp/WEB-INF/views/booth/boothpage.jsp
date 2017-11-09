@@ -207,20 +207,20 @@
 				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h3 class="modal-title">키워드로 갖고오기</h3>
+					<h3 class="modal-title"><b>키워드로 갖고오기</b></h3>
 				</div>
 
-				<div class="modal-body">
+				<div class="modal-body" style="background-color: #92a8d1;">
 					<div class="well">
 						<h4>
 							<b>HOW TO USE?</b><br />
 						</h4>
 						<h6>
-							● 찾고자하는 키워드를 입력창에 검색합니다.<br /> ※최대 50 개의 재생목록 동영상을 불러올 수 있습니다.
+							● 찾고자하는 키워드를 입력창에 검색합니다.<br/> ※ 최대 50개의 재생목록 동영상을 불러올 수 있습니다.
 						</h6>
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<form name="form1" method="post" onSubmit="return false;">
-							<input type="text" id="search_box" placeholder="검색어 입력..">
+							<input type="text" id="search_box" placeholder="검색어 입력.." style="width:300px">
 							<input type="hidden" id="num1" placeholder="${num }"
 								value="${num }" style="width: 100px" disabled>
 							<button onClick="fnGetList();">가져오기</button>
@@ -248,19 +248,21 @@
 				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h3 class="modal-title">재생목록에서 갖고오기</h3>
+					<h3 class="modal-title"><b>재생목록에서 갖고오기</b></h3>
 				</div>
 
-				<div class="modal-body">
+				<div class="modal-body" style="background-color: #92a8d1;">
 					<div class="well">
 						<h4>
-							<b>HOW TO USE?</b><br />
+							<b>HOW TO USE?</b><br/>
 						</h4>
 						<h6>
-							1. 원하는 채널의 재생목록에 들어갑니다.<br /> 2. 재생목록의 src값을 복사합니다.<br /> 3. 아래
-							입력 창에 붙여넣기 합니다.<br /> ※최대 50개의 재생목록 동영 상을 불러올 수 있습니다.
+							1. YouTube에서 원하는 재생목록에 들어갑니다.<br /> 2. 주소창에서 'list=' 뒷 부분을 복사합니다.<br/> 3. 아래
+							입력 창에 붙여넣기 합니다.<br /> ※최대 50개의 재생목록 동영 상을 불러올 수 있습니다.<br/><br/>
+							EX) 주소창 : https://www.youtube.com/watch?v=ZsYwEV_ge4Y<br/>             
+							           &list=PLNSKpl7JCPswwj_fWkfixq5L7QeZJA4Ot
 						</h6>
-						<input type="text" id="playlist" placeholder="재생목록 아이디 입력..">
+						<input type="text" id="playlist" placeholder="ex)PLNSKpl7JCPswwj_fWkfixq5L7QeZJA4Ot" style="width:400px">
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<input type="hidden" id="num2" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
@@ -287,20 +289,21 @@
 				style="overflow-x: hidden; overflow-y: scroll; max-height: 600px;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h3 class="modal-title">채널에서 갖고오기</h3>
+					<h3 class="modal-title"><b>채널에서 갖고오기</b></h3>
 				</div>
 
-				<div class="modal-body">
+				<div class="modal-body" style="background-color: #92a8d1;">
 					<div class="well">
 						<h4>
 							<b>HOW TO USE?</b><br />
 						</h4>
 						<h6>
-							1. 원하는 채널에 들어갑니다.<br /> 주소창에서 https://www.youtube.com/channel/
-							뒤에 있는 아이디값을 복사합니다.<br /> 3. 아래 입력 창에 붙여 넣기 합니다.<br /> ※최대 50개의
-							재생목록 동영상을 불러올 수 있습니다.
+							1. YouTube에서 원하는 채널에 들어갑니다.<br/> 2. 주소창에서 'channel/' 뒷 부분을 복사합니다.
+							<br/> 3. 아래 입력 창에 붙여 넣기 합니다.<br/> ※최대 50개의
+							재생목록 동영상을 불러올 수 있습니다.<br/><br/>
+							EX) 주소창 : https://www.youtube.com/channel/UCweOkPb1wVVH0Q0Tlj4a5Pw
 						</h6>
-						<input type="text" id="channelId" placeholder="채널 아이디 입력..">
+						<input type="text" id="channelId" placeholder="ex)UCweOkPb1wVVH0Q0Tlj4a5Pw" style="width:400px">
 						<input type="hidden" id="num3" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
 						<button onClick="fnGetList3();">가져오기</button>
@@ -322,7 +325,7 @@
 </div>
 <!-- row종료 태그 -->
 
-<!-- 하단 좋아요 싫어요 부분 -->
+<!-- 하단 좋아요 싫어요 부분 
 <div style="background-color: yellow">
 	<div id="like" class="col-md-3"
 		style="border-radius: 2em; background-color: #66ff99;">
@@ -340,7 +343,7 @@
 		style="background-color: #cc66ff; border-radius: 2em;">
 		대기열넣을곳 <br />
 	</div>
-</div>
+</div> -->
 
 
 <script>

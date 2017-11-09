@@ -49,7 +49,7 @@ public class ServiceController {
 			String auth_str = uuid.toString().substring(0,8);
 			MimeMessage msg = sender.createMimeMessage();
 			msg.setRecipient(RecipientType.TO, new InternetAddress(id));
-			msg.setSubject("PLUG.DJ임시비밀번호");
+			msg.setSubject("Play.Dj 임시 비밀번호");
 			String text = "임시 비밀번호입니다. 비밀번호를 변경해주세요.\n";
 			text += auth_str;
 			msg.setText(text, "UTF-8", "html");

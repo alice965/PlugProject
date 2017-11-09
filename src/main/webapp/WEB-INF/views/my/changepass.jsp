@@ -37,6 +37,9 @@
 				<div class="row">
 				<div align="center">
 				<button type="submit" id="sbt" tabindex="4">변경</button>
+				<div align="right">
+				<a href="/" tabindex="5">메인화면으로 돌아가기</a>
+				</div>				
 				</div>
 				</div>
 				</div>

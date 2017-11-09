@@ -236,7 +236,7 @@ public class MyController {
 		if(feedback.length()>=1){  //null이 아닐 때 메일로 피드백내용 보냄.
 			MimeMessage msg = sender.createMimeMessage();
 			msg.setRecipient(RecipientType.TO, new InternetAddress("csrom0128@gmail.com"));
-			msg.setSubject("Plug.Dj.Feedback");
+			msg.setSubject("Play.Dj.Feedback");
 			String text = "<h1>탈퇴회원의 피드백 내용입니다.</h1>";
 			text += feedback;
 			text += "<a href=\"http://192.168.10.81\">사이트 이동</a>";
