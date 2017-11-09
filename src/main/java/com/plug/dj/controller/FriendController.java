@@ -37,31 +37,34 @@ public class FriendController {
 	@RequestMapping(path = "/check", method = RequestMethod.GET)
 	public String FriendCheckGetHanle(Map map, @RequestParam Map param, HttpSession session) {
 		
+		//페이지 뷰 설정
 		map.put("section", "friend/check");
+		
+		//one에 사용할 아이디
 		String id = (String) session.getAttribute("auth_id");
+		
+		//화면에 넘길 아이디값 세팅
 		map.put("sid",id);
+		
+		//파라미터에 원 추가
 		param.put("one", id );
 		
-		Map pMap = fDao.readOne(param);
+		// 요청받은 내역을 보기 위한 readChkReqOne 에 넘길 맵
+		Map chmap=new HashMap<>();
+		chmap.put("id", id);
+		chmap.put("other", param.get("other"));
 		
-		//파라미터로 읽히는 정보가 없는 경우
-		if(fDao.readOne(param)==null) {
-			if(fDao.readChkReqOne(id)==null) {
-				//그렇지 않은 경우, 추가 하시겠습니까 팝업으로 이동
-				return "redirect:/friend/add?other="+param.get("other");
-			}else {
-				System.out.println("상대방이 이미 신청함");
-				return "redirect:/friend/otherrequested?other="+param.get("other");
-				//상대방이 이미 친구요청 했습니다.  받은 친구 목록으로 이동
-			}
-			
-		} else if(fDao.readOne(param).get("STATUS").equals("req")&&
-				param.get("one").equals(fDao.readOne(param).get("ONE"))) {
-			return "redirect:/friend/requested?other="+param.get("other");
-		} else {
+		//친구인지 체크
+		if(fDao.chkFriend(chmap)!=null) {								 //친구이면
 			return "redirect:/friend/exist?other="+param.get("other");
+		} else if(fDao.readChkReqOne(chmap)!=null){				//받은 요청이면
+			return "redirect:/friend/otherrequested?other="+param.get("other");
+		}else if(fDao.chkSend(chmap)!=null) {							//보낸 요청이면
+			return "redirect:/friend/wait?other="+param.get("other"); 
+		}else {
+			return "redirect:/friend/add?other="+param.get("other");
 		}
-		}
+	}
 	@GetMapping("/exist")
 	@RequestMapping(path = "/exist", method = RequestMethod.GET)
 	public String FriendExitGetHanle(Map map, @RequestParam Map param, HttpSession session) {
@@ -69,17 +72,19 @@ public class FriendController {
 		map.put("section", "friend/exist");
 		Map data=new HashMap();
 		data=fDao.readOne(param);
+		System.out.println("data : " + data);
 		map.put("data", data);
+		map.put("sid", session.getAttribute("auth_id"));
 		return "t_pop";
 	}
 	@GetMapping("/wait")
 	@RequestMapping(path = "/wait", method = RequestMethod.GET)
 	public String FriendWaitGetHanle(Map map, @RequestParam Map param, HttpSession session) {
-		//param.put("one", session.getAttribute("auth_id") );
+		param.put("one", session.getAttribute("auth_id") );
 		map.put("section", "friend/wait");
-	//	Map data=new HashMap();
-	//	data=fDao.readOne(param);
-	//	map.put("data", data);
+		Map data=new HashMap();
+		data=fDao.readOne(param);
+		map.put("data", data);
 		return "t_pop";
 	}
 	@GetMapping("/requested")

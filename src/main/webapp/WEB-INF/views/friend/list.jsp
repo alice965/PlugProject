@@ -153,7 +153,7 @@
 				$("#f_list").trigger("click");
 		</script>
 	</c:when>
-	<c:when test="${param.src eq 'requested' }">
+	<c:when test="${param.src eq 'wait' }">
 		<script>
 				$("#s_list").trigger("click");
 		</script>

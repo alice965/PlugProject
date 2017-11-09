@@ -20,11 +20,11 @@
 				title like CONCAT(CONCAT('%', #{title}), '%')  
 			</if>
 			<if test="dj not in {null, ''}">
-				AND 
+				OR 
        					 m.nickname like CONCAT(CONCAT('%', #{dj}), '%')
 			</if>
 			<if test ="genre not in {null, ''}">
-				AND 
+				OR 
 				<foreach item="genre" index="index" collection="genre"
      					 open="(" separator=" or " close=")">
        					 genre like CONCAT(CONCAT('%', #{genre}), '%')
