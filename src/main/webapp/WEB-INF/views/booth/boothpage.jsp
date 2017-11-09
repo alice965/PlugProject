@@ -325,7 +325,7 @@
 </div>
 <!-- row종료 태그 -->
 
-<!-- 하단 좋아요 싫어요 부분 -->
+<!-- 하단 좋아요 싫어요 부분 
 <div style="background-color: yellow">
 	<div id="like" class="col-md-3"
 		style="border-radius: 2em; background-color: #66ff99;">
@@ -343,7 +343,7 @@
 		style="background-color: #cc66ff; border-radius: 2em;">
 		대기열넣을곳 <br />
 	</div>
-</div>
+</div> -->
 
 
 <script>
