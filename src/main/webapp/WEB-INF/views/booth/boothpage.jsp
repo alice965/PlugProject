@@ -349,14 +349,29 @@
 <script>
 /////// 채팅 영역 스크립트///////
 
-//채팅 영역 웹소켓 부분
-document.getElementById("chat_input_field").onchange = function() {
+	//금지어 입력 제한
+	var filter=['욕', '나쁜말', 'manager'];
+	var filtercnt = 0;
+//메시지 입력창 스크립트
+$("#chat_input_field").change(function() {
+	var txt1=$.trim($("#chat_input_field").val());			//txt에 인풋박스 값 저장
+	var txt =txt1.replace(/\s/gi, '');
+	console.log(txt);
+	for(var i in filter){
+		if(txt == filter[i]){
+			alert('금지어는 입력할 수 없습니다. -->' + txt);
+			$(this).val('');
+		}
+	}
+	//빈 메시지
 	if (this.value.length != 0) {
 		ws.send(this.value);
 		this.value = "";
 	}
-}
-var ws = new WebSocket("ws://192.168.219.100/ws/chat");
+})
+
+//채팅 영역 웹소켓 부분
+var ws = new WebSocket("ws://192.168.10.82/ws/chat");
 
 ws.onopen = function(e) {
 	document.getElementById("log").innerHTML += "<p><b>---DJ 채팅방에 오신 것을 환영합니다.----</b></p>";
@@ -366,7 +381,6 @@ ws.onopen = function(e) {
 			+ " ] 명</small>";
 }
 ws.onmessage = function(a) {
-	console.log("a : " + a.data);
 	var obj = JSON.parse(a.data);
 	document.getElementById("cnt").innerHTML = "<small>[ " + obj.cnt
 			+ " ] 명</small>";
@@ -380,8 +394,6 @@ ws.onmessage = function(a) {
 		if(obj.sender == "${auth.NICKNAME }"){
 			var html = "<div class=\"chatbox_right\"><div class=\"chatbox_me\"><img src='"+obj.url+"' class=\"thumnail\"><b>[ " + obj.sender + "]</b>" + obj.msg + "<br></div></div><br>";
 		}else{
-			console.log(obj.user);
-			console.log(obj.sender);
 			var html = "<div class=\"chatbox\"><img src='"+obj.url+"' class=\"thumnail\"><b>["+obj.sender+"]</b>" + obj.msg + "<br></div><br>";
 		}
 	}

@@ -97,8 +97,6 @@ public class myPlayController {
 		String fmt = sdf.format(System.currentTimeMillis());
 
 		String fileName = "booth"+id +"_"+ fmt;
-		System.out.println(f.isEmpty());
-		System.out.println(f);
 		try {
 			if (f.isEmpty()) {
 				
@@ -126,6 +124,9 @@ public class myPlayController {
 			return "redirect:/myplay/list";
 		}
 		map.put("rst1", rst);
+		
+		//금지어 설정
+		
 		return "/myplay/add";
 	}
 	
@@ -173,8 +174,14 @@ public class myPlayController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
 				param.put("id", id);
+				//장르 파람 입력
+				String str = Arrays.toString(genre);		
+				String genreval=(str.substring(1,str.length()-1)).trim();
+				//장르에 앞뒤 [] 를 제거하고 입력
+				param.put("genre", genreval);
+				
+				//url이 없으면 디폴트 이미지를 넣고, 아니면 입력값으로 진행하도록 함
 				System.out.println("param??" +param);
 				if(b) {
 					param.put("url", "/images/booth/" + fileName);

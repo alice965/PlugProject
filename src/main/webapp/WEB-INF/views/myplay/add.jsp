@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div class="sub-top">
-		<h2 class="text-center">나의 플레이 리스트</h2>
+		<h2 class="text-center">My Booth</h2>
 	</div>
 <div class="container">
 	
@@ -10,18 +10,18 @@
 			<hr />
 			<div class="w3-card-4">
 	  <div class="w3-container w3-blue">
-	    <h3>플레이 리스트 만들기</h3> 
+	    <h3>부스 만들기</h3> 
 	  </div>
 	  <br>
 	  <form style="text-align:left" class="w3-container" id="form"  action="/myplay/add" method="post" enctype="multipart/form-data">
 	    <p>      
 	    <label class="w3-text-blue"><b>방 제목</b></label><small>&nbsp; &nbsp; * 20자 까지만 입력할 수 있습니다.</small>
-	    <input class="w3-input w3-border w3-sand" name="title" type="text" maxlength="17">
+	    <input class="w3-input w3-border w3-sand txtfilter"  name="title" type="text" maxlength="20" >
 	    
 	    </p>
 	    <p>      
 	    <label class="w3-text-blue"><b>설명</b></label> <small>&nbsp; &nbsp;* 35자 까지만 입력할 수 있습니다.</small>
-	    <input class="w3-input w3-border w3-sand" name="content" type="text" maxlength="30">
+	    <input class="w3-input w3-border w3-sand txtfilter"  name="content" type="text" maxlength="35">
 	    
 	    </p>
 	    
@@ -62,6 +62,26 @@
 <!-- container -->
 
 <script>
+
+//금지어 입력 제한
+var filter=['욕', '나쁜말', 'manager'];
+//var filtercnt = 0;
+
+$(".txtfilter").each(function(){
+	$(this).change(function(){
+		//filtercnt = 0; 							//초기화
+		var txt1=$.trim($(this).val());			//txt에 인풋박스 값 저장
+		var txt =txt1.replace(/\s/gi, '');
+		for(var i in filter){
+			if(txt == filter[i]){
+				alert('금지어는 입력할 수 없습니다. -->' + txt);
+				$(this).val('');
+			}
+		}
+	})
+})
+
+
 //전체선택 체크박스 클릭시 선택과 반전 상태
 $("#checkAll").click(function(){
 	if($("#checkAll").is(":checked")){

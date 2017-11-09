@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="sub-top">
-	<h2 class="text-center">나의 플레이 리스트</h2>
+	<h2 class="text-center">My Booth</h2>
 </div>
 <div class="container">
 <div style="width: 100%; border-radius: 10px; background-color: #e6dfdf;  padding: 20px;"

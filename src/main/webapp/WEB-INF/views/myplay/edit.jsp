@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="sub-top">
-	<h2 class="text-center">나의 플레이 리스트</h2>
+	<h2 class="text-center">My Booth</h2>
 </div>
 
 <div align="center">
@@ -11,31 +11,31 @@
 		<hr />
 		<div class="w3-card-4">
   <div class="w3-container w3-blue">
-    <h3>플레이 리스트 수정하기</h3> 
+    <h3>부스 수정하기</h3> 
   </div>
   <br>
   <form id="form"  style="text-align:left" class="w3-container" action="/myplay/edit/${map.NUM}" method="post" enctype="multipart/form-data">
   	<!-- 제목 수정 -->
     <p>      
-	    <label class="w3-text-blue"><b>방 제목</b></label><small>&nbsp; &nbsp; * 17자 까지만 입력할 수 있습니다.</small>
+	    <label class="w3-text-blue"><b>방 제목</b></label><small>&nbsp; &nbsp; * 20자 까지만 입력할 수 있습니다.</small>
 	    <c:choose>
 	    	<c:when test="${map.TITLE eq null }">
-				<input class="w3-input w3-border w3-sand"  type="text" name="title"/>
+				<input class="w3-input w3-border w3-sand txtfilter"  type="text" name="title" maxlength="20" />
 			</c:when>
 			<c:otherwise>
-				<input class="w3-input w3-border w3-sand" type="text" name="title" value="${map.TITLE}"/>
+				<input class="w3-input w3-border w3-sand txtfilter" type="text" name="title" value="${map.TITLE}"/>
 			</c:otherwise>
 	    </c:choose>
     </p>
     <!-- 방 설명 수정 -->
     <p> 
-	    <label class="w3-text-blue"><b>설명</b></label><small>&nbsp; &nbsp; * 30자 까지만 입력할 수 있습니다.</small>
+	    <label class="w3-text-blue"><b>설명</b></label><small>&nbsp; &nbsp; * 35자 까지만 입력할 수 있습니다.</small>
     	<c:choose>
 	    	<c:when test="${map.CONTENT eq null }">
-				<input class="w3-input w3-border w3-sand"  type="content" name="title"/>
+				<input class="w3-input w3-border w3-sand txtfilter"   type="content" name="content" maxlength="35"/>
 			</c:when>
 			<c:otherwise>
-				<input class="w3-input w3-border w3-sand" type="text" name="content" value="${map.CONTENT}"/>
+				<input class="w3-input w3-border w3-sand txtfilter" type="text" name="content"  maxlength="35" value="${map.CONTENT}"/>
 			</c:otherwise>
   	  </c:choose>     
     </p>
