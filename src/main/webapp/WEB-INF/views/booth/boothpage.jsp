@@ -10,22 +10,25 @@
 	border-radius: 50%;
 	margin-top: -4px;
 }
+
 .chatbox {
-	height:auto;
-	display:inline-block;
-	padding:10px;
-	margin:3px;
+	height: auto;
+	display: inline-block;
+	padding: 10px;
+	margin: 3px;
 	background-color: gray;
 	border-radius: 7%;
 }
-.chatbox_right{
-	margin-left:40%
+
+.chatbox_right {
+	margin-left: 40%
 }
-.chatbox_me{
-	height:auto;
-	display:inline-block;
-	padding:10px;
-	margin:3px;
+
+.chatbox_me {
+	height: auto;
+	display: inline-block;
+	padding: 10px;
+	margin: 3px;
 	background-color: yellow;
 	border-radius: 7%;
 }
@@ -88,8 +91,8 @@
 
 	<!-- 본문 부분 -->
 	<div class="row">
-		<div class="col-xs-9"
-			style="min-height: 60%; background-color: black;">
+		<div class="col-xs-8"
+			style="min-height: 60%; background-color: black;" align="center">
 			<div id="Iframe"></div>
 			<!-- 유투브 플레이 -->
 			<c:if test="${!empty video }">
@@ -98,7 +101,7 @@
 				</c:forEach>
 			</c:if>
 		</div>
-		<div class="col-xs-3">
+		<div class="col-xs-4">
 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#chat"
 					id="chattab">채팅창</a></li>
@@ -109,19 +112,20 @@
 			<div class="tab-content">
 				<div id="chat" class="tab-pane fade in active">
 					<div id="log"
-						style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; height: 47%; background-color: #CCD6DD; font-size: 10pt;">
+						style="padding: 3px; overflow-x: hidden; overflow-y: scroll; 
+						word-break: break-all; height: 55%; background-color: #CCD6DD; font-size: 10pt;">
 					</div>
 					<p id="cnt"></p>
 					<input type="text" id="chat_input_field"
-						style="width: 95%; margin-top: 5px; padding: 4px;"
-						placeholder="여기에 메시지를 입력하세요" />
+						style="width: 95%; padding: 4px; "
+						placeholder="여기에 메시지를 입력하세요" /> <!-- margin-top: 5px;  -->
 				</div>
 				<!-- /chat -->
 
 				<div id="vlist" class="tab-pane fade">
 					<div id="videolist"
 						style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; 
-						height: 47%; background-color: #CCD6DD; font-size: 10pt;" align="center">
+						height: 60%; background-color: #CCD6DD; font-size: 10pt;" align="center">
 
 					<div class="tab-content">
 						<div id="videolist" class="tab-pane fade in active">
@@ -145,14 +149,14 @@
 							새로고침 버튼으로 업데이트를 확인하세요!</small></i><br/>
 							<small> 
 							(PLAY버튼을 누르면 업데이트된 재생목록이 새롭게 반영됩니다!)</small></b></i>
-							
+							<br/>
 							<button type="button" id="newList">새로고침</button>	
 						</div>
-						
-											<!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
+					<hr/>	
+					<!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
 					<c:if test="${!empty nolist }">
 						<b style="color: #c94c4c">재생목록이 없습니다.</b>
-						<br />
+						<br/>
 					</c:if>
 					<c:if test="${!empty video }">
 						<div id="mylist">
@@ -165,7 +169,7 @@
 									</div>
 									<div align="left" class="col-xs-3">
 										<!-- xs가 제일 작은 사이즈. -->
-										<img src="${obj.IMAGE}" style="width: 110px; height: 70px">
+										<img src="${obj.IMAGE}" style="width: 100px; height: 65px">
 									</div>
 									<div class="col-xs-8" align="left">
 										<b>${status.count}. ${obj.VIDEO_TITLE}</b> <br /> <small>
@@ -177,8 +181,9 @@
 								</div>
 								<hr />
 							</c:forEach>
+							<button type="button" id="delete">삭제하기</button>
 						</div>
-						<button type="button" id="delete">삭제하기</button>
+						
 						<!-- 삭제할 시 submit으로 변경해주도록 script에서 설정 -->
 					</c:if>
 					</div>
@@ -382,7 +387,7 @@ $("#chattab").trigger("click");
 	function onYouTubeIframeAPIReady() {
 		player = new YT.Player('Iframe', {
 			height : '480', // <iframe> 태그 지정시 필요없음
-			width : '1060', // <iframe> 태그 지정시 필요없음
+			width : '836', // <iframe> 태그 지정시 필요없음 //854
 			videoId : videolist, // <iframe> 태그 지정시 필요없음
 			playerVars : { // <iframe> 태그 지정시 필요없음
 				controls : '2'
