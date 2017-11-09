@@ -5,7 +5,7 @@
 <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-			<h1>LOGIN</h1>
+			<h1><b>LOGIN</b></h1>
 			<c:if test="${!empty loginflag }">
 			<b style="color: red">로그인 실패 요인..</b><br/>
 			<small style="color: red">탈퇴한 회원의 이메일입니다.</small><br/>
@@ -35,7 +35,7 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="LOGIN">
+												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="LOGIN"/>
 											</div>
 										</div>
 									</div>
@@ -43,8 +43,11 @@
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="text-center">
-													<a href="/service/findpass" tabindex="5">Forgot Password?</a><br/>
-													<a href="/join">create new account</a></p>
+													<a href="/service/findpass" tabindex="5">
+													<i class="fa fa-question" aria-hidden="true" style="color: #DC143C"></i> 
+													Forgot Password</a><br/>
+													<a href="/join"><i class="fa fa-user-o" aria-hidden="true" style="color:#DC143C"></i> 
+													Create New Account</a>
 												</div>
 											</div>
 										</div>

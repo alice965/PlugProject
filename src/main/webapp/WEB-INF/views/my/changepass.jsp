@@ -1,11 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<head> <!-- 버튼 스타일 적용 -->
+<style>
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #555555;
+}
+</style>
+</head>
+
 <!-- //자바스크립트나 css에서 쓰기 위해 id필요하고, name은 파라미터 위해 필요  -->
 <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-			<h2>비밀번호 변경</h2>
+			<h2><b>비밀번호 변경</b></h2>
 			<div class="panel-body">
 			<c:if test="${!empty nowpasserror }">
 			<b style="color: red">로그인 실패 요인..</b><br/>
@@ -36,7 +58,7 @@
 				<div class="form-group">
 				<div class="row">
 				<div align="center">
-				<button type="submit" id="sbt" tabindex="4">변경</button>
+				<button type="submit" class="button button2" id="sbt" tabindex="4">변경</button>
 				<div align="right">
 				<a href="/" tabindex="5">메인화면으로 돌아가기</a>
 				</div>				

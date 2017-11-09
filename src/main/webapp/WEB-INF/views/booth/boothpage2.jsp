@@ -120,8 +120,7 @@
 
 				<div id="vlist" class="tab-pane fade">
 					<div id="videolist"
-						style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; 
-						height: 47%; background-color: #CCD6DD; font-size: 10pt;" align="center">
+						style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; height: 47%; background-color: #CCD6DD; font-size: 10pt;">
 
 					<div class="tab-content">
 						<div id="videolist" class="tab-pane fade in active">
@@ -183,6 +182,10 @@
 					</c:if>
 					</div>
 
+							<i class="fa fa-retweet" aria-hidden="true" style="color: black;"><small>
+									새로고침 버튼으로 업데이트를 확인하세요!</small></i><br /> <small> (PLAY버튼을 누르면
+								업데이트된 재생목록이 새롭게 반영됩니다!)</small>
+							<button type="button" id="newList">새로고침</button>
 						</div>
 
 					</div>
@@ -691,29 +694,5 @@ function fnGetList3(){
 	
 </script>
 
-
-
-
-<!-- row종료 태그 -->
-
-<!-- 하단 좋아요 싫어요 부분 
-<div style="background-color: yellow">
-	<div id="like" class="col-md-3"
-		style="border-radius: 2em; background-color: #66ff99;">
-		<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>좋아요<br>
-	</div>
-	<div id="book" class="col-md-3"
-		style="border-radius: 2em; background-color: #ffcc66;">
-		<i class="fa fa-star-o" aria-hidden="true"></i>북마크<br>
-	</div>
-	<div id="dislike" class="col-md-3"
-		style="border-radius: 2em; background-color: #ff0066;">
-		<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br>
-	</div>
-	<div id="watingroom" class="col-md-3"
-		style="background-color: #cc66ff; border-radius: 2em;">
-		대기열넣을곳 <br />
-	</div>
-</div> -->
 
 
