@@ -21,7 +21,7 @@
 }
 
 .chatbox_right {
-	margin-left: 40%
+	margin-left: 60%
 }
 
 .chatbox_me {
