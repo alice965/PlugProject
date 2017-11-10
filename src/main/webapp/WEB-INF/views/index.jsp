@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 .main {
@@ -66,11 +66,13 @@
 <div class="container">
 	<!-- 페이지 상단 이미지 영역 -->
 	<div class="jumbotron">
-		<h2 class="text-center">Welcome to Play.DJ</h2>
-		<p class="text-center">Play.DJ에서 전세계 음악팬들과 플레이 리스트를 공유해보세요!</p>
+		<h2 class="text-center"><b>Welcome to Play.DJ</b></h2>
+		<h4 class="text-center">Play.DJ에서 전세계 음악팬들과 플레이 리스트를 공유해보세요!</h4>
 		<br>
 		<p class="text-center">
-			<a class="btn btn-primary btn-lg" href="/myplay/add" role="button">나만의 DJ부스
+			<a type="button"
+			style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 200px"
+			class="btn btn-md" href="/myplay/add" role="button">나만의 DJ부스
 				만들기</a>
 		</p>
 	</div>
@@ -81,7 +83,7 @@
 	<div class="row">
 		<!-- 소개1 -->
 		<div class="col-md-4">
-			<h4>서비스 소개</h4>
+			<h4><b>서비스 소개</b></h4>
 			<p>Play.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
 			<p>
 				<a class="btn btn-default" data-target="#modal-1"
@@ -90,19 +92,20 @@
 		</div>
 		<!-- 소개2 -->
 		<div class="col-md-4">
-			<h4>서비스 소개</h4>
-			d
-			<p>Play.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
+			<h4><b>문의하기</b></h4>
+			<p>불편하신 점이 있다면 피드백을 남겨주세요.<br/> 서비스 구현에 많은 도움이 됩니다.</p>
 			<p>
-				<a class="btn btn-default" href="#">자세히 알아보기</a>
+				<a class="btn btn-default" data-target="#modal-2"
+					data-toggle="modal">자세히 알아보기</a>
 			</p>
 		</div>
 		<!-- 소개3 -->
 		<div class="col-md-4">
-			<h4>서비스 소개</h4>
-			<p>Play.DJ는 나만의 부스를 만들어 플레이 리스트를 공유할 수 있는 음악 서비스입니다.</p>
+			<h4><b>관리자 CONTACT</b></h4>
+			<p>개발자 정보입니다.</p><br/>
 			<p>
-				<a class="btn btn-default" href="#">자세히 알아보기</a>
+				<a class="btn btn-default" data-target="#modal-3"
+					data-toggle="modal">자세히 알아보기</a>
 			</p>
 		</div>
 
@@ -112,17 +115,13 @@
 	<hr>
 
 	<!-- 미디어 영역 -->
-	<div class="panel panel-primary">
+  	<div class="panel panel-primary" style="background-color:#484848; color:#CCD6DD; border-color:#484848;">
+    	<div class="panel-body"><span class="glyphicon glyphicon-headphones"></span><b> &nbsp; &nbsp;최신
+				부스 목록</b></div>
+  	</div>
 
-		<div class="panel-heading">
-			<h3 class="panel-title">
-				<span class="glyphicon glyphicon-headphones"></span> &nbsp; &nbsp;최신
-				부스 목록
-			</h3>
-		</div>		<!-- panel-heading -->
-	</div> <!-- 패널을 끝냄 -->
 	<!-- 최신부스 -->
-	<div class="main ">
+	<div class="main">
 	<c:forEach var="obj" items="${list}">
 					<div
 						style="background-color: black; float: left; width: 256px; padding: 3px; margin: 5px; border-radius: 10px;">
@@ -166,15 +165,14 @@
 										
 									</div>
 							</div>
-							</a>
-						</div>
+							</div>
+						</a>
 						<!-- /work -->
 					</div>
 					<!-- /부스 전체 -->
-				</c:forEach>
-			</div>
+			</c:forEach>
 	<!-- 최신부스 끝 -->
-		
+	</div>	
 
 
 	<!-- modal -->
@@ -185,13 +183,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Play.DJ의 특징</h4>
+					<h4 class="modal-title"><b>Play.DJ의 특징</b></h4>
 				</div>
 				<div class="modal-body">
 					저희 서비스의 특징은 유투브의 음악을 선택하여 디제잉해 볼 수 있다는 점입니다. <br> DJ가 되어 부스를
 					만들어 보세요. 전세계 음악팬들과 함께 음악을 공유할 수 있습니다. <br>
-					<br> <img src="/images/a.jpg" id="imagepreview"
-						style="width: 256px; height: 256px;">
+					<br> <p align="center">  <img src="/images/a.jpg" id="imagepreview"
+						style="width: 256px; height: 256px;"> </p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -201,6 +199,52 @@
 		</div>
 	</div>
 	<!-- 모달 종료 -->
+	<div class="modal fade" id="modal-2" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><b>문의하기</b></h4>
+				</div>
+				<div class="modal-body">
+					불편하신 점이 있다면 아래 이메일로 피드백을 보내주세요 <br/> csrom0128@gmail.com<br/>
+					저희 사이트 이용에 항상 감사드립니다.^^<br/>
+					<br> <p align="center"> <img src="/images/c.jpg" id="imagepreview"
+						style="width: 256px; height: 256px;"> </p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 모달 종료 -->
+	<div class="modal fade" id="modal-3" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><b>관리자 CONTACT</b></h4>
+				</div>
+				<div class="modal-body">
+					곽효진 : alice965@naver.com <br/> 조새롬 : finolove@naver.com <br/>
+					저희 사이트 이용에 항상 감사드립니다.^^<br/>
+					<br> <p align="center"> <img src="/images/b.jpg" id="imagepreview"
+						style="width: 256px; height: 256px;"> </p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
 </div>
 <!-- 컨테이너 종료 -->
 <script>
