@@ -22,12 +22,6 @@ public class JoinController {
 	@Autowired
 	MemberDao memberDao;
 	
-	@GetMapping(path = "/boothpage2")
-	public String boothpage2GetHandle(Model model) {
-		model.addAttribute("section", "booth/boothpage2");
-		return "t_expr";
-	}  
-	
 	@GetMapping(path = "/join")
 	public String joinGetHandle(Model model) {
 		model.addAttribute("section", "join");
