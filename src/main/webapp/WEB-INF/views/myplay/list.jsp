@@ -17,12 +17,13 @@
 	<div class="col-xs-7">
 		총 <b>${cnt }</b> 개의 부스가 등록되어 있습니다.
 	</div>
+	<!-- -----------검색 가림
 	<div class="col-xs-3">
 		<input class="form-control" type="text" size="20" id="search">
 	</div>
-	<div class="col-xs-2">
+	  <div class="col-xs-2">
 		<button class="btn btn-primary" type="button">검색</button>
-	</div>
+	</div> -->
 
 </div>
 <br>
@@ -50,35 +51,9 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	
-	<!-- 페이지 처리 -->
-   <div align="center">
-      <c:if test="${param.page ne 1 }">
-         <a href="/myplay/list?page=${param.page -1 }&mode=normal" style="text-decoration: none">
-         <b style="color: #9c9892;">◀</b>
-         </a>   
-      </c:if>
-      <c:forEach var="i" begin="1" end="${size }" varStatus="vs">
-         <c:choose>
-            <c:when test="${i eq param.page }">
-               <b style="color: #ff9800;">${i }</b>
-            </c:when>
-            <c:otherwise>
-               <a href="/myplay/list?page=${i }&mode=normal" style="text-decoration: none"
-                  ><b style="color: #9c9892;">${i }</b></a>   
-            </c:otherwise>
-         </c:choose>
-         <c:if test="${!vs.last }"> | </c:if>
-     
-      </c:forEach>
-	      <c:if test="${param.page ne size }">
-		      <a href="/myplay/list?page=${param.page+1}&mode=normal" style="text-decoration: none">
-		         <b style="color: #9c9892;">▶ </b>
-	         </a>
-	      </c:if>
-   </div>
 </div>
 </div>
+<br>
 <script>
 
 	var list = function(){

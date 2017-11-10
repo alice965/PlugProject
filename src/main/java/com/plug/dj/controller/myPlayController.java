@@ -42,11 +42,12 @@ public class myPlayController {
 		session.setAttribute("nav", "my");
 		String id=(String) session.getAttribute("auth_id");
 		List<Map> list = playlistDao.myList(id);
+		
 		param.put("id", session.getAttribute("auth_id") );
 		int psize = playlistDao.countListPage(id);
 		int size = psize/5;
 			if(psize%5 >0)	size++;
-			
+		System.out.println("size???" +size);	
 		Map p = new HashMap();
 		param.put("start", (page-1)*5+1);
 		param.put("end", page*5);
@@ -57,7 +58,6 @@ public class myPlayController {
 		mav.addObject("list", list);
 		mav.addObject("cnt", list.size());
 		mav.addObject("size",size);
-		
 		return mav;
 	}
 	@RequestMapping("/listJSON")
