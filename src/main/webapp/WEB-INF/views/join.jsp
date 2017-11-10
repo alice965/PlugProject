@@ -1,48 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<h1>JOIN
-			<!-- modal로 주의사항 보이도록. -->
-			<a data-target="#modal"
-				data-toggle="modal" style="color:red; font-size:10pt"><i class="fa fa-hand-o-right" aria-hidden="true"></i>
-				주의사항</a><input type="hidden">
-			</h1>							
-			<div class="modal fade" id="modal" role="dialog">
-			<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content" style="background-color: #92a8d1;">
-				<div class="modal-body" style="background-color: #92a8d1;">
-					<div class="well">
-						<h3>
-						<i class="fa fa-exclamation-circle" aria-hidden="true" style="color: #292F33"><b> 회원가입시 주의사항</b></i>
-							<br/>
-						</h3>
-							<i class="fa fa-commenting-o" aria-hidden="true" style="color: #292F33"><b> 계정명</b></i> <br/>
-							-비밀번호를 찾을 때 해당아이디로 이메일이 보내지므로,<br/> 현재 사용중인 계정을 입력해주세요. <br/>
-							<br/>
-							<i class="fa fa-commenting-o" aria-hidden="true" style="color: #292F33"><b> 닉네임</b></i>   <br/>
-							-닉네임에 공백 또는 특수문자를 넣을 수 없습니다. <br/>
-							-닉네임은 변경이 불가능합니다. <br/>
-							<br/>	
-							<i class="fa fa-commenting-o" aria-hidden="true" style="color: #292F33"><b> 비밀번호</b></i>  <br/>
-							-숫자, 문자, 특수문자를 조합하여 8자 ~ 20자 이내로 조합해주세요. <br/>
-							-공백을 넣을 수 없습니다. 
-					</div>
-				</div>
-				<br/>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
+	<div class="col-xs-2">
+
 	</div>
-	
-			<div class="panel-body">
+	<div class="col-xs-4">		
+				<div class="well">
+				<h4>
+				<i class="fa fa-exclamation-circle" aria-hidden="true" style="color: #DC143C"><b> 주의사항</b></i>
+				<br/>
+				</h4>
+				<i class="fa fa-commenting-o" aria-hidden="true" style="color: #DC143C"></i><b> 계정명</b> <br/>
+				-비밀번호를 찾을 때 해당아이디로  이메일이 보내지므로, 존재하는 계정을 입력해주세요. <br/>
+				<br/>
+				<i class="fa fa-commenting-o" aria-hidden="true" style="color: #DC143C"></i><b> 닉네임</b>   <br/>
+				-닉네임에 공백 또는 특수문자를<br/>  넣을 수 없습니다. <br/>
+				-닉네임은 변경이 불가능합니다. <br/>
+				<br/>	
+				<i class="fa fa-commenting-o" aria-hidden="true" style="color: #DC143C"></i><b> 비밀번호</b>  <br/>
+				-숫자, 문자, 특수문자를 조합하여<br/> 8자 ~ 20자 이내로 조합해주세요. <br/>
+				-공백을 넣을 수 없습니다. 
+				</div>
+	</div>
+	<div class="col-xs-5">
+	<h1><b>JOIN</b></h1>
+				<div class="panel-body" style="height: 200px">
 				<div class="row">
-					<div class="col-lg-12">
 						<c:if test="${!empty temp }">
 							<b style="color: red">[회원가입 실패 요인] </b>
 							<br />
@@ -88,11 +72,13 @@
 						</form>
 					</div>
 				</div>
-			</div>
-		</div>
+	</div>
+	<div class="col-xs-2">
 	</div>
 </div>
 <script>
+	//	$("#modal").modal(); //모달 띄워진 상태로 만들기..
+	
 	document.getElementById("pass_con").onblur = function() {
 	if (document.getElementById("pass").value == document.getElementById("pass_con").value) {
 		document.getElementById("pass_rst").innerHTML = "<b style=\"color:blue\">일치합니다</b>";

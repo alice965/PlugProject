@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!-- 채팅 프사 사이즈를 위한 스타일 정의 -->
 <style>
 .thumnail {
 	width: 30px;
@@ -11,194 +10,185 @@
 	border-radius: 50%;
 	margin-top: -4px;
 }
+
 .chatbox {
-	height:auto;
-	display:inline-block;
-	padding:10px;
-	margin:3px;
+	height: auto;
+	display: inline-block;
+	padding: 10px;
+	margin: 3px;
 	background-color: gray;
 	border-radius: 7%;
 }
-.chatbox_right{
-	margin-left:40%
+
+.chatbox_right {
+	margin-left: 40%
 }
-.chatbox_me{
-	height:auto;
-	display:inline-block;
-	padding:10px;
-	margin:3px;
+
+.chatbox_me {
+	height: auto;
+	display: inline-block;
+	padding: 10px;
+	margin: 3px;
 	background-color: yellow;
 	border-radius: 7%;
 }
 </style>
-<!-- http://1004lucifer.blogspot.kr/2015/04/youtube-player-api.html -->
 
-<!--부스 타이틀 영역  -->
-<div>
-	<div id="booth_name" align="center" style="color: #292F33;"
-		align="left">
+<div class="container-fluid">
+	<!-- 타이틀 부분 -->
+	<div class="row">
+		<div id="booth_name" align="center" style="color: #292F33;">
 		<i class="fa fa-heart" aria-hidden="true"
-			style="font-size: 15px; color: #c94c4c;"></i> ${one.GENRE } <br /> <i
+			style="font-size: 15px; color: #c94c4c;"></i> ${one.GENRE } | <i
 			class="fa fa-tags" aria-hidden="true"
 			style="font-size: 15px; color: #92a8d1;"></i> ${one.CONTENT }
 		<h1>
-			<b><i>${one.TITLE }</i></b>
+			<b><i>${one.TITLE }</i></b><br />
 		</h1>
-		<br />
-	</div>
-	<div id="booth_info" style="background-color: #292F33; color: #CCD6DD;">
-		<div class="row">
-			<div class="col-md-1"></div>
-			<!-- 방장 닉네임 -->
-			<div class="col-md-2">
-				<h4>
-					&nbsp; <i class="fa fa-headphones fa-lg" aria-hidden="true"
-						style="font-size: 20px; color: #55ACEE;"></i> ${one.NICKNAME }
-				</h4>
-			</div>
-			<!-- 참여자 수 -->
-			<div class="col-md-2">
-				<h4>
-					&nbsp; <i class="fa fa-users fa-lg" aria-hidden="true"
-						style="font-size: 20px; color: #55ACEE;"></i> ${one.COUNT }
-				</h4>
-			</div>
-
-			<div class="col-md-4">
-				<h4>
-					<button type="button"
-						style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
-						class="btn btn-md" onclick="playYoutube();">Play</button>
-
-					<button type="button"
-						style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
-						class="btn btn-md" onclick="stopYoutube();">Stop</button>
-					<!-- 유투브 중지하고 처음으로 -->
-				</h4>
-			</div>
-			
-			<div class="col-md-3" align="left">
-				<i class="fa fa-retweet" aria-hidden="true"><small> 첫 추가 후에는 F5버튼을 눌러 업로드를 완료합니다!</small></i>
-				<br/>
-				<i class="fa fa-exclamation-triangle" aria-hidden="true"><small> 저작권문제로 재생이 안되는 해당 동영상들은 삭제해야합니다.</small></i>
-			</div>
 		</div>
 	</div>
-</div>
 
-<!-- 메인 영역 -->
-<div class="row">
+	<!-- 상단 바 부분 -->
+	<div class="row" style="background-color: #292F33; color: #CCD6DD;">
+	<div id="booth_info">
+		<div class="col-xs-1"></div>
+		<!-- 방장 닉네임 -->
+		<div class="col-xs-2">
+		<h4>
+			&nbsp; <i class="fa fa-headphones fa-lg" aria-hidden="true"
+			style="font-size: 20px; color: #55ACEE;"></i> ${one.NICKNAME }
+		</h4>
+		</div>
+			
+		<!-- 참여자 수 -->
+		<div class="col-xs-2">
+		<h4>
+			&nbsp; <i class="fa fa-users fa-lg" aria-hidden="true"
+			style="font-size: 20px; color: #55ACEE;"></i> ${one.COUNT }
+		</h4>
+		</div>
 
-	<!-- 왼쪽 영역 (영상 플레이) -->
-	<div class="col-md-8" style="min-height: 60%; background-color: black;">
+		<div class="col-xs-4">
+		<h4>
+		<button type="button"
+			style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
+			class="btn btn-md" onclick="playYoutube();"><b>Play</b></button>
+		<button type="button"
+			style="font-size: 15px; color: #292F33; background-color: #FFFFFF; width: 75px"
+			class="btn btn-md" onclick="stopYoutube();"><b>Stop</b></button>
+			<!-- 유투브 중지하고 처음으로 -->
+		</h4>
+		<i><small>PLAY버튼을 누르면 업데이트된 재생목록이 새롭게 반영됩니다!</small></i> 
+		</div>
+
+		<div class="col-xs-3" align="left">
+		<i class="fa fa-retweet" aria-hidden="true"><small> 첫 추가
+			후에는 F5버튼을 눌러 업로드를 완료합니다!</small></i> <br/>
+		<i	class="fa fa-exclamation-triangle" aria-hidden="true"><small>
+			저작권문제로 재생이 안되는 해당 동영상들은 삭제해야합니다.</small></i>	
+		</div>
+	</div>
+	</div>
+
+	<!-- 본문 부분 -->
+	<div class="row">
+	<div class="col-xs-8"
+		style="min-height: 60%; background-color: black;" align="center">
 		<div id="Iframe"></div>
 		<!-- 유투브 플레이 -->
 		<c:if test="${!empty video }">
-			<c:forEach var="list" items="${video }">
-				<input type="hidden" value="${list.VIDEO_ID }" id="video_list" />
-			</c:forEach>
+		<c:forEach var="list" items="${video }">
+		<input type="hidden" value="${list.VIDEO_ID }" id="video_list" />
+		</c:forEach>
 		</c:if>
 	</div>
-
-	<!-- 오른쪽 영역 (채팅과 재생목록 -->
-	<div class="col-md-4" style="min-height: 50%; min-width: 10%;">
-		<!-- 탭 영역 -->
+	<div class="col-xs-4">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#chat"
-				id="chattab">채팅창</a></li>
-			<li><a data-toggle="tab" href="#vlist">재생목록</a></li>
+		<li class="active"><a data-toggle="tab" href="#chat"
+			id="chattab">채팅창</a></li>
+		<li><a data-toggle="tab" href="#vlist">재생목록</a></li>
 		</ul>
 
-		<!-- 탭  클릭시 펼쳐지는 페이지 -->
+		<!-- 채팅 영역 -->
 		<div class="tab-content">
-			<!-- 채팅 영역 -->
-			<div id="chat" class="tab-pane fade in active">
-				<div id="log"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; background-color: #CCD6DD; font-size: 10pt;"
-					align="left"></div>
-				<div id="cnt"></div>
-				<input type="text" id="chat_input_field"
-					style="width: 95%; margin-top: 5px; padding: 4px;"
-					placeholder="여기에 메시지를 입력하세요" />
+		<div id="chat" class="tab-pane fade in active">
+			<div id="log"
+				style="padding: 3px; overflow-x: hidden; overflow-y: scroll; 
+				word-break: break-all; height: 50%; background-color: #CCD6DD; font-size: 10pt;">
 			</div>
-			<!-- /chat -->
+			<div id="cnt"></div>
+			<input type="text" id="chat_input_field"
+				style="width: 95%; padding: 4px; "
+				placeholder="여기에 메시지를 입력하세요" /> <!-- margin-top: 5px;  -->
+		</div>
+				<!-- /chat -->
 
+		<div id="vlist" class="tab-pane fade">
+			<div id="videolist"
+				style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; 
+				height: 55%; background-color: #CCD6DD; font-size: 10pt;" align="center">
 
-			<!-- 재생목록 -->
-			<div id="vlist" class="tab-pane fade">
-				<div id="videolist"
-					style="padding: 3px; overflow-x: hidden; overflow-y: scroll; word-break: break-all; width: 95%; height: 50%; background-color: #CCD6DD; font-size: 10pt;"
-					align="center">
-
-					<div class="tab-content">
-						<div id="videolist" class="tab-pane fade in active">
-							<div class="dropdown">
-								<div class="dropdown-toggle" data-toggle="dropdown">
-									<h4>
-										<b>재생목록 추가하기<span class="caret"></span></b>
-									</h4>
-								</div>
-
-								<ul class="dropdown-menu" style="left: 33%;">
-									<li><a class="btn btn-default" data-target="#modal-1"
-										data-toggle="modal">키워드로 갖고오기</a><input type="hidden"></li>
-									<li><a class="btn btn-default" data-target="#modal-2"
-										data-toggle="modal">재생목록 갖고오기</a><input type="hidden"></li>
-									<li><a class="btn btn-default" data-target="#modal-3"
-										data-toggle="modal">채널에서 갖고오기</a><input type="hidden"></li>
-								</ul>
-							</div>
-							<i class="fa fa-retweet" aria-hidden="true" style="color: black;"><b><small> 
-							새로고침 버튼으로 업데이트를 확인하세요!</small></i><br/>
-							<small> 
-							(PLAY버튼을 누르면 업데이트된 재생목록이 새롭게 반영됩니다!)</small></b></i>
-							
-							<button type="button" id="newList">새로고침</button>	
+				<div class="tab-content">
+					<div id="videolist" class="tab-pane fade in active">
+					<div class="dropdown">
+						<div class="dropdown-toggle" data-toggle="dropdown">
+							<h4>
+							<b>재생목록 추가하기<span class="caret"></span></b>
+							</h4>
 						</div>
-					</div>
-					<hr />
-
-
+						<ul class="dropdown-menu" style="left: 33%;">
+						<li><a class="btn btn-default" data-target="#modal-1"
+							data-toggle="modal">키워드로 갖고오기</a><input type="hidden"></li>
+						<li><a class="btn btn-default" data-target="#modal-2"
+							data-toggle="modal">재생목록 갖고오기</a><input type="hidden"></li>
+						<li><a class="btn btn-default" data-target="#modal-3"
+							data-toggle="modal">채널에서 갖고오기</a><input type="hidden"></li>
+						</ul>
+					</div>							
+					새로고침 버튼으로 업데이트를 확인하세요!
+					<button type="button" id="newList"
+						style="font-size: 12px; color: #292F33; background-color: #FFFFFF; width: 75px"
+						class="btn btn-sm"><b>새로고침</b></button><br/>
+					</div><hr/>	
+					
 					<!-- 재생목록 갖고오기 : 재생목록 없을 경우 -->
 					<c:if test="${!empty nolist }">
 						<b style="color: #c94c4c">재생목록이 없습니다.</b>
-						<br />
+						<br/>
 					</c:if>
 					<c:if test="${!empty video }">
-						<div id="mylist">
-							<c:forEach var="obj" items="${video }" begin="0" step="1"
-								varStatus="status">
-								<div class="row">
-									<div align="center" class="col-xs-1" style="left: 3%">
-										<input type="checkbox" name="video_num" class="vi"
-											value="${obj.VIDEO_NUM }" />
-									</div>
-									<div align="left" class="col-xs-3">
-										<!-- xs가 제일 작은 사이즈. -->
-										<img src="${obj.IMAGE}" style="width: 110px; height: 70px">
-									</div>
-									<div class="col-xs-8" align="left">
-										<b>${status.count}. ${obj.VIDEO_TITLE}</b> <br /> <small>
-											추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜
-											: <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
-											<!-- 이부분은 그냥 FORMAT으로 사용하자.. -->
-										</small> <br />
-									</div>
-								</div>
-								<hr />
-							</c:forEach>
-						</div>
-						<button type="button" id="delete">삭제하기</button>
+					<div id="mylist">
+						<c:forEach var="obj" items="${video }" begin="0" step="1" varStatus="status">
+						<div class="row">
+							<div align="center" class="col-xs-1" style="left: 3%">
+							<input type="checkbox" name="video_num" class="vi"
+								value="${obj.VIDEO_NUM }" />
+							</div>
+							<div align="left" class="col-xs-3"> <!-- xs가 제일 작은 사이즈. -->
+								<img src="${obj.IMAGE}" style="width: 100px; height: 65px">
+							</div>
+							<div class="col-xs-8" align="left">
+								<b>${status.count}. ${obj.VIDEO_TITLE}</b> <br/> <small>
+								추가한 사람 : ${obj.ADD_ID } (${obj.ADD_NICKNAME }) <br /> 추가한 날짜
+								: <fmt:formatDate value="${obj.ADDDATE}" pattern="yyyy.MM.dd" />
+								<!-- 이부분은 그냥 FORMAT으로 사용하자.. -->
+								</small> <br />
+							</div>
+						</div><hr/>
+						</c:forEach>
+					</div>
+						<button type="button" id="delete" 
+						style="font-size: 12px; color: #292F33; background-color: #FFFFFF; width: 75px"
+							class="btn btn-sm"><b>삭제하기</b></button>
 						<!-- 삭제할 시 submit으로 변경해주도록 script에서 설정 -->
 					</c:if>
-
-
+					</div>
 				</div>
 			</div>
+			</div>
 		</div>
-	</div>
-	<!-- 컨테이너 종료 태그 -->
-
+		</div>
+	
 	<!-- modal1 -->
 	<div class="modal fade" id="modal-1" role="dialog">
 		<div class="modal-dialog">
@@ -220,7 +210,8 @@
 						</h6>
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<form name="form1" method="post" onSubmit="return false;">
-							<input type="text" id="search_box" placeholder="검색어 입력.." style="width:300px">
+							<input type="text" id="search_box" placeholder="검색어 입력.." 
+							style="width:300px" autocomplete="off">
 							<input type="hidden" id="num1" placeholder="${num }"
 								value="${num }" style="width: 100px" disabled>
 							<button onClick="fnGetList();">가져오기</button>
@@ -262,7 +253,8 @@
 							EX) 주소창 : https://www.youtube.com/watch?v=ZsYwEV_ge4Y<br/>             
 							           &list=PLNSKpl7JCPswwj_fWkfixq5L7QeZJA4Ot
 						</h6>
-						<input type="text" id="playlist" placeholder="ex)PLNSKpl7JCPswwj_fWkfixq5L7QeZJA4Ot" style="width:400px">
+						<input type="text" id="playlist" placeholder="ex)PLNSKpl7JCPswwj_fWkfixq5L7QeZJA4Ot" 
+						style="width:400px" autocomplete="off">
 						<!-- 방에서 추가한 것이 아닐 경우도 생각해야함.. 방 번호를 알아와서 추가하는 경우.. c:if 태그 사용하기 -->
 						<input type="hidden" id="num2" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
@@ -303,7 +295,8 @@
 							재생목록 동영상을 불러올 수 있습니다.<br/><br/>
 							EX) 주소창 : https://www.youtube.com/channel/UCweOkPb1wVVH0Q0Tlj4a5Pw
 						</h6>
-						<input type="text" id="channelId" placeholder="ex)UCweOkPb1wVVH0Q0Tlj4a5Pw" style="width:400px">
+						<input type="text" id="channelId" placeholder="ex)UCweOkPb1wVVH0Q0Tlj4a5Pw" 
+						style="width:400px" autocomplete="off">
 						<input type="hidden" id="num3" placeholder="${num }" value="${num }"
 							style="width: 100px" disabled>
 						<button onClick="fnGetList3();">가져오기</button>
@@ -321,29 +314,10 @@
 		</div>
 	</div>
 	<!-- modal3종료 -->
-
+	
 </div>
-<!-- row종료 태그 -->
 
-<!-- 하단 좋아요 싫어요 부분 
-<div style="background-color: yellow">
-	<div id="like" class="col-md-3"
-		style="border-radius: 2em; background-color: #66ff99;">
-		<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>좋아요<br>
-	</div>
-	<div id="book" class="col-md-3"
-		style="border-radius: 2em; background-color: #ffcc66;">
-		<i class="fa fa-star-o" aria-hidden="true"></i>북마크<br>
-	</div>
-	<div id="dislike" class="col-md-3"
-		style="border-radius: 2em; background-color: #ff0066;">
-		<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br>
-	</div>
-	<div id="watingroom" class="col-md-3"
-		style="background-color: #cc66ff; border-radius: 2em;">
-		대기열넣을곳 <br />
-	</div>
-</div> -->
+
 
 
 <script>
@@ -422,7 +396,7 @@ $("#chattab").trigger("click");
 	function onYouTubeIframeAPIReady() {
 		player = new YT.Player('Iframe', {
 			height : '480', // <iframe> 태그 지정시 필요없음
-			width : '1060', // <iframe> 태그 지정시 필요없음
+			width : '836', // <iframe> 태그 지정시 필요없음 //854
 			videoId : videolist, // <iframe> 태그 지정시 필요없음
 			playerVars : { // <iframe> 태그 지정시 필요없음
 				controls : '2'
@@ -661,7 +635,7 @@ function fnGetList3(){
 							html += "</div>";	
 							
 							html += "<div align=\"left\" class=\"col-xs-3\">";
-							html += "<img src=\"" + this.IMAGE + "\" style=\"width: 110px; height: 70px\">";
+							html += "<img src=\"" + this.IMAGE + "\" style=\"width: 100px; height: 65px\">";
 							html += "</div>";
 							
 							html += "<div class=\"col-xs-8\" align=\"left\">";
@@ -730,3 +704,30 @@ function fnGetList3(){
 	});
 	
 </script>
+
+
+
+
+<!-- row종료 태그 -->
+
+<!-- 하단 좋아요 싫어요 부분 
+<div style="background-color: yellow">
+	<div id="like" class="col-md-3"
+		style="border-radius: 2em; background-color: #66ff99;">
+		<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>좋아요<br>
+	</div>
+	<div id="book" class="col-md-3"
+		style="border-radius: 2em; background-color: #ffcc66;">
+		<i class="fa fa-star-o" aria-hidden="true"></i>북마크<br>
+	</div>
+	<div id="dislike" class="col-md-3"
+		style="border-radius: 2em; background-color: #ff0066;">
+		<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>싫어요<br>
+	</div>
+	<div id="watingroom" class="col-md-3"
+		style="background-color: #cc66ff; border-radius: 2em;">
+		대기열넣을곳 <br />
+	</div>
+</div> -->
+
+
