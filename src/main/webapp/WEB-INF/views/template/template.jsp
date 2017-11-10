@@ -44,9 +44,9 @@
 
 	<style type="text/css">
 		.jumbotron {
-			background-image: url('/images/background.jpg');
+			background-image: url('/images/Playlist.jpg');
 			background-size: cover;
-			text-shadow: black 0.2em 0.2em 0.2em;
+			<!--text-shadow: black 0.2em 0.2em 0.2em;-->
 			color:white;
 		}
 		.sub-top {
